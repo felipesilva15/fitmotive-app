@@ -28,11 +28,37 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
+                        <th style="width: 3rem"></th>
+                        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                        <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="email">E-mail <p-sortIcon field="email"></p-sortIcon></th>
+                        <th pSortableColumn="cpf_cnpj">CPF/CNPJ <p-sortIcon field="cpf_cnpj"></p-sortIcon></th>
+                        <th pSortableColumn="birth_date">Dt. Aniversário <p-sortIcon field="birth_date"></p-sortIcon></th>
+                        <th pSortableColumn="service_price">Seriviço <p-sortIcon field="service_price"></p-sortIcon></th>
+                        <th></th>
+                    </tr>
+                    <tr>
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
-                        <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+                        <th>
+                            <p-columnFilter type="text" field="id"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="name"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="email"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="cpf_cnpj"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="date" field="birth_date" display="menu" class="ml-auto"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="numeric" field="service_price" display="menu" currency="BRL" class="ml-auto"></p-columnFilter>
+                        </th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -41,12 +67,29 @@
                         <td>
                             <p-tableCheckbox [value]="patient"></p-tableCheckbox>
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">ID</span>
-                            {{patient.id || patient.id}}
+                        <td style="width:14%; min-width:12rem;">
+                            <span class="p-column-title">ID</span>
+                            {{patient.id}}
                         </td>
-                        <td style="width:14%; min-width:10rem;">
+                        <td style="width:14%; min-width:18rem;">
                             <span class="p-column-title">Nome</span>
                             {{patient.name}}
+                        </td>
+                        <td style="width:14%; min-width:18rem;">
+                            <span class="p-column-title">E-mail</span>
+                            {{patient.email}}
+                        </td>
+                        <td style="width:14%; min-width:18rem;">
+                            <span class="p-column-title">CPF/CNPJ</span>
+                            {{patient.cpf_cnpj}}
+                        </td>
+                        <td style="width:14%; min-width:18rem;">
+                            <span class="p-column-title">Dt. Aniversário</span>
+                            {{patient.birth_date | date: "dd/MM/Y" }}
+                        </td>
+                        <td style="width:14%; min-width:18rem;">
+                            <span class="p-column-title">Serviço</span>
+                            {{patient.service_price | currency: 'BRL' }}
                         </td>
                         <td>
                             <div class="flex">
