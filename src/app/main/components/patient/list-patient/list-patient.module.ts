@@ -17,9 +17,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { ListPatientComponent } from './list-patient.component';
+import { CpfCnpjPipe } from 'src/app/main/pipes/cpf-cnpj.pipe';
 
 @NgModule({
-  declarations: [ListPatientComponent],
+  declarations: [ListPatientComponent, CpfCnpjPipe],
   imports: [
     CommonModule,
     ListPatientRoutingModule,

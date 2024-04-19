@@ -6,7 +6,7 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Deletar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                        <button pButton pRipple label="Deletar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedPatients || !selectedPatients.length"></button>
                     </div>
                 </ng-template>
 
@@ -16,13 +16,29 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="patients" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Exibindo {first} a {last} de {totalRecords} entradas" [(selection)]="selectedPatients" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table 
+                #dt 
+                [value]="patients" 
+                [columns]="cols" 
+                responsiveLayout="scroll" 
+                [rows]="10" 
+                [globalFilterFields]="['id','name','cpf_cnpj','email','birth_date', 'service_price']" 
+                [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Exibindo {first} a {last} de {totalRecords} entradas"
+                [(selection)]="selectedPatients"
+                selectionMode="multiple"
+                [rowHover]="true"
+                dataKey="id"
+                [loading]="isLoading"
+            >
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
                         <h5 class="m-0">Gerenciar Pacientes</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Procurar..."  class="w-full sm:w-auto"/>
                         </span>
                     </div>
                 </ng-template>
@@ -42,7 +58,7 @@
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <th>
-                            <p-columnFilter type="text" field="id"></p-columnFilter>
+                            <p-columnFilter type="numeric" field="id" display="menu" class="ml-auto"></p-columnFilter>
                         </th>
                         <th>
                             <p-columnFilter type="text" field="name"></p-columnFilter>
@@ -67,35 +83,33 @@
                         <td>
                             <p-tableCheckbox [value]="patient"></p-tableCheckbox>
                         </td>
-                        <td style="width:14%; min-width:12rem;">
+                        <td style="width:10%; min-width:11rem;">
                             <span class="p-column-title">ID</span>
                             {{patient.id}}
                         </td>
-                        <td style="width:14%; min-width:18rem;">
+                        <td style="width:17%; min-width:18rem;">
                             <span class="p-column-title">Nome</span>
                             {{patient.name}}
                         </td>
-                        <td style="width:14%; min-width:18rem;">
+                        <td style="width:17%; min-width:18rem;">
                             <span class="p-column-title">E-mail</span>
                             {{patient.email}}
                         </td>
-                        <td style="width:14%; min-width:18rem;">
+                        <td style="width:13%; min-width:17rem;">
                             <span class="p-column-title">CPF/CNPJ</span>
-                            {{patient.cpf_cnpj}}
+                            {{patient.cpf_cnpj | cpfCnpj}}
                         </td>
-                        <td style="width:14%; min-width:18rem;">
+                        <td style="width:12%; min-width:11rem;">
                             <span class="p-column-title">Dt. Aniversário</span>
                             {{patient.birth_date | date: "dd/MM/Y" }}
                         </td>
-                        <td style="width:14%; min-width:18rem;">
+                        <td style="width:10%; min-width:8rem;">
                             <span class="p-column-title">Serviço</span>
                             {{patient.service_price | currency: 'BRL' }}
                         </td>
                         <td>
-                            <div class="flex">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
-                            </div>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="alert('Lembrete: Criar o método de alteração')"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="alert('Lembrete: Criar o método de exclusão')"></button>
                         </td>
                     </tr>
                 </ng-template>
