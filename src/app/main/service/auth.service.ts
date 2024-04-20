@@ -9,7 +9,7 @@ import { Token } from '../api/token';
 })
 export class AuthService {
   private readonly baseUrl = environment.baseUrlApi;
-  private readonly cookieName = 'user_auth';
+  private readonly cookieName = 'logged_user';
 
   constructor(private http: HttpClient) { }
 
@@ -44,8 +44,8 @@ export class AuthService {
       );
   }
 
-  logout (): Observable<Token> {
-    return this.http.get(`${this.baseUrl}/logout`)
+  logout (): Observable<void> {
+    return this.http.post(`${this.baseUrl}/logout`, {})
       .pipe(
         tap((res: any) => {
           localStorage.removeItem(this.cookieName);
