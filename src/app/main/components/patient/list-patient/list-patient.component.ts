@@ -11,8 +11,8 @@ import { ProviderService } from 'src/app/main/service/provider.service';
   styleUrl: './list-patient.component.scss'
 })
 export class ListPatientComponent {
-  patients: Patient[] = [];
-  selectedPatients: Patient[] = [];
+  records: Patient[] = [];
+  selectedRecords: Patient[] = [];
   cols: any[] = [];
   isLoading: boolean = true;
 
@@ -21,7 +21,12 @@ export class ListPatientComponent {
   ngOnInit() {
     this.providerService.listPatients(1).subscribe(
       (data: Patient[]) => {
-        this.patients = data;
+        this.records = data;
+
+        this.records.forEach((record) => {
+          record.birth_date = new Date(<Date>record.birth_date);
+        });
+
         this.isLoading = false;
       },
       (error) => {

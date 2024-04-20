@@ -6,7 +6,7 @@
                 <ng-template pTemplate="left">
                     <div class="my-2">
                         <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                        <button pButton pRipple label="Deletar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedPatients || !selectedPatients.length"></button>
+                        <button pButton pRipple label="Deletar" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedRecords || !selectedRecords.length"></button>
                     </div>
                 </ng-template>
 
@@ -17,7 +17,7 @@
 
             <p-table 
                 #dt 
-                [value]="patients" 
+                [value]="records" 
                 [columns]="cols" 
                 responsiveLayout="scroll" 
                 [rows]="10" 
@@ -26,11 +26,15 @@
                 [rowsPerPageOptions]="[10,20,30]"
                 [showCurrentPageReport]="true"
                 currentPageReportTemplate="Exibindo {first} a {last} de {totalRecords} entradas"
-                [(selection)]="selectedPatients"
+                [(selection)]="selectedRecords"
                 selectionMode="multiple"
                 [rowHover]="true"
                 dataKey="id"
                 [loading]="isLoading"
+                [resizableColumns]="true"
+                columnResizeMode="expand"
+                [scrollable]="true"
+                scrollHeight="400px"
             >
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
@@ -46,89 +50,93 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="id" style="min-width: 7rem">
+                        <th pSortableColumn="id" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 ID
                                 <p-sortIcon field="id"></p-sortIcon>
                                 <p-columnFilter type="numeric" field="id" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="name" style="min-width: 18rem">
+                        <th pSortableColumn="name" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 Nome
                                 <p-sortIcon field="name"></p-sortIcon>
                                 <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="email" style="min-width: 20rem">
+                        <th pSortableColumn="email" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 E-mail
                                 <p-sortIcon field="email"></p-sortIcon>
                                 <p-columnFilter type="text" field="email" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="cpf_cnpj" style="min-width: 12rem">
+                        <th pSortableColumn="cpf_cnpj" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 CPF/CNPJ
                                 <p-sortIcon field="cpf_cnpj"></p-sortIcon>
                                 <p-columnFilter type="text" field="cpf_cnpj" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="birth_date" style="min-width: 13rem">
-                            <div class="flex justify-content-between align-items-center">
+                        <th pSortableColumn="birth_date" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center text-nowrap">
                                 Dt. Aniversário
                                 <p-sortIcon field="birth_date"></p-sortIcon>
                                 <p-columnFilter type="date" field="birth_date" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="service_price" style="min-width: 6rem">
+                        <th pSortableColumn="service_price" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 Seriviço
                                 <p-sortIcon field="service_price"></p-sortIcon>
                                 <p-columnFilter type="numeric" field="service_price" display="menu" currency="BRL" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 9rem"></th>
+                        <th></th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-patient>
+                <ng-template pTemplate="body" let-record>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="patient"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
                         </td>
                         <td>
                             <span class="p-column-title">ID</span>
-                            {{patient.id}}
+                            {{ record.id }}
                         </td>
                         <td>
                             <span class="p-column-title">Nome</span>
-                            {{patient.name}}
+                            {{ record.name }}
                         </td>
                         <td>
                             <span class="p-column-title">E-mail</span>
-                            {{patient.email}}
+                            {{ record.email }}
                         </td>
                         <td>
                             <span class="p-column-title">CPF/CNPJ</span>
-                            {{patient.cpf_cnpj | cpfCnpj}}
+                            {{ record.cpf_cnpj | cpfCnpj }}
                         </td>
                         <td>
                             <span class="p-column-title">Dt. Aniversário</span>
-                            {{patient.birth_date | date: "dd/MM/Y" }}
+                            {{ record.birth_date | date: "dd/MM/Y" }}
                         </td>
                         <td>
                             <span class="p-column-title">Serviço</span>
-                            {{patient.service_price | currency: 'BRL' }}
+                            {{ record.service_price | currency: 'BRL' }}
                         </td>
                         <td>
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="alert('Lembrete: Criar o método de alteração')"></button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="alert('Lembrete: Criar o método de exclusão')"></button>
-                        </td>
+                            <div class="flex flex-nowrap gap-1">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="alert('Lembrete: Criar o método de alteração')"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="alert('Lembrete: Criar o método de exclusão')"></button>
+                            </div>
+                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="8">Nenhum registro encontrado.</td>
+                        <td colspan="8">
+                            <div class="flex justify-content-center">Nenhum registro encontrado.</div>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
