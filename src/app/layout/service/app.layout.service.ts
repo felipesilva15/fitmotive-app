@@ -1,5 +1,7 @@
 import { Injectable, effect, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AuthService } from 'src/app/main/service/auth.service';
 
 export interface AppConfig {
     inputStyle: string;
@@ -24,7 +26,7 @@ interface LayoutState {
 })
 export class LayoutService {
     _config: AppConfig = {
-        ripple: false,
+        ripple: true,
         inputStyle: 'outlined',
         menuMode: 'static',
         colorScheme: 'light',
@@ -51,7 +53,7 @@ export class LayoutService {
 
     overlayOpen$ = this.overlayOpen.asObservable();
 
-    constructor() {
+    constructor(private authService: AuthService, private router: Router) {
         effect(() => {
             const config = this.config();
             if (this.updateStyle(config)) {
@@ -155,5 +157,16 @@ export class LayoutService {
 
     changeScale(value: number) {
         document.documentElement.style.fontSize = `${value}px`;
+    }
+
+    logout() {
+        this.authService.logout().subscribe(
+            () => {
+                this.router.navigate(['/auth/login']);
+            },
+            (error: any) => {}
+        );
+
+        
     }
 }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 
 @Component({
@@ -9,6 +9,7 @@ import { LayoutService } from "./service/app.layout.service";
 export class AppTopBarComponent {
 
     items!: MenuItem[];
+    profileMenuItems?: MenuItem[];
 
     @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -16,5 +17,40 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+
+    ngOnInit() {
+        this.profileMenuItems = [
+            {
+                label: 'Atividades', icon: 'pi pi-fw pi-list'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Logout', 
+                icon: 'pi pi-fw pi-sign-out',
+                command: (event) => {
+                    this.confirmLogout(event)
+                }
+            }
+        ];
+    }
+
+    confirmLogout(event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Deseja mesmo realizar o logout?',
+            header: 'Logout',
+            icon: 'pi pi-exclamation-triangle',
+            acceptIcon: 'none',
+            rejectIcon: 'none',
+            acceptLabel: 'Sim',
+            rejectLabel: 'Não',
+            rejectButtonStyleClass:'p-button-text',
+            accept: () => {
+                this.layoutService.logout();
+            }
+        });
+    }
 }
