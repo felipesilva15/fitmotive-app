@@ -1,0 +1,33 @@
+<div class="flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="col-12 xl:col-3 lg:col-4 md:col-6 min-h-screen p-0 flex flex-column align-items-center justify-content-center">
+        <img src="assets/layout/images/logo-dark.svg" alt="Fit motive logo" class="w-6rem flex-shrink-0">                
+        <div class="w-full p-6 p-fluid">
+            <h1 class="text-center mb-6">
+                Acesse sua conta
+            </h1>
+            <div>
+                <div class="field">
+                    <label htmlFor="email">E-mail</label>
+                    <input id="email" type="text" [(ngModel)]="user.email" pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.email}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.email">Informe seu e-mail.</small>
+                </div>
+                <div class="field">
+                    <label htmlFor="password">Senha</label>
+                    <p-password id="password" [(ngModel)]="user.password" [toggleMask]="true" [feedback]="false" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.password}"></p-password>
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !user.password">Informe sua senha.</small>
+                </div>
+                <div class="flex align-items-center justify-content-between my-5 gap-5">
+                    <div class="flex align-items-center">
+                        <p-checkbox id="rememberme" [binary]="true" [(ngModel)]="remerberme" styleClass="mr-2"></p-checkbox>
+                        <label for="rememberme">Lembre de mim</label>
+                    </div>
+                    <a class="font-medium no-underline text-right cursor-pointer" style="color: var(--primary-color)">Esqueceu sua senha?</a>
+                </div>
+                <button pButton pRipple label="Login" [disabled]="!user.email || !user.password" (click)="login()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-0 xl:col-9 lg:col-8 md:col-6 min-h-screen p-0">
+        <div class="w-full min-h-screen bg-cover bg-center bg-no-repeat border-round-left-xl" style="background-image: url('assets/main/images/background-login.jpeg');"></div>
+    </div>
+</div>
