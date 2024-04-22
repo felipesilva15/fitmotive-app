@@ -1,0 +1,42 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="flex ">
+                <h4>Pacientes</h4>
+            </div>
+            <div class="p-fluid p-formgrid grid mt-1">
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="name">Nome</label>
+					<input id="name" [(ngModel)]="data.name"  pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.name}"/>
+					<small class="ng-dirty ng-invalid" *ngIf="submitted && !data.name">O campo nome é obrigatório.</small>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="cpf_cnpj">CPF</label>
+					<p-inputMask id="cpf_cnpj" mask="999.999.999-99" [(ngModel)]="data.cpf_cnpj" [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.cpf_cnpj}"></p-inputMask>
+					<small class="ng-dirty ng-invalid" *ngIf="submitted && !data.cpf_cnpj">O campo CPF é obrigatório.</small>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="email">E-mail</label>
+                    <input id="email" type="text" [(ngModel)]="data.email" pInputText required [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.email}" />
+                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !data.email">O campo e-mail é obrigatório.</small>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="birth_date">Dt. Nascimento</label>
+					<p-calendar id="birth_date" [showIcon]="true" dateFormat="dd/mm/yy" [(ngModel)]="data.birth_date" inputId="icon" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.birth_date}"></p-calendar>
+					<small class="ng-dirty ng-invalid" *ngIf="submitted && !data.birth_date">O campo Dt. Nascimento é obrigatório.</small>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="state">Vl. Serviço</label>
+					<p-inputNumber id="price" mode="currency" currency="BRL" locale="pt-BR" [showButtons]="true" mode="currency"></p-inputNumber>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="zip">Recorrência de cobrança</label>
+					<p-dropdown [options]="billingRecurrenceEnumOptions" optionLabel="name" [(ngModel)]="data.billing_recurrence"></p-dropdown>
+				</div>
+				<div class="field col-12 flex justify-content-end mb-0 pb-0">
+					<button pButton pRipple label="Salvar" class="p-button-primary md:w-min" (click)="save()"></button>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>

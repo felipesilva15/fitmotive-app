@@ -40,7 +40,6 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputNumberModule,
     DialogModule,
     ConfirmDialogModule,
-    
   ]
 })
 export class ListPatientModule { }
