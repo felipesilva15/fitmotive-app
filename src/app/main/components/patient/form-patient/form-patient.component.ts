@@ -1,8 +1,8 @@
 import { BillingRecurrenceEnumOptions } from './../../../enum/billing-recurrence-enum';
 import { Component } from '@angular/core';
 import { Patient } from 'src/app/main/api/patient';
-import { BillingRecurrenceEnum } from 'src/app/main/enum/billing-recurrence-enum';
 import { PatientService } from 'src/app/main/service/patient.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-form-patient',
@@ -14,7 +14,7 @@ export class FormPatientComponent {
   submitted: boolean = false;
   billingRecurrenceEnumOptions: Array<any> = BillingRecurrenceEnumOptions;
 
-  constructor(private patientService: PatientService) { }
+  constructor(private patientService: PatientService, private location: Location) { }
 
   ngOnInit(): void {
     this.data = {
@@ -39,5 +39,9 @@ export class FormPatientComponent {
   save(): void {
     this.submitted = true;
     console.log(this.data);
+  }
+
+  backPage(): void {
+    this.location.back();
   }
 }
