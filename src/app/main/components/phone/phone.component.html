@@ -1,0 +1,9 @@
+<div class="p-fluid mt-1">
+    <div class="field col-12 py-0">
+        <label htmlFor="number">Número<span class="text-red-500 font-bold">*</span></label>
+        <input id="number" [(ngModel)]="data.number" pInputText required autofocus />
+    </div>
+    <div class="flex justify-content-end col-12">
+        <p-button label="Salvar" type="button" (click)="close()"></p-button>
+    </div>
+</div>

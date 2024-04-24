@@ -1,8 +1,11 @@
+import { CustomDynamicDialogService } from './../../../service/custom-dynamic-dialog.service';
 import { BillingRecurrenceEnumOptions } from './../../../enum/billing-recurrence-enum';
 import { Component } from '@angular/core';
 import { Patient } from 'src/app/main/api/patient';
 import { PatientService } from 'src/app/main/service/patient.service';
 import { Location } from '@angular/common';
+import { Phone } from 'src/app/main/api/phone';
+import { PhoneComponent } from '../../phone/phone.component';
 
 @Component({
   selector: 'app-form-patient',
@@ -14,7 +17,7 @@ export class FormPatientComponent {
   submitted: boolean = false;
   billingRecurrenceEnumOptions: Array<any> = BillingRecurrenceEnumOptions;
 
-  constructor(private patientService: PatientService, private location: Location) { }
+  constructor(private patientService: PatientService, private location: Location, private customDynamicDialogService: CustomDynamicDialogService) { }
 
   ngOnInit(): void {
     this.data = {
@@ -43,5 +46,13 @@ export class FormPatientComponent {
 
   backPage(): void {
     this.location.back();
+  }
+
+  openPhoneDialog() {
+    this.customDynamicDialogService.openDialog<Phone>(PhoneComponent, 'Telefone').then(
+      (res: Phone) => {
+        console.log(res)
+      }
+    );
   }
 }
