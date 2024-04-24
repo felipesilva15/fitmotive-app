@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { Phone } from '../../api/phone';
+import { PhoneTypeEnumOptions } from '../../enum/phone-type-enum';
 
 @Component({
   selector: 'app-phone',
@@ -10,6 +11,7 @@ import { Phone } from '../../api/phone';
 })
 export class PhoneComponent {
   data!: Phone;
+  phoneTypeEnumOptions: Array<any> = PhoneTypeEnumOptions;
 
   constructor(private config: DynamicDialogConfig, private ref: DynamicDialogRef) { }
 
@@ -26,7 +28,7 @@ export class PhoneComponent {
     }
   }
 
-  close() {
-    this.ref.close(this.data);
+  close(data?: Phone) {
+    this.ref.close(data);
   }
 }
