@@ -14,6 +14,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './main/interceptor/auth.interceptor';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -23,7 +24,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService,
-        ConfirmationService, MessageService
+        ConfirmationService, MessageService, DialogService
     ],
     bootstrap: [AppComponent],
 })
