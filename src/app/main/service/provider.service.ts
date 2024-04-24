@@ -14,23 +14,14 @@ export class ProviderService {
   constructor(private http: HttpClient) { }
 
   get (id: number): Observable<Provider> {
-    return this.http.get<Provider>(`${this.baseUrl}/${id}`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.get<Provider>(`${this.baseUrl}/${id}`);
   }
 
   list (): Observable<Provider[]> {
-    return this.http.get<Provider[]>(`${this.baseUrl}`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.get<Provider[]>(`${this.baseUrl}`);
   }
 
   listPatients (id: number): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`${this.baseUrl}/${id}/patients`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.get<Patient[]>(`${this.baseUrl}/${id}/patients`);
   }
 }

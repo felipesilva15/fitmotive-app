@@ -13,16 +13,10 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   get (id: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/${id}`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.get<User>(`${this.baseUrl}/${id}`);
   }
 
   list (): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.get<User[]>(`${this.baseUrl}`);
   }
 }

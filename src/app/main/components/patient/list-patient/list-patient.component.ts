@@ -31,10 +31,6 @@ export class ListPatientComponent {
         });
 
         this.isLoading = false;
-      },
-      (error) => {
-        console.error(error);
-        alert("Ocorreu um erro ao carregar pacientes...");
       }
     );
 

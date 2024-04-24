@@ -13,23 +13,14 @@ export class PatientService {
   constructor(private http: HttpClient) { }
 
   get (id: number): Observable<Patient> {
-    return this.http.get<Patient>(`${this.baseUrl}/${id}`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.get<Patient>(`${this.baseUrl}/${id}`);
   }
 
   list (): Observable<Patient[]> {
-    return this.http.get<Patient[]>(`${this.baseUrl}`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.get<Patient[]>(`${this.baseUrl}`);
   }
 
   delete (id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`)
-      .pipe(
-        tap(console.log)
-      );
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }
