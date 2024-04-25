@@ -18,6 +18,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormPatientComponent } from './form-patient.component';
 import { PhoneModule } from '../../phone/phone.module';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { PhoneModule } from '../../phone/phone.module';
 	InputTextareaModule,
 	InputTextModule,
 	InputNumberModule,
-	PhoneModule
+	PhoneModule,
+	TableModule
   ]
 })
 export class FormPatientModule { }

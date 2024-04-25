@@ -1,3 +1,4 @@
+import { PhoneTypeEnum, PhoneTypeEnumLabels } from './../../../enum/phone-type-enum';
 import { CustomDynamicDialogService } from './../../../service/custom-dynamic-dialog.service';
 import { BillingRecurrenceEnumOptions } from './../../../enum/billing-recurrence-enum';
 import { Component } from '@angular/core';
@@ -16,6 +17,8 @@ export class FormPatientComponent {
   data!: Patient;
   submitted: boolean = false;
   billingRecurrenceEnumOptions: Array<any> = BillingRecurrenceEnumOptions;
+  isLoading: boolean = false;
+  phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
 
   constructor(private patientService: PatientService, private location: Location, private customDynamicDialogService: CustomDynamicDialogService) { }
 
@@ -48,11 +51,23 @@ export class FormPatientComponent {
     this.location.back();
   }
 
-  openPhoneDialog() {
-    this.customDynamicDialogService.openDialog<Phone>(PhoneComponent, 'Telefone').then(
+  openPhoneDialog(data?: Phone) {
+    this.customDynamicDialogService.openDialog<Phone>(PhoneComponent, 'Telefone', data).then(
       (res: Phone) => {
-        console.log(res)
+        if (!res) {
+          return;
+        }
+
+        this.data.phones.push(res);
       }
     );
+  }
+
+  removePhone(index: number): void {
+    this.data.phones.splice(index, 1);
+  }
+
+  setPhone(phone: Phone): void {
+    this.data.phones.push(phone);
   }
 }

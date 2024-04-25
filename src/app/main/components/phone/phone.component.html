@@ -1,18 +1,25 @@
-<div class="p-fluid">
+<div class="p-fluid" [formGroup]="formGroup">
     <div class="field">
         <label htmlFor="type">Tipo<span class="text-red-500 font-bold">*</span></label>
-        <p-dropdown [options]="phoneTypeEnumOptions" optionLabel="name" id="type" [(ngModel)]="data.type"></p-dropdown>
+        <p-dropdown [options]="phoneTypeEnumOptions" optionLabel="name" id="type" formControlName="type" [ngClass]="{'ng-invalid ng-dirty' : type.invalid && (type.dirty || type.touched)}"></p-dropdown>
+        <div *ngIf="type.invalid && (type.dirty || type.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="type.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
     </div>
     <div class="field">
         <label htmlFor="number">Número<span class="text-red-500 font-bold">*</span></label>
-        <p-inputMask mask="(99) 99999999?9" id="number" [(ngModel)]="data.number" required></p-inputMask>
+        <p-inputMask mask="(99) 99999999?9" [unmask]="true" id="number" required formControlName="number" [ngClass]="{'ng-invalid ng-dirty' : number.invalid && (number.dirty || number.touched)}"></p-inputMask>
+        <div *ngIf="number.invalid && (number.dirty || number.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="number.errors?.['required']">Este campo é obrigatório.</small>
+            <small class="ng-dirty ng-invalid" *ngIf="number.errors?.['invalidPhone']">Informe um número de telefone válido.</small>
+        </div>
     </div>
     <div class="field flex align-items-center gap-2">
-        <p-inputSwitch id="main" [(ngModel)]="data.main"></p-inputSwitch>
+        <p-inputSwitch id="main" formControlName="main"></p-inputSwitch>
         <label htmlFor="main" class="mb-1">Principal</label>
     </div>
     <div class="flex justify-content-end gap-2">
         <p-button label="Cancelar" [text]="true" severity="secondary" (click)="close()"></p-button>
-        <p-button label="Salvar" type="button" (click)="close(data)"></p-button>
+        <p-button label="Salvar" type="button" (click)="submit()" [disabled]="!formGroup.valid"></p-button>
     </div>
 </div>
