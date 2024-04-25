@@ -21,7 +21,7 @@
                         <p-checkbox id="rememberme" [binary]="true" [(ngModel)]="remerberme" styleClass="mr-2"></p-checkbox>
                         <label for="rememberme">Lembre de mim</label>
                     </div>
-                    <a class="font-medium no-underline text-right cursor-pointer" style="color: var(--primary-color)">Esqueceu sua senha?</a>
+                    <a class="font-medium no-underline text-right cursor-pointer" style="color: var(--primary-color)" [routerLink]="'/auth/reset_password'">Esqueceu sua senha?</a>
                 </div>
                 <button pButton pRipple label="Login" [disabled]="!user.email || !user.password" (click)="login()"></button>
             </div>

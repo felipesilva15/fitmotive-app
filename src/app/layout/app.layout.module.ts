@@ -19,6 +19,7 @@ import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessageDialogComponent } from '../main/components/message-dialog/message-dialog.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         RouterModule,
         AppConfigModule,
         MenuModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        MessageDialogComponent
     ],
     exports: [AppLayoutComponent]
 })
