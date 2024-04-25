@@ -14,6 +14,7 @@ export class LoginComponent {
   user!: User;
   remerberme: boolean = false;
   submitted: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -22,10 +23,15 @@ export class LoginComponent {
   }
 
   login() {
-    this.authService.login(this.user).subscribe(
-      () => {
+    this.isLoading = true;
+
+    this.authService.login(this.user).subscribe({
+      next: () => {
         this.router.navigate(['/']);
-      }
-    )
+      },
+      error: () => this.isLoading = false
+    });
+
+    
   }
 }

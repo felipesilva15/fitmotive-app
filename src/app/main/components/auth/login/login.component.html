@@ -23,7 +23,7 @@
                     </div>
                     <a class="font-medium no-underline text-right cursor-pointer" style="color: var(--primary-color)" [routerLink]="'/auth/reset_password'">Esqueceu sua senha?</a>
                 </div>
-                <button pButton pRipple label="Login" [disabled]="!user.email || !user.password" (click)="login()"></button>
+                <button pButton pRipple label="Login" [loading]="isLoading" [disabled]="!user.email || !user.password" (click)="login()"></button>
             </div>
         </div>
     </div>

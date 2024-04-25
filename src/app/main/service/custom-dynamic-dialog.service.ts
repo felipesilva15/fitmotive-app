@@ -14,6 +14,12 @@ export class CustomDynamicDialogService {
     this.ref = this.dialogService.open(MessageDialogComponent, {
       header: title || 'Erro',
       modal: true, 
+      width: '25vw',
+      breakpoints: {
+        '1300px': '50vw',
+        '960px': '65vw',
+        '640px': '90vw'
+      },
       data: { 
         message: message
       }

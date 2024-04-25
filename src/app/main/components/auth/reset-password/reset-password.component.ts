@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { User } from 'src/app/main/api/user';
-import { CustomDynamicDialogService } from 'src/app/main/service/custom-dynamic-dialog.service';
 import { UserService } from 'src/app/main/service/user.service';
 
 @Component({
@@ -11,6 +9,7 @@ import { UserService } from 'src/app/main/service/user.service';
 })
 export class ResetPasswordComponent {
   email!: string;
+  isLoading: boolean = false;
 
   constructor(private userService: UserService, private messageService: MessageService) { }
 
@@ -19,10 +18,15 @@ export class ResetPasswordComponent {
   }
 
   resetPassword(): void {
+    this.isLoading = true;
+
     this.userService.resetPassword(this.email).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'E-mail enviado com sucesso!', life: 5000 });
-      }
+        this.email = ''
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'E-mail enviado com com nova senha.', life: 5000 });
+      },
+      error: () => this.isLoading = false,
+      complete: () => this.isLoading = false
     })
   }
 }
