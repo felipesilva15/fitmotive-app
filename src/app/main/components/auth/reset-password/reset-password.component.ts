@@ -23,7 +23,7 @@ export class ResetPasswordComponent {
     this.userService.resetPassword(this.email).subscribe({
       next: () => {
         this.email = ''
-        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'E-mail enviado com com nova senha.', life: 5000 });
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Senha resetada! Confira seu e-mail.', life: 5000 });
       },
       error: () => this.isLoading = false,
       complete: () => this.isLoading = false
