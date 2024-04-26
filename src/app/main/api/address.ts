@@ -11,6 +11,6 @@ export interface Address {
     number: string;
     complement?: string;
     main: boolean;
-    created_at: string;
-    updated_at: string;
+    created_at?: string;
+    updated_at?: string;
 }

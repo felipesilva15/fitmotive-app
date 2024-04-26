@@ -20,6 +20,7 @@ import { FormPatientComponent } from './form-patient.component';
 import { PhoneModule } from '../../phone/phone.module';
 import { TableModule } from 'primeng/table';
 import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
+import { AddressModule } from '../../address/address.module';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
 	InputTextModule,
 	InputNumberModule,
 	PhoneModule,
+	AddressModule,
 	TableModule,
 	PhonePipe
   ]

@@ -7,6 +7,8 @@ import { PatientService } from 'src/app/main/service/patient.service';
 import { Location } from '@angular/common';
 import { Phone } from 'src/app/main/api/phone';
 import { PhoneComponent } from '../../phone/phone.component';
+import { AddressComponent } from '../../address/address.component';
+import { Address } from 'src/app/main/api/address';
 
 @Component({
   selector: 'app-form-patient',
@@ -71,7 +73,23 @@ export class FormPatientComponent {
     this.data.phones.splice(index, 1);
   }
 
-  setPhone(phone: Phone): void {
-    this.data.phones.push(phone);
+  openAddressDialog(data?: Address, index?: number) {
+    this.customDynamicDialogService.openDialog<Address>(AddressComponent, 'Endereço', data).then(
+      (res: Address) => {
+        if (!res) {
+          return;
+        }
+
+        if (index || index === 0) {
+          this.data.adresses[index] = res;
+        } else {
+          this.data.adresses.push(res);
+        }
+      }
+    );
+  }
+
+  removeAddress(index: number): void {
+    this.data.adresses.splice(index, 1);
   }
 }
