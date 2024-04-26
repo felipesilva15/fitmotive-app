@@ -1,7 +1,7 @@
 <div class="p-fluid" [formGroup]="formGroup">
     <div class="field">
         <label htmlFor="type">Tipo<span class="text-red-500 font-bold">*</span></label>
-        <p-dropdown [options]="phoneTypeEnumOptions" optionLabel="name" id="type" formControlName="type" [ngClass]="{'ng-invalid ng-dirty' : type.invalid && (type.dirty || type.touched)}"></p-dropdown>
+        <p-dropdown [options]="phoneTypeEnumOptions" optionLabel="name" optionValue="code" id="type" formControlName="type" [ngClass]="{'ng-invalid ng-dirty' : type.invalid && (type.dirty || type.touched)}"></p-dropdown>
         <div *ngIf="type.invalid && (type.dirty || type.touched)">
             <small class="ng-dirty ng-invalid" *ngIf="type.errors?.['required']">Este campo é obrigatório.</small>
         </div>

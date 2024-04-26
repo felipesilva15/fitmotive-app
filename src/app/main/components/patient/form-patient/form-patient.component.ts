@@ -51,14 +51,18 @@ export class FormPatientComponent {
     this.location.back();
   }
 
-  openPhoneDialog(data?: Phone) {
+  openPhoneDialog(data?: Phone, index?: number) {
     this.customDynamicDialogService.openDialog<Phone>(PhoneComponent, 'Telefone', data).then(
       (res: Phone) => {
         if (!res) {
           return;
         }
 
-        this.data.phones.push(res);
+        if (index || index === 0) {
+          this.data.phones[index] = res;
+        } else {
+          this.data.phones.push(res);
+        }
       }
     );
   }

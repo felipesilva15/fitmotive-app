@@ -59,29 +59,10 @@
 						</ng-template>
 						<ng-template pTemplate="header">
 							<tr>
-								<th pSortableColumn="id" pResizableColumn>
-									<div class="flex justify-content-between align-items-center">
-										ID
-										<p-sortIcon field="id"></p-sortIcon>
-									</div>
-								</th>
-								<th pSortableColumn="number" pResizableColumn>
-									<div class="flex justify-content-between align-items-center">
-										Número
-										<p-sortIcon field="number"></p-sortIcon>
-									</div>
-								</th>
-								<th pSortableColumn="type" pResizableColumn>
-									<div class="flex justify-content-between align-items-center">
-										Tipo
-										<p-sortIcon field="type"></p-sortIcon>
-									</div>
-								</th>
-								<th pResizableColumn>
-									<div class="flex justify-content-between align-items-center">
-										Principal
-									</div>
-								</th>
+								<th pResizableColumn>ID</th>
+								<th pResizableColumn>Número</th>
+								<th pResizableColumn>Tipo</th>
+								<th pResizableColumn>Principal</th>
 								<th></th>
 							</tr>
 						</ng-template>
@@ -93,7 +74,7 @@
 								</td>
 								<td>
 									<span class="p-column-title">Número</span>
-									{{ '(' + record.ddd + ') ' + record.number }}
+									{{ record.ddd + record.number | phone }}
 								</td>
 								<td>
 									<span class="p-column-title">Tipo</span>
@@ -105,7 +86,7 @@
 								</td>
 								<td>
 									<div class="flex flex-nowrap justify-content-end gap-1">
-										<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="openPhoneDialog(record)"></button>
+										<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="openPhoneDialog(record, rowIndex)"></button>
 										<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="removePhone(rowIndex)"></button>
 									</div>
 								</td>

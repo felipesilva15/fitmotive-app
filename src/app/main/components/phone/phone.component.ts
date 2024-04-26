@@ -11,24 +11,23 @@ import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/f
   styleUrl: './phone.component.scss'
 })
 export class PhoneComponent {
-  data: Phone = {
-    user_id: 0,
-    country: '',
-    ddd: '',
-    number: '',
-    type: null,
-    main: false
-  };
+  data!: Phone
   phoneTypeEnumOptions: Array<any> = PhoneTypeEnumOptions;
   formGroup!: FormGroup;
   phoneNumberRegex: RegExp = /^(\d{2})(9[0-9]{8}|[2-8]\d{7})$/;
 
   constructor(private config: DynamicDialogConfig, private ref: DynamicDialogRef, private fb: FormBuilder) {
-    console.log(this.config.data)
-
     if(this.config.data) {
-      console.log('entrou no if')
       this.data = this.config.data
+    } else {
+      this.data = {
+        user_id: 0,
+        country: '',
+        ddd: '',
+        number: '',
+        type: null,
+        main: false
+      }
     }
 
     this.formGroup = this.buildFormGroup();
@@ -62,7 +61,7 @@ export class PhoneComponent {
   }
 
   convertFormToObject() {
-    this.data.type = this.type.value?.code;
+    this.data.type = this.type.value;
     this.data.main = this.main.value;
     this.data.country = '55';
     
