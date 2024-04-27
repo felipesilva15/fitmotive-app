@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Address } from '../../api/address';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CepService } from '../../service/cep.service';
+import { AddressDTO } from '../../api/address-dto';
 
 @Component({
   selector: 'app-address',
@@ -12,7 +14,7 @@ export class AddressComponent {
   data!: Address
   formGroup!: FormGroup;
 
-  constructor(private config: DynamicDialogConfig, private ref: DynamicDialogRef, private fb: FormBuilder) {
+  constructor(private config: DynamicDialogConfig, private ref: DynamicDialogRef, private fb: FormBuilder, private cepService: CepService) {
     if(this.config.data) {
       this.data = this.config.data
     } else {
@@ -88,11 +90,46 @@ export class AddressComponent {
     return this.formGroup.get('main');
   }
 
+  getAddresByCep(): void {
+    if (!this.postal_code?.value) {
+      return;
+    }
+
+    this.cepService.getAddresByCep(this.postal_code.value).subscribe({
+      next: (res: AddressDTO) => {
+        this.formGroup.patchValue({
+          street: res.street,
+          locality: res.locality,
+          city: res.city,
+          region_code: res.region_code
+        })
+      }
+    })
+  }
+
+  convertFormToObject() {
+    this.data.name = this.name.value;
+    this.data.postal_code = this.postal_code.value;
+    this.data.street = this.street.value;
+    this.data.number = this.number.value;
+    this.data.complement = this.complement.value;
+    this.data.locality = this.locality.value;
+    this.data.city = this.city.value;
+    this.data.region = this.city.value;
+    this.data.region_code = this.region_code.value;
+    this.data.main = this.main.value;
+  }
+
   close(data?: Address) {
     this.ref.close(data);
   }
 
   submit(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+
+    this.convertFormToObject()
     this.close(this.data)
   }
 }

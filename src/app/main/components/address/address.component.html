@@ -8,7 +8,7 @@
     </div>
     <div class="field col-12 py-0">
         <label htmlFor="postal_code">CEP<span class="text-red-500 font-bold">*</span></label>
-        <p-inputMask id="postal_code" mask="99999-999" [unmask]="true" formControlName="postal_code" required [ngClass]="{'ng-invalid ng-dirty' : postal_code.invalid && (postal_code.dirty || postal_code.touched)}"/>
+        <p-inputMask id="postal_code" mask="99999-999" (onBlur)="getAddresByCep()" [unmask]="true" formControlName="postal_code" required [ngClass]="{'ng-invalid ng-dirty' : postal_code.invalid && (postal_code.dirty || postal_code.touched)}"/>
         <div *ngIf="postal_code.invalid && (postal_code.dirty || postal_code.touched)">
             <small class="ng-dirty ng-invalid" *ngIf="postal_code.errors?.['required']">Este campo é obrigatório.</small>
         </div>
@@ -39,10 +39,10 @@
         </div>
     </div>
     <div class="field col-9 py-0">
-        <label htmlFor="region">Cidade<span class="text-red-500 font-bold">*</span></label>
-        <input id="region" formControlName="region" pInputText required [ngClass]="{'ng-invalid ng-dirty' : region.invalid && (region.dirty || region.touched)}"/>
-        <div *ngIf="region.invalid && (region.dirty || region.touched)">
-            <small class="ng-dirty ng-invalid" *ngIf="region.errors?.['required']">Este campo é obrigatório.</small>
+        <label htmlFor="city">Cidade<span class="text-red-500 font-bold">*</span></label>
+        <input id="city" formControlName="city" pInputText required [ngClass]="{'ng-invalid ng-dirty' : city.invalid && (city.dirty || city.touched)}"/>
+        <div *ngIf="city.invalid && (city.dirty || city.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="city.errors?.['required']">Este campo é obrigatório.</small>
         </div>
     </div>
     <div class="field col-3 py-0">
