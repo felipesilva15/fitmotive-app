@@ -10,6 +10,6 @@ export interface PaymentMethod {
     exp_year?: string;
     security_code?: string;
     main: boolean;
-    created_at: string;
-    updated_at: string;
+    created_at?: string;
+    updated_at?: string;
 }
