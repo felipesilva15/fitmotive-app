@@ -49,7 +49,7 @@
 						scrollHeight="400px"
 					>
 						<ng-template pTemplate="caption">
-							<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+							<div class="flex flex-row justify-content-between align-items-center">
 								<h5 class="m-0">Telefones</h5>
 								<div>
 									<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openPhoneDialog()"></button>
@@ -115,10 +115,10 @@
 						scrollHeight="400px"
 					>
 						<ng-template pTemplate="caption">
-							<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+							<div class="flex flex-row justify-content-between align-items-center">
 								<h5 class="m-0">Endereços</h5>
 								<div>
-									<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openAddressDialog()"></button>
+									<button pButton pRipple label="Novo" icon="pi pi-plus" class="sm:p-button-rounded p-button-success mr-2" (click)="openAddressDialog()"></button>
 								</div>
 							</div>
 						</ng-template>
@@ -143,7 +143,7 @@
 								</td>
 								<td>
 									<span class="p-column-title">Endereço</span>
-									{{ record.street }}
+									{{ record | formatedAddress }}
 								</td>
 								<td>
 									<span class="p-column-title">Principal</span>
@@ -166,7 +166,7 @@
 						</ng-template>
 					</p-table>
 				</div>
-				<div class="field col-12 flex justify-content-end mb-0 pb-0">
+				<div class="field col-12 flex justify-content-end mb-0 py-0">
 					<button pButton pRipple label="Salvar" class="p-button-primary md:w-min"></button>
 				</div>
 			</div>

@@ -21,6 +21,7 @@ import { PhoneModule } from '../../phone/phone.module';
 import { TableModule } from 'primeng/table';
 import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
 import { AddressModule } from '../../address/address.module';
+import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { AddressModule } from '../../address/address.module';
 	PhoneModule,
 	AddressModule,
 	TableModule,
-	PhonePipe
+	PhonePipe,
+	FormattedAddressPipe
   ]
 })
 export class FormPatientModule { }

@@ -41,14 +41,12 @@ export class CustomDynamicDialogService {
       header: title,
       modal: true, 
       data: data,
-      width: '25vw',
+      width: '460px',
       contentStyle: { 
         overflow: 'auto' 
       },
       breakpoints: {
-        '1300px': '50vw',
-        '960px': '75vw',
-        '640px': '90vw'
+        '520px': '90vw'
       },
     });
 
