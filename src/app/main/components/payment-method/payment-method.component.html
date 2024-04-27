@@ -1,0 +1,38 @@
+<div class="p-fluid p-formgrid grid mt-1" [formGroup]="formGroup">
+    <div class="field col-12 py-0">
+        <label htmlFor="type">Tipo<span class="text-red-500 font-bold">*</span></label>
+        <p-dropdown [options]="paymentMethodTypeEnumOptions" (onChange)="checkType()" (onBlur)="checkType()" optionLabel="name" optionValue="code" id="type" formControlName="type" [ngClass]="{'ng-invalid ng-dirty' : type.invalid && (type.dirty || type.touched)}"></p-dropdown>
+        <div *ngIf="type.invalid && (type.dirty || type.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="type.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field col-12 py-0">
+        <label htmlFor="card_number">Número do cartão<span *ngIf="isCard" class="text-red-500 font-bold">*</span></label>
+        <p-inputMask mask="9999 9999 9999 9999" [unmask]="true" id="card_number" required formControlName="card_number" [ngClass]="{'ng-invalid ng-dirty' : card_number.invalid && (card_number.dirty || card_number.touched)}"></p-inputMask>
+        <div *ngIf="card_number.invalid && (card_number.dirty || card_number.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="card_number.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field col-6 py-0">
+        <label htmlFor="exp_date">Dt. Expiração<span *ngIf="isCard" class="text-red-500 font-bold">*</span></label>
+        <p-inputMask mask="99/9999" slotChar="mm/yyyy" [unmask]="true" id="exp_date" required formControlName="exp_date" [ngClass]="{'ng-invalid ng-dirty' : exp_date.invalid && (exp_date.dirty || exp_date.touched)}"></p-inputMask>
+        <div *ngIf="exp_date.invalid && (exp_date.dirty || exp_date.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="exp_date.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field col-6 py-0">
+        <label htmlFor="security_code">CVV<span *ngIf="isCard" class="text-red-500 font-bold">*</span></label>
+        <input id="security_code" formControlName="security_code" pInputText required [ngClass]="{'ng-invalid ng-dirty' : security_code.invalid && (security_code.dirty || security_code.touched)}"/>
+        <div *ngIf="security_code.invalid && (security_code.dirty || security_code.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="security_code.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field col-12 py-0 flex align-items-center gap-2">
+        <p-inputSwitch id="main" formControlName="main"></p-inputSwitch>
+        <label htmlFor="main" class="mb-1">Principal</label>
+    </div>
+    <div class="col-12 py-0 flex justify-content-end gap-2">
+        <p-button label="Cancelar" [text]="true" severity="secondary" (click)="close()"></p-button>
+        <p-button label="Salvar" type="button" (click)="submit()" [disabled]="!formGroup.valid"></p-button>
+    </div>
+</div>

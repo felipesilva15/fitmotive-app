@@ -43,7 +43,7 @@ export class AddressComponent {
       locality: [{value: this.data.locality, disabled: true}, [Validators.required]],
       city: [{value: this.data.city, disabled: true}, [Validators.required]],
       region: [{value: this.data.region, disabled: true}, [Validators.required]],
-      region_code: [{value: 'SP', disabled: true}, [Validators.required]],
+      region_code: [{value: this.data.region_code, disabled: true}, [Validators.required]],
       number: [this.data.number, [Validators.required]],
       complement: [this.data.complement, []],
       main: [this.data.main, []]

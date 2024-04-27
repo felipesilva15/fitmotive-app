@@ -22,6 +22,8 @@ import { TableModule } from 'primeng/table';
 import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
 import { AddressModule } from '../../address/address.module';
 import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
+import { PaymentMethodModule } from '../../payment-method/payment-method.module';
+import { CardExpDatePipe } from 'src/app/main/pipes/card-exp-date.pipe';
 
 
 @NgModule({
@@ -45,9 +47,11 @@ import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
 	InputNumberModule,
 	PhoneModule,
 	AddressModule,
+	PaymentMethodModule,
 	TableModule,
 	PhonePipe,
-	FormattedAddressPipe
+	FormattedAddressPipe,
+	CardExpDatePipe
   ]
 })
 export class FormPatientModule { }
