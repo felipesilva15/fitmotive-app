@@ -5,34 +5,43 @@
                 <h4>Paciente</h4>
 				<button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-secondary p-button-text p-0 w-2rem h-2rem" (click)="backPage()"></button>
 			</div>
-            <div class="p-fluid p-formgrid grid mt-1">
+            <div class="p-fluid p-formgrid grid mt-1" [formGroup]="formGroup">
 				<div class="field col-12 md:col-6 py-0">
 					<label htmlFor="name">Nome<span class="text-red-500 font-bold">*</span></label>
-					<input id="name" [(ngModel)]="data.name"  pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.name}"/>
-					<small class="ng-dirty ng-invalid" *ngIf="submitted && !data.name">O campo nome é obrigatório.</small>
+					<input id="name" formControlName="name" pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : name.invalid && (name.dirty || name.touched)}"/>
+					<div *ngIf="name.invalid && (name.dirty || name.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="name.errors?.['required']">Este campo é obrigatório.</small>
+					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
 					<label htmlFor="cpf_cnpj">CPF<span class="text-red-500 font-bold">*</span></label>
-					<p-inputMask id="cpf_cnpj" mask="999.999.999-99" [(ngModel)]="data.cpf_cnpj" [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.cpf_cnpj}"></p-inputMask>
-					<small class="ng-dirty ng-invalid" *ngIf="submitted && !data.cpf_cnpj">O campo CPF é obrigatório.</small>
+					<p-inputMask id="cpf_cnpj" formControlName="cpf_cnpj" mask="999.999.999-99" [unmask]="true" required [ngClass]="{'ng-invalid ng-dirty' : cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)}"></p-inputMask>
+					<div *ngIf="cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="cpf_cnpj.errors?.['required']">Este campo é obrigatório.</small>
+					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
 					<label htmlFor="email">E-mail<span class="text-red-500 font-bold">*</span></label>
-                    <input id="email" type="text" [(ngModel)]="data.email" pInputText required [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.email}" />
-                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !data.email">O campo e-mail é obrigatório.</small>
+					<input id="email" type="email" formControlName="email" pInputText required [ngClass]="{'ng-invalid ng-dirty' : email.invalid && (email.dirty || email.touched)}"/>
+					<div *ngIf="email.invalid && (email.dirty || email.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="email.errors?.['required']">Este campo é obrigatório.</small>
+						<small class="ng-dirty ng-invalid" *ngIf="email.errors?.['email']">Informe um e-mail válido.</small>
+					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
 					<label htmlFor="birth_date">Dt. Nascimento<span class="text-red-500 font-bold">*</span></label>
-					<p-calendar id="birth_date" [showIcon]="true" dateFormat="dd/mm/yy" [(ngModel)]="data.birth_date" inputId="icon" required [ngClass]="{'ng-invalid ng-dirty' : submitted && !data.birth_date}"></p-calendar>
-					<small class="ng-dirty ng-invalid" *ngIf="submitted && !data.birth_date">O campo Dt. Nascimento é obrigatório.</small>
+					<p-calendar id="birth_date" type="birth_date" formControlName="birth_date" inputId="icon" [showIcon]="true" dateFormat="dd/mm/yy" required [ngClass]="{'ng-invalid ng-dirty' : birth_date.invalid && (birth_date.dirty || birth_date.touched)}"></p-calendar>
+					<div *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="birth_date.errors?.['required']">Este campo é obrigatório.</small>
+					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
-					<label htmlFor="state">Vl. Serviço</label>
-					<p-inputNumber id="price" mode="currency" currency="BRL" locale="pt-BR" [showButtons]="true" mode="currency"></p-inputNumber>
+					<label htmlFor="service_price">Vl. Serviço</label>
+					<p-inputNumber id="service_price" formControlName="service_price" mode="currency" currency="BRL" locale="pt-BR" [showButtons]="true" mode="currency" [ngClass]="{'ng-invalid ng-dirty' : service_price.invalid && (service_price.dirty || service_price.touched)}"></p-inputNumber>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
-					<label htmlFor="zip">Recorrência de cobrança</label>
-					<p-dropdown [options]="billingRecurrenceEnumOptions" optionLabel="name" [(ngModel)]="data.billing_recurrence"></p-dropdown>
+					<label htmlFor="billing_recurrence">Recorrência de cobrança</label>
+					<p-dropdown [options]="billingRecurrenceEnumOptions" optionLabel="name" optionValue="code" id="billing_recurrence" formControlName="billing_recurrence" [ngClass]="{'ng-invalid ng-dirty' : billing_recurrence.invalid && (billing_recurrence.dirty || billing_recurrence.touched)}"></p-dropdown>
 				</div>
 				<div class="field w-full col-12">
 					<p-table 
@@ -238,7 +247,7 @@
 					</p-table>
 				</div>
 				<div class="field col-12 flex justify-content-end mb-0 py-0">
-					<button pButton pRipple label="Salvar" class="p-button-primary md:w-min"></button>
+					<button pButton pRipple label="Salvar" class="p-button-primary md:w-min" (click)="submit()"></button>
 				</div>
 			</div>
         </div>

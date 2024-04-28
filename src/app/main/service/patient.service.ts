@@ -12,6 +12,10 @@ export class PatientService {
 
   constructor(private http: HttpClient) { }
 
+  create(data: Patient): Observable<Patient> {
+    return this.http.post<Patient>(`${this.baseUrl}`, data);
+  }
+
   get (id: number): Observable<Patient> {
     return this.http.get<Patient>(`${this.baseUrl}/${id}`);
   }

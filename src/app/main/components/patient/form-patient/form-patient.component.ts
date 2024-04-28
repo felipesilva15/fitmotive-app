@@ -1,3 +1,4 @@
+import { AuthService } from './../../../service/auth.service';
 import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from './../../../enum/payment-method-type-enum';
 import { PhoneTypeEnum, PhoneTypeEnumLabels } from './../../../enum/phone-type-enum';
 import { CustomDynamicDialogService } from './../../../service/custom-dynamic-dialog.service';
@@ -12,6 +13,7 @@ import { AddressComponent } from '../../address/address.component';
 import { Address } from 'src/app/main/api/address';
 import { PaymentMethod } from 'src/app/main/api/payment-method';
 import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-patient',
@@ -20,37 +22,87 @@ import { PaymentMethodComponent } from '../../payment-method/payment-method.comp
 })
 export class FormPatientComponent {
   data!: Patient;
-  submitted: boolean = false;
+  formGroup!: FormGroup;
   billingRecurrenceEnumOptions: Array<any> = BillingRecurrenceEnumOptions;
   isLoading: boolean = false;
   phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
 
-  constructor(private patientService: PatientService, private location: Location, private customDynamicDialogService: CustomDynamicDialogService) { }
-
-  ngOnInit(): void {
+  constructor(private patientService: PatientService, private location: Location, private customDynamicDialogService: CustomDynamicDialogService, private fb: FormBuilder, private authService: AuthService) {
     this.data = {
       user_id: 0,
-      provider_id: 0,
+      provider_id: this.authService.provider_id,
       name: '',
       email: '',
       cpf_cnpj: '',
       birth_date: '',
       bank_gateway_id: '',
       inactive: false,
-      service_price: 0,
+      service_price: null,
       billing_recurrence: null,
       phones: [],
       payment_methods: [],
-      adresses: [],
-      created_at: null,
-      updated_at: null,
+      adresses: []
     }
+    
+    this.formGroup = this.buildFormGroup();
   }
 
-  save(): void {
-    this.submitted = true;
-    console.log(this.data);
+  private buildFormGroup(): FormGroup {
+    return this.fb.group({
+      name: [this.data.name, [Validators.required]],
+      email: [this.data.name, [Validators.required, Validators.email]],
+      cpf_cnpj: [this.data.cpf_cnpj, [Validators.required]],
+      birth_date: [this.data.birth_date, [Validators.required]],
+      service_price: [this.data.service_price, []],
+      billing_recurrence: [this.data.billing_recurrence, [Validators.required]],
+    })
+  }
+
+  get name() {
+    return this.formGroup.get('name');
+  }
+
+  get email() {
+    return this.formGroup.get('email');
+  }
+
+  get cpf_cnpj() {
+    return this.formGroup.get('cpf_cnpj');
+  }
+
+  get birth_date() {
+    return this.formGroup.get('birth_date');
+  }
+
+  get service_price() {
+    return this.formGroup.get('service_price');
+  }
+
+  get billing_recurrence() {
+    return this.formGroup.get('billing_recurrence');
+  }
+
+  convertFormToObject() {
+    this.data.name = this.name.value;
+    this.data.email = this.email.value;
+    this.data.cpf_cnpj = this.cpf_cnpj.value;
+    this.data.birth_date = this.birth_date.value;
+    this.data.service_price = this.service_price.value;
+    this.data.billing_recurrence = this.billing_recurrence.value;
+  }
+
+  submit(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+
+    this.convertFormToObject();
+    this.patientService.create(this.data).subscribe({
+      next: () => {
+        this.backPage();
+      }
+    });
   }
 
   backPage(): void {

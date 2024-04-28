@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FormPatientRoutingModule } from './form-patient-routing.module';
 import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { FormLayoutDemoRoutingModule } from 'src/app/demo/components/uikit/formlayout/formlayoutdemo-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -51,7 +51,8 @@ import { CardExpDatePipe } from 'src/app/main/pipes/card-exp-date.pipe';
 	TableModule,
 	PhonePipe,
 	FormattedAddressPipe,
-	CardExpDatePipe
+	CardExpDatePipe,
+	ReactiveFormsModule
   ]
 })
 export class FormPatientModule { }
