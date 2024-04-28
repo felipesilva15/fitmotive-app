@@ -20,11 +20,25 @@ export class AuthService {
     return localStorage.getItem(this.tokenPropertyName) ?? '';
   }
 
+  get user(): User {
+    return JSON.parse(localStorage.getItem(this.loggedUserPropertyName));
+  }
+
+  get user_id(): number {
+    return this.user?.id ?? 0;
+  }
+
+  get provider_id(): number {
+    return this.user?.provider?.id ?? 0;
+  }
+
   login (user: User): Observable<Token> {
     return this.http.post<Token>(`${this.baseUrl}/login`, user)
       .pipe(
         tap((res: any) => {
           localStorage.setItem(this.tokenPropertyName, res.access_token);
+
+          this.me().subscribe();
         })
       );
   }
@@ -36,5 +50,18 @@ export class AuthService {
           localStorage.removeItem(this.tokenPropertyName);
         })
       );
+  }
+
+  me(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/me`).pipe(
+      tap((res: User) => {
+        localStorage.setItem(this.loggedUserPropertyName, JSON.stringify(res));
+      })
+    );
+  }
+
+  clearAuthData(): void {
+    localStorage.removeItem(this.tokenPropertyName);
+    localStorage.removeItem(this.loggedUserPropertyName);
   }
 }

@@ -22,7 +22,7 @@ export class ListPatientComponent {
   constructor(private providerService: ProviderService, private patientService: PatientService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
   ngOnInit() {
-    this.providerService.listPatients(1).subscribe(
+    this.providerService.listPatients().subscribe(
       (data: Patient[]) => {
         this.records = data;
 

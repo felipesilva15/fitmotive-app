@@ -1,6 +1,7 @@
 import { Address } from "./address";
 import { PaymentMethod } from "./payment-method";
 import { Phone } from "./phone";
+import { Provider } from "./provider";
 
 export interface User {
     id?: number;
@@ -16,5 +17,6 @@ export interface User {
     updated_at?: string | Date;
     phones?: Array<Phone>;
     payment_methods?: Array<PaymentMethod>;
+    provider?: Provider;
     adresses?: Array<Address>;
 }
