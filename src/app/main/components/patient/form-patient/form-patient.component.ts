@@ -82,16 +82,16 @@ export class FormPatientComponent {
       next: (res: Patient) => {
         this.data = res;
 
-        this.data.birth_date = new Date(<Date>this.data.birth_date);
-
         this.formGroup.patchValue({
           name: this.data.name,
           email: this.data.email,
           cpf_cnpj: this.data.cpf_cnpj,
-          birth_date: this.data.birth_date,
+          birth_date: new Date(<Date>this.data.birth_date),
           service_price: this.data.service_price,
           billing_recurrence: this.data.billing_recurrence,
         })
+
+        console.log(this.data.birth_date.toString().substring(0, 10));
 
         this.isLoading = false;
       }
@@ -126,7 +126,7 @@ export class FormPatientComponent {
     this.data.name = this.name.value;
     this.data.email = this.email.value;
     this.data.cpf_cnpj = this.cpf_cnpj.value;
-    this.data.birth_date = this.birth_date.value;
+    this.data.birth_date = this.birth_date.value.toISOString().substring(0, 10);
     this.data.service_price = this.service_price.value;
     this.data.billing_recurrence = this.billing_recurrence.value;
   }
