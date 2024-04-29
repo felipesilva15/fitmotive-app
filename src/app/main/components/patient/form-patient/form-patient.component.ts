@@ -14,6 +14,7 @@ import { Address } from 'src/app/main/api/address';
 import { PaymentMethod } from 'src/app/main/api/payment-method';
 import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-patient',
@@ -25,17 +26,28 @@ export class FormPatientComponent {
   formGroup!: FormGroup;
   billingRecurrenceEnumOptions: Array<any> = BillingRecurrenceEnumOptions;
   isLoading: boolean = false;
+  isSubmitting: boolean = false;
+  paramId: number;
   phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
 
-  constructor(private patientService: PatientService, private location: Location, private customDynamicDialogService: CustomDynamicDialogService, private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private patientService: PatientService, 
+    private location: Location, 
+    private customDynamicDialogService: CustomDynamicDialogService, 
+    private fb: FormBuilder, 
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.paramId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') ?? '');
+    
     this.data = {
       user_id: 0,
       provider_id: this.authService.provider_id,
       name: '',
       email: '',
       cpf_cnpj: '',
-      birth_date: '',
+      birth_date: null,
       bank_gateway_id: '',
       inactive: false,
       service_price: null,
@@ -46,6 +58,10 @@ export class FormPatientComponent {
     }
     
     this.formGroup = this.buildFormGroup();
+
+    if (this.paramId) {
+      this.loadData();
+    }
   }
 
   private buildFormGroup(): FormGroup {
@@ -56,6 +72,29 @@ export class FormPatientComponent {
       birth_date: [this.data.birth_date, [Validators.required]],
       service_price: [this.data.service_price, []],
       billing_recurrence: [this.data.billing_recurrence, [Validators.required]],
+    })
+  }
+
+  loadData() {
+    this.isLoading = true;
+
+    this.patientService.get(this.paramId).subscribe({
+      next: (res: Patient) => {
+        this.data = res;
+
+        this.data.birth_date = new Date(<Date>this.data.birth_date);
+
+        this.formGroup.patchValue({
+          name: this.data.name,
+          email: this.data.email,
+          cpf_cnpj: this.data.cpf_cnpj,
+          birth_date: this.data.birth_date,
+          service_price: this.data.service_price,
+          billing_recurrence: this.data.billing_recurrence,
+        })
+
+        this.isLoading = false;
+      }
     })
   }
 
@@ -97,10 +136,15 @@ export class FormPatientComponent {
       return;
     }
 
+    this.isSubmitting = true;
+
     this.convertFormToObject();
     this.patientService.create(this.data).subscribe({
       next: () => {
         this.backPage();
+      },
+      error: () => {
+        this.isSubmitting = false;
       }
     });
   }

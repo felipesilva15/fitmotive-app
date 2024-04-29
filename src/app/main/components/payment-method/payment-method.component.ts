@@ -104,8 +104,8 @@ export class PaymentMethodComponent {
     this.data.type = this.type.value;
     this.data.card_number = this.card_number.value;
     this.data.network_token = this.network_token.value;
-    this.data.exp_month = this.exp_date.value.substr(0, 1);
-    this.data.exp_year = this.exp_date.value.substr(1, 5);
+    this.data.exp_month = this.exp_date.value.substring(0, 2);
+    this.data.exp_year = this.exp_date.value.substring(2, 6);
     this.data.security_code = this.security_code.value;
     this.data.main = this.main.value;
   }

@@ -126,7 +126,7 @@
                         </td>
                         <td>
                             <div class="flex flex-nowrap gap-1">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="alert('Lembrete: Criar o método de alteração')"></button>
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" [routerLink]="'form/' + record.id"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteRecord($event, record)"></button>
                             </div>
                          </td>
@@ -139,10 +139,20 @@
                         </td>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="loadingbody" let-columns="columns">
-                    <tr style="height:46px">
-                        <td *ngFor="let col of columns; let even = even">
-                            <p-skeleton [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td>
+                            <div class="flex flex-nowrap gap-1">
+                                <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+                                <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+                            </div>
                         </td>
                     </tr>
                 </ng-template>

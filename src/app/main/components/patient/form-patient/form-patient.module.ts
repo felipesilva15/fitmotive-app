@@ -24,6 +24,7 @@ import { AddressModule } from '../../address/address.module';
 import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
 import { PaymentMethodModule } from '../../payment-method/payment-method.module';
 import { CardExpDatePipe } from 'src/app/main/pipes/card-exp-date.pipe';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { CardExpDatePipe } from 'src/app/main/pipes/card-exp-date.pipe';
 	PhonePipe,
 	FormattedAddressPipe,
 	CardExpDatePipe,
-	ReactiveFormsModule
+	ReactiveFormsModule,
+	SkeletonModule
   ]
 })
 export class FormPatientModule { }

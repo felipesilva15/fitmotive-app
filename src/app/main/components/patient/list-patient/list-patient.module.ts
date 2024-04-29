@@ -19,6 +19,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ListPatientComponent } from './list-patient.component';
 import { CpfCnpjPipe } from 'src/app/main/pipes/cpf-cnpj.pipe';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [ListPatientComponent, CpfCnpjPipe],
@@ -40,6 +41,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputNumberModule,
     DialogModule,
     ConfirmDialogModule,
+    SkeletonModule
   ]
 })
 export class ListPatientModule { }
