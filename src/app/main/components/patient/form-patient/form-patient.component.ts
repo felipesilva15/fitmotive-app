@@ -139,7 +139,27 @@ export class FormPatientComponent {
     this.isSubmitting = true;
 
     this.convertFormToObject();
+    
+    if (this.paramId) {
+      this.update();
+    } else {
+      this.create();
+    }
+  }
+
+  create(): void {
     this.patientService.create(this.data).subscribe({
+      next: () => {
+        this.backPage();
+      },
+      error: () => {
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  update(): void {
+    this.patientService.update(this.data, this.paramId).subscribe({
       next: () => {
         this.backPage();
       },
