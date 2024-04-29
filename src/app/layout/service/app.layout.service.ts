@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, effect, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { Translation } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/main/service/auth.service';
 
@@ -53,7 +55,7 @@ export class LayoutService {
 
     overlayOpen$ = this.overlayOpen.asObservable();
 
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(private authService: AuthService, private router: Router, private http: HttpClient) {
         effect(() => {
             const config = this.config();
             if (this.updateStyle(config)) {
@@ -166,7 +168,11 @@ export class LayoutService {
             },
             (error: any) => {}
         );
+    }
 
-        
+    getTranslation(language: string) {
+        return this.http.get<Translation>(`assets/layout/translations/${language}.json`)
+            .toPromise()
+            .then(res => res as Translation)
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, Translation } from 'primeng/api';
 import { AppConfig, LayoutService } from './layout/service/app.layout.service';
 
 @Component({
@@ -23,5 +23,9 @@ export class AppComponent implements OnInit {
             scale: 14                           //size of the body font size to scale the whole application
         };
         this.layoutService.config.set(config);
+
+        this.layoutService.getTranslation('pt-br').then((translation: Translation) => {
+            this.primengConfig.setTranslation(translation);
+        });
     }
 }
