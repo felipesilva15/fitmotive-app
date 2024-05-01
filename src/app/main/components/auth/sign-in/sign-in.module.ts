@@ -14,6 +14,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
 import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
+import { CardExpDatePipe } from 'src/app/main/pipes/card-exp-date.pipe';
 
 
 
@@ -33,7 +34,8 @@ import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
     CalendarModule,
     TableModule,
     PhonePipe,
-    FormattedAddressPipe
+    FormattedAddressPipe,
+    CardExpDatePipe
   ]
 })
 export class SignInModule { }
