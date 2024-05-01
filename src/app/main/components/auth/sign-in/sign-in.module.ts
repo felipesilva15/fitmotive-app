@@ -4,6 +4,14 @@ import { CommonModule } from '@angular/common';
 import { SignInRoutingModule } from './sign-in-routing.module';
 import { SignInComponent } from './sign-in.component';
 import { ToastModule } from 'primeng/toast';
+import { StepsModule } from 'primeng/steps';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
+import { CalendarModule } from 'primeng/calendar';
+
 
 
 @NgModule({
@@ -11,7 +19,15 @@ import { ToastModule } from 'primeng/toast';
   imports: [
     CommonModule,
     SignInRoutingModule,
-    ToastModule
+    ToastModule,
+    StepsModule,
+    ButtonModule,
+    RippleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputMaskModule,
+    CalendarModule
   ]
 })
 export class SignInModule { }
