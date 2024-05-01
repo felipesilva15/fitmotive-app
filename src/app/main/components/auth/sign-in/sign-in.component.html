@@ -36,67 +36,125 @@
             </div>
             <div *ngIf="activeIndex === 1">
                 <p-table
-						#dt
-						[value]="data.phones"
-						responsiveLayout="scroll" 
-						[paginator]="false"
-						[rowHover]="true"
-						dataKey="id"
-						[loading]="isLoading"
-						[resizableColumns]="true"
-						columnResizeMode="expand"
-						[scrollable]="true"
-						scrollHeight="400px"
-					>
-						<ng-template pTemplate="caption">
-							<div class="flex flex-row justify-content-between align-items-center">
-								<h5 class="m-0">Telefones</h5>
-								<div>
-									<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openPhoneDialog()"></button>
-								</div>
+					#dt
+					[value]="data.phones"
+					responsiveLayout="scroll" 
+					[paginator]="false"
+					[rowHover]="true"
+					dataKey="id"
+					[loading]="isLoading"
+					[resizableColumns]="true"
+					columnResizeMode="expand"
+					[scrollable]="true"
+					scrollHeight="400px"
+				>
+					<ng-template pTemplate="caption">
+						<div class="flex flex-row justify-content-between align-items-center">
+							<h5 class="m-0">Telefones</h5>
+							<div>
+								<button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openPhoneDialog()"></button>
 							</div>
-						</ng-template>
-						<ng-template pTemplate="header">
-							<tr>
-								<th pResizableColumn>Número</th>
-								<th pResizableColumn>Tipo</th>
-								<th pResizableColumn>Principal</th>
-								<th></th>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
-							<tr>
-								<td>
-									<span class="p-column-title">Número</span>
-									{{ record.ddd + record.number | phone }}
-								</td>
-								<td>
-									<span class="p-column-title">Tipo</span>
-									{{ phoneTypeEnumLabels[record.type] }}
-								</td>
-								<td>
-									<span class="p-column-title">Principal</span>
-									<i class="pi pi-check" *ngIf="record.main"></i>
-								</td>
-								<td>
-									<div class="flex flex-nowrap justify-content-end gap-1">
-										<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openPhoneDialog(record, rowIndex)"></button>
-										<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="removePhone(rowIndex)"></button>
-									</div>
-								</td>
-							</tr>
-						</ng-template>
-						<ng-template pTemplate="emptymessage">
-							<tr>
-								<td colspan="4">
-									<div class="flex justify-content-center">Nenhum registro cadastrado.</div>
-								</td>
-							</tr>
-						</ng-template>
-					</p-table>
+						</div>
+					</ng-template>
+					<ng-template pTemplate="header">
+						<tr>
+							<th pResizableColumn>Número</th>
+							<th pResizableColumn>Tipo</th>
+							<th pResizableColumn>Principal</th>
+							<th></th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+						<tr>
+							<td>
+								<span class="p-column-title">Número</span>
+								{{ record.ddd + record.number | phone }}
+							</td>
+							<td>
+								<span class="p-column-title">Tipo</span>
+								{{ phoneTypeEnumLabels[record.type] }}
+							</td>
+							<td>
+								<span class="p-column-title">Principal</span>
+								<i class="pi pi-check" *ngIf="record.main"></i>
+							</td>
+							<td>
+								<div class="flex flex-nowrap justify-content-end gap-1">
+									<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openPhoneDialog(record, rowIndex)"></button>
+									<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="removePhone(rowIndex)"></button>
+								</div>
+							</td>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="emptymessage">
+						<tr>
+							<td colspan="4">
+								<div class="flex justify-content-center">Nenhum registro cadastrado.</div>
+							</td>
+						</tr>
+					</ng-template>
+				</p-table>
             </div>
             <div *ngIf="activeIndex === 2">
-                Conteúdo do Passo 3
+                <p-table
+					#dt
+					[value]="data.adresses"
+					responsiveLayout="scroll" 
+					[paginator]="false"
+					[rowHover]="true"
+					dataKey="id"
+					[loading]="isLoading"
+					[resizableColumns]="true"
+					columnResizeMode="expand"
+					[scrollable]="true"
+					scrollHeight="400px"
+				>
+					<ng-template pTemplate="caption">
+						<div class="flex flex-row justify-content-between align-items-center">
+							<h5 class="m-0">Endereços</h5>
+							<div>
+								<button pButton pRipple label="Novo" icon="pi pi-plus" class="sm:p-button-rounded p-button-success mr-2" (click)="openAddressDialog()"></button>
+							</div>
+						</div>
+					</ng-template>
+					<ng-template pTemplate="header">
+						<tr>
+							<th pResizableColumn>Nome</th>
+							<th pResizableColumn>Endereço</th>
+							<th pResizableColumn>Principal</th>
+							<th></th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-record let-rowIndex="rowIndex">
+						<tr>
+							<td>
+								<span class="p-column-title">Nome</span>
+								{{ record.name }}
+							</td>
+							<td>
+								<span class="p-column-title">Endereço</span>
+								{{ record | formatedAddress }}
+							</td>
+							<td>
+								<span class="p-column-title">Principal</span>
+								<i class="pi pi-check" *ngIf="record.main"></i>
+							</td>
+							<td>
+								<div class="flex flex-nowrap justify-content-end gap-1">
+									<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="openAddressDialog(record, rowIndex)"></button>
+									<button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="removeAddress(rowIndex)"></button>
+								</div>
+							</td>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="emptymessage">
+						<tr>
+							<td colspan="4">
+								<div class="flex justify-content-center">Nenhum registro cadastrado.</div>
+							</td>
+						</tr>
+					</ng-template>
+			</p-table>
             </div>
             <div *ngIf="activeIndex === 3">
                 Conteúdo do Passo 4

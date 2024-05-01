@@ -13,6 +13,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { CalendarModule } from 'primeng/calendar';
 import { TableModule } from 'primeng/table';
 import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
+import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
 
 
 
@@ -31,7 +32,8 @@ import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
     InputMaskModule,
     CalendarModule,
     TableModule,
-    PhonePipe
+    PhonePipe,
+    FormattedAddressPipe
   ]
 })
 export class SignInModule { }
