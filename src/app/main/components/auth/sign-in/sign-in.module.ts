@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
 
 
 
@@ -27,7 +29,9 @@ import { CalendarModule } from 'primeng/calendar';
     ReactiveFormsModule,
     InputTextModule,
     InputMaskModule,
-    CalendarModule
+    CalendarModule,
+    TableModule,
+    PhonePipe
   ]
 })
 export class SignInModule { }

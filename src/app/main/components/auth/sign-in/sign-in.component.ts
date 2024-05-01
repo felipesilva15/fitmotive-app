@@ -10,6 +10,8 @@ import { Address } from 'src/app/main/api/address';
 import { AddressComponent } from '../../address/address.component';
 import { PaymentMethod } from 'src/app/main/api/payment-method';
 import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
+import { PhoneTypeEnum, PhoneTypeEnumLabels } from 'src/app/main/enum/phone-type-enum';
+import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from 'src/app/main/enum/payment-method-type-enum';
 
 @Component({
   selector: 'app-sign-in',
@@ -22,6 +24,8 @@ export class SignInComponent {
   data!: Provider;
   formGroup!: FormGroup;
   isSubmitting: boolean = false;
+  phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
+  PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
 
   constructor(
     private providerService: ProviderService,
@@ -33,7 +37,10 @@ export class SignInComponent {
       email: '',
       cpf_cnpj: '',
       birth_date: null,
-      inactive: false
+      inactive: false,
+      phones: [],
+      adresses: [],
+      payment_methods: []
     }
     
     this.formGroup = this.buildFormGroup();
