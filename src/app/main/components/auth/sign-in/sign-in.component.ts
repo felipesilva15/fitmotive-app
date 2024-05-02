@@ -37,6 +37,7 @@ export class SignInComponent {
     private router: Router
   ) {
     this.data = {
+      plan_id: 1,
       name: '',
       email: '',
       password: '',
@@ -197,7 +198,7 @@ export class SignInComponent {
     this.convertFormToObject();
     this.providerService.create(this.data).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/auth/login']);
       },
       error: () => {
         this.isSubmitting = false;

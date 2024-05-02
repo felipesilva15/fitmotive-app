@@ -6,6 +6,7 @@ import { Phone } from "./phone";
 export interface Provider {
     id?: number;
     user_id?: number;
+    plan_id: number;
     name: string;
     email: string;
     password: string;
