@@ -14,6 +14,10 @@ export class ProviderService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
+  create(data: Provider): Observable<Provider> {
+    return this.http.post<Provider>(`${this.baseUrl}`, data);
+  }
+
   get (id: number): Observable<Provider> {
     return this.http.get<Provider>(`${this.baseUrl}/${id}`);
   }
