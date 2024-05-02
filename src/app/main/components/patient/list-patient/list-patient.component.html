@@ -140,7 +140,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="loadingbody">
-                    <tr>
+                    <tr *ngFor="let _ of [].constructor(3)">
                         <td></td>
                         <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
