@@ -12,6 +12,8 @@ import { PaymentMethod } from 'src/app/main/api/payment-method';
 import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
 import { PhoneTypeEnum, PhoneTypeEnumLabels } from 'src/app/main/enum/phone-type-enum';
 import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from 'src/app/main/enum/payment-method-type-enum';
+import { ProfessionEnumOptions } from 'src/app/main/enum/profession-enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -26,17 +28,21 @@ export class SignInComponent {
   isSubmitting: boolean = false;
   phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
+  professionEnumOptions: Array<any> = ProfessionEnumOptions;
 
   constructor(
     private providerService: ProviderService,
     private customDynamicDialogService: CustomDynamicDialogService, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.data = {
       name: '',
       email: '',
+      password: '',
       cpf_cnpj: '',
       birth_date: null,
+      profession: null,
       inactive: false,
       phones: [],
       adresses: [],
@@ -50,8 +56,11 @@ export class SignInComponent {
     return this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(3)]],
+      password_confirmation: ['', [Validators.required]],
       cpf_cnpj: ['', [Validators.required]],
-      birth_date: ['', [Validators.required]]
+      birth_date: ['', [Validators.required]],
+      profession: [null, [Validators.required]]
     })
   }
 
@@ -73,12 +82,33 @@ export class SignInComponent {
     return this.formGroup.get('email');
   }
 
+  get password() {
+    return this.formGroup.get('password');
+  }
+
+  get password_confirmation() {
+    return this.formGroup.get('password_confirmation');
+  }
+
   get cpf_cnpj() {
     return this.formGroup.get('cpf_cnpj');
   }
 
   get birth_date() {
     return this.formGroup.get('birth_date');
+  }
+  
+  get profession() {
+    return this.formGroup.get('profession');
+  }
+
+  convertFormToObject() {
+    this.data.name = this.name.value;
+    this.data.email = this.email.value;
+    this.data.password = this.password.value;
+    this.data.cpf_cnpj = this.cpf_cnpj.value;
+    this.data.birth_date = this.birth_date.value.toISOString().substring(0, 10);
+    this.data.profession = this.profession.value;
   }
 
   onActiveIndexChange(event: number) {
@@ -155,5 +185,23 @@ export class SignInComponent {
 
   removePaymentMethod(index: number): void {
     this.data.payment_methods.splice(index, 1);
+  }
+
+  submit(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+
+    this.isSubmitting = true;
+
+    this.convertFormToObject();
+    this.providerService.create(this.data).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.isSubmitting = false;
+      }
+    });
   }
 }

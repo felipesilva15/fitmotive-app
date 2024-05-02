@@ -19,6 +19,21 @@
 					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="password">Senha<span class="text-red-500 font-bold">*</span></label>
+					<p-password id="password" formControlName="password" [toggleMask]="true" [feedback]="false" required [ngClass]="{'ng-invalid ng-dirty' : password.invalid && (password.dirty || password.touched)}"></p-password>
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="password.errors?.['required']">Este campo é obrigatório.</small>
+						<small class="ng-dirty ng-invalid" *ngIf="password.errors?.['minlength']">Este campo deve conter no mínimo {{ password.errors?.['minlength'].requiredLength }} caracteres.</small>
+					</div>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="password_confirmation">Confirme sua senha<span class="text-red-500 font-bold">*</span></label>
+					<p-password id="password_confirmation" formControlName="password_confirmation" [toggleMask]="true" [feedback]="false" required [ngClass]="{'ng-invalid ng-dirty' : password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched)}"></p-password>
+                    <div *ngIf="password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="password_confirmation.errors?.['required']">Este campo é obrigatório.</small>
+					</div>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
 					<label htmlFor="email">E-mail<span class="text-red-500 font-bold">*</span></label>
 					<input id="email" type="email" formControlName="email" pInputText required [ngClass]="{'ng-invalid ng-dirty' : email.invalid && (email.dirty || email.touched)}"/>
 					<div *ngIf="email.invalid && (email.dirty || email.touched)">
@@ -31,6 +46,13 @@
 					<p-calendar id="birth_date" type="birth_date" formControlName="birth_date" inputId="icon" [showIcon]="true" dateFormat="dd/mm/yy" required [ngClass]="{'ng-invalid ng-dirty' : birth_date.invalid && (birth_date.dirty || birth_date.touched)}"></p-calendar>
 					<div *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)">
 						<small class="ng-dirty ng-invalid" *ngIf="birth_date.errors?.['required']">Este campo é obrigatório.</small>
+					</div>
+				</div>
+				<div class="field col-12 md:col-6 py-0">
+					<label htmlFor="profession">Profissão<span class="text-red-500 font-bold">*</span></label>
+					<p-dropdown [options]="professionEnumOptions" optionLabel="name" optionValue="code" id="profession" formControlName="profession" [ngClass]="{'ng-invalid ng-dirty' : profession.invalid && (profession.dirty || profession.touched)}"></p-dropdown>
+					<div *ngIf="profession.invalid && (profession.dirty || profession.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="profession.errors?.['required']">Este campo é obrigatório.</small>
 					</div>
 				</div>
             </div>
@@ -227,7 +249,7 @@
         <div class="flex justify-content-end gap-3">
             <p-button pRipple label="Anterior" [outlined]="true" (click)="prev()" *ngIf="activeIndex != 0"></p-button>
             <p-button pRipple label="Próximo" (click)="next()" *ngIf="activeIndex != items.length - 1"></p-button>
-            <p-button pRipple label="Concluir" *ngIf="activeIndex == items.length - 1"></p-button>
+            <p-button pRipple label="Concluir" [loading]="isSubmitting" (click)="submit()" *ngIf="activeIndex == items.length - 1"></p-button>
         </div>
     </div>
 </div>

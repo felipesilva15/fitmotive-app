@@ -15,6 +15,8 @@ import { TableModule } from 'primeng/table';
 import { PhonePipe } from 'src/app/main/pipes/phone.pipe';
 import { FormattedAddressPipe } from 'src/app/main/pipes/formated-address.pipe';
 import { CardExpDatePipe } from 'src/app/main/pipes/card-exp-date.pipe';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
 
 
 
@@ -35,7 +37,9 @@ import { CardExpDatePipe } from 'src/app/main/pipes/card-exp-date.pipe';
     TableModule,
     PhonePipe,
     FormattedAddressPipe,
-    CardExpDatePipe
+    CardExpDatePipe,
+    DropdownModule,
+    PasswordModule
   ]
 })
 export class SignInModule { }
