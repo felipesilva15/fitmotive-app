@@ -24,6 +24,10 @@
                     <a class="font-medium no-underline text-right cursor-pointer" style="color: var(--primary-color)" [routerLink]="'/auth/reset_password'">Esqueceu sua senha?</a>
                 </div>
                 <button pButton pRipple label="Login" [loading]="isLoading" [disabled]="!user.email || !user.password" (click)="login()"></button>
+                <p-divider type="solid"></p-divider>
+                <span class="text-center">
+                    Ainda não possui conta? <a class="font-medium no-underline text-right cursor-pointer" style="color: var(--primary-color)" [routerLink]="'/auth/signin'">Faça o cadastro!</a>
+                </span>
             </div>
         </div>
     </div>
