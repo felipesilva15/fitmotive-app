@@ -103,6 +103,15 @@ export class AddressComponent {
           city: res.city,
           region_code: res.region_code
         })
+      },
+      error: () => {
+        this.formGroup.patchValue({
+          street: '',
+          locality: '',
+          city: '',
+          region_code: '',
+          postal_code: ''
+        })
       }
     })
   }
