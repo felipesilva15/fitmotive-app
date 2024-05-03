@@ -11,6 +11,7 @@ import { User } from '../api/user';
 export class AuthService {
   private readonly baseUrl = environment.baseUrlApi;
   private readonly tokenPropertyName = 'access_token';
+  private readonly tokenExpirationTimestampPropertyName = 'token_expiration_timestamp';
   private readonly loggedUserPropertyName = 'logged_user'
 
   constructor(private http: HttpClient) { }
@@ -20,7 +21,7 @@ export class AuthService {
     return localStorage.getItem(this.tokenPropertyName) ?? '';
   }
 
-  get user(): User {
+  private get user(): User {
     return JSON.parse(localStorage.getItem(this.loggedUserPropertyName));
   }
 
@@ -32,11 +33,37 @@ export class AuthService {
     return this.user?.provider?.id ?? 0;
   }
 
+  private get tokenExpirationTimestamp(): number {
+    return parseInt(localStorage.getItem(this.tokenExpirationTimestampPropertyName)) ?? 0;
+  }
+
+  tokenIsExpired(): boolean {
+    if (!this.tokenExpirationTimestamp) {
+      return true;
+    }
+
+    const currentDate = new Date();
+    const expirationDate = new Date(this.tokenExpirationTimestamp);
+    
+    console.log(expirationDate.toISOString());
+    console.log(currentDate.toISOString())
+
+    if (currentDate >= expirationDate) {
+      return true;
+    }
+
+    return false;
+  }
+
   login (user: User): Observable<Token> {
     return this.http.post<Token>(`${this.baseUrl}/login`, user)
       .pipe(
-        tap((res: any) => {
+        tap((res: Token) => {
+          const currentDate = new Date();
+          const expirationTimestamp = currentDate.getTime() + (res.expires_in * 1000);
+
           localStorage.setItem(this.tokenPropertyName, res.access_token);
+          localStorage.setItem(this.tokenExpirationTimestampPropertyName, expirationTimestamp.toString());
 
           this.me().subscribe();
         })

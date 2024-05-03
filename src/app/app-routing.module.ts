@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
+import { authGuard } from './main/guard/auth.guard';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
 
                     // Main
                     { path: 'patient', loadChildren: () => import('./main/components/patient/patient.module').then(m => m.PatientModule) }
-                ]
+                ],
+                canActivate: [authGuard]
             },
             // Demo
             { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
