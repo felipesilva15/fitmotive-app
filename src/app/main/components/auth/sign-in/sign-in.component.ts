@@ -29,6 +29,7 @@ export class SignInComponent {
   phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
   professionEnumOptions: Array<any> = ProfessionEnumOptions;
+  isValidStep: boolean = false;
 
   constructor(
     private providerService: ProviderService,
@@ -65,7 +66,7 @@ export class SignInComponent {
     })
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activeIndex = 0;
     this.items = [
       { label: 'Dados pessoais' },
@@ -103,7 +104,7 @@ export class SignInComponent {
     return this.formGroup.get('profession');
   }
 
-  convertFormToObject() {
+  private convertFormToObject(): void {
     this.data.name = this.name.value;
     this.data.email = this.email.value;
     this.data.password = this.password.value;
@@ -112,7 +113,66 @@ export class SignInComponent {
     this.data.profession = this.profession.value;
   }
 
-  onActiveIndexChange(event: number) {
+  private validatePersonalDataStep(): void {
+    if (this.formGroup.valid) {
+      return;
+    }
+
+    this.formGroup.markAllAsTouched();
+    this.isValidStep = false;
+    this.customDynamicDialogService.showMessage('Preencha o formulário com seus dados pessoais para prosseguir!');
+  }
+
+  private validatePhonesStep(): void {
+    if (this.data.phones.length > 0) {
+      return;
+    }
+
+    this.isValidStep = false;
+    this.customDynamicDialogService.showMessage('Informe pelo menos um telefone para prosseguir!');
+  }
+
+  private validateAdressesStep(): void {
+    if (this.data.adresses.length > 0) {
+      return;
+    }
+
+    this.isValidStep = false;
+    this.customDynamicDialogService.showMessage('Informe pelo menos um endereço para prosseguir!');
+  }
+
+  private validatePaymentMethodsStep(): void {
+    if (this.data.phones.length > 0) {
+      return;
+    }
+
+    this.isValidStep = false;
+    this.customDynamicDialogService.showMessage('Informe pelo menos um método de pagamento para prosseguir!');
+  }
+
+  validateCurrentStep(): void {
+    this.isValidStep = true;
+
+    switch (this.activeIndex) {
+      case 0:
+        this.validatePersonalDataStep();
+        break;
+    
+      case 1:
+          this.validatePhonesStep();
+          break;
+
+      case 2:
+        this.validateAdressesStep();
+        break;
+
+      case 3:
+        this.validatePaymentMethodsStep();
+        break;
+    }
+  }
+
+  onActiveIndexChange(event: number): void {
     this.activeIndex = event;
   }
 
@@ -123,12 +183,18 @@ export class SignInComponent {
   }
   
   next(): void {
+    this.validateCurrentStep();
+
+    if (!this.isValidStep) {
+      return;
+    }
+
     if (this.activeIndex < this.items.length - 1) {
       this.activeIndex++;
     }
   }
 
-  openPhoneDialog(data?: Phone, index?: number) {
+  openPhoneDialog(data?: Phone, index?: number): void {
     this.customDynamicDialogService.openDialog<Phone>(PhoneComponent, 'Telefone', data).then(
       (res: Phone) => {
         if (!res) {
@@ -148,7 +214,7 @@ export class SignInComponent {
     this.data.phones.splice(index, 1);
   }
 
-  openAddressDialog(data?: Address, index?: number) {
+  openAddressDialog(data?: Address, index?: number): void {
     this.customDynamicDialogService.openDialog<Address>(AddressComponent, 'Endereço', data).then(
       (res: Address) => {
         if (!res) {
@@ -168,7 +234,7 @@ export class SignInComponent {
     this.data.adresses.splice(index, 1);
   }
 
-  openPaymentMethodDialog(data?: PaymentMethod, index?: number) {
+  openPaymentMethodDialog(data?: PaymentMethod, index?: number): void {
     this.customDynamicDialogService.openDialog<PaymentMethod>(PaymentMethodComponent, 'Método de pagamento', data).then(
       (res: PaymentMethod) => {
         if (!res) {
@@ -189,10 +255,6 @@ export class SignInComponent {
   }
 
   submit(): void {
-    if (!this.formGroup.valid) {
-      return;
-    }
-
     this.isSubmitting = true;
 
     this.convertFormToObject();
