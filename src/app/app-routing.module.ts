@@ -21,7 +21,7 @@ import { authGuard } from './main/guard/auth.guard';
                     // Main
                     { path: 'patient', loadChildren: () => import('./main/components/patient/patient.module').then(m => m.PatientModule) }
                 ],
-                // canActivate: [authGuard]
+                canActivate: [authGuard]
             },
             // Demo
             { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
