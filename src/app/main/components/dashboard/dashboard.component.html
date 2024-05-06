@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid" *ngIf="!isLoading; else loagingSkeleton">
     <div class="col-12 lg:col-6 xl:col-3">
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <span class="text-green-500 font-medium">+60% </span>
-            <span class="text-500">comparado ao mês passado</span>
+            <span class="text-500">que o mês passado</span>
         </div>
     </div>
     <div class="col-12 lg:col-6 xl:col-3">
@@ -60,3 +60,19 @@
         </div>
     </div>
 </div>
+<ng-template #loagingSkeleton>
+    <div class="grid">
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+    </div>
+</ng-template>

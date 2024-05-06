@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+  isLoading: boolean = false;
 
+  constructor() { }
+
+  ngOnInit(): void {
+    this.isLoading = true;
+
+    setTimeout(
+      () => {
+        this.isLoading = false
+      }, 1500
+    );
+  }
 }
