@@ -20,6 +20,9 @@ export class DashboardComponent {
       next: (res: Dashboard) => {
         this.data = res;
         this.isLoading = false
+
+        console.log(this.data.monthly_profit?.percent == 0)
+        console.log(!this.data.patients?.new_this_month)
       }
     });
   }

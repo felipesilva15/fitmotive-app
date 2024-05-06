@@ -1,3 +1,4 @@
 export interface Dashboard {
-    patients: Array<any>
+    patients: any;
+    monthly_profit: any
 }
