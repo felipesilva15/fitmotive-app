@@ -44,9 +44,6 @@ export class AuthService {
 
     const currentDate = new Date();
     const expirationDate = new Date(this.tokenExpirationTimestamp);
-    
-    console.log(expirationDate.toISOString());
-    console.log(currentDate.toISOString())
 
     if (currentDate >= expirationDate) {
       return true;
@@ -70,11 +67,12 @@ export class AuthService {
       );
   }
 
-  logout (): Observable<void> {
+  logout (): Observable<void | Object> {
     return this.http.post(`${this.baseUrl}/logout`, {})
       .pipe(
-        tap((res: any) => {
-          localStorage.removeItem(this.tokenPropertyName);
+        tap({
+          next: () => this.clearAuthData(),
+          error: () => this.clearAuthData()
         })
       );
   }
@@ -90,5 +88,6 @@ export class AuthService {
   clearAuthData(): void {
     localStorage.removeItem(this.tokenPropertyName);
     localStorage.removeItem(this.loggedUserPropertyName);
+    localStorage.removeItem(this.tokenExpirationTimestampPropertyName)
   }
 }

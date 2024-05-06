@@ -91,8 +91,6 @@ export class FormPatientComponent {
           billing_recurrence: this.data.billing_recurrence,
         })
 
-        console.log(this.data.birth_date.toString().substring(0, 10));
-
         this.isLoading = false;
       }
     })
