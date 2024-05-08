@@ -21,14 +21,16 @@
             <div class="flex justify-content-between mb-3">
                 <div>
                     <span class="block text-500 font-medium mb-3">Treinos</span>
-                    <div class="text-900 font-medium text-xl">1</div>
+                    <div class="text-900 font-medium text-xl">0</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
                     <i class="pi pi-fw pi-shield text-orange-500 text-xl"></i>
                 </div>
             </div>
-            <span class="text-green-500 font-medium">1 novo </span>
-            <span class="text-500">este mês</span>
+            <div [ngStyle]="{'visibility' : false ? 'visible' : 'hidden' }">
+                <span class="text-green-500 font-medium">X novos </span>
+                <span class="text-500">este mês</span>
+            </div>
         </div>
     </div>
     <div class="col-12 lg:col-6 xl:col-3">
@@ -43,7 +45,7 @@
                 </div>
             </div>
             <div [ngStyle]="{'visibility' : data.monthly_profit?.percent ? 'visible' : 'hidden' }">
-                <span [ngClass]="data.monthly_profit?.percent > 0 ? 'text-green-500 font-medium' : 'text-red-500 font-medium'">{{ data.monthly_profit?.percent > 0 ? '+' : '' }}{{ data.monthly_profit?.percent }}% </span>
+                <span [ngClass]="data.monthly_profit?.percent > 0 ? 'text-green-500 font-medium' : 'text-red-500 font-medium'">{{ data.monthly_profit?.percent > 0 ? '+' : '' }}{{ data.monthly_profit?.percent / 100 | percent: '0.0-2' }} </span>
                 <span class="text-500">que o mês passado</span>
             </div>
         </div>
@@ -60,9 +62,15 @@
                 </div>
             </div>
             <div [ngStyle]="{'visibility' : data.pending_profit?.percent ? 'visible' : 'hidden' }">
-                <span [ngClass]="data.pending_profit?.percent > 0 ? 'text-green-500 font-medium' : 'text-red-500 font-medium'">{{ data.pending_profit?.percent / 100 | percent: '0.2' }} </span>
+                <span [ngClass]="data.pending_profit?.percent > 0 ? 'text-green-500 font-medium' : 'text-red-500 font-medium'">{{ data.pending_profit?.percent / 100 | percent: '0.0-2' }} </span>
                 <span class="text-500">da receita total</span>
             </div>
+        </div>
+    </div>
+    <div class="col-12 xl:col-6">
+        <div class="card flex flex-column align-items-center">
+            <h5 class="text-left w-full">Recebimentos e pendências do mês atual</h5>
+            <p-chart type="doughnut" [data]="profitChartData" [options]="profitChartOptions"></p-chart>
         </div>
     </div>
 </div>
@@ -79,6 +87,9 @@
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 xl:col-6">
+            <p-skeleton height="393px" width="100%"></p-skeleton>
         </div>
     </div>
 </ng-template>
