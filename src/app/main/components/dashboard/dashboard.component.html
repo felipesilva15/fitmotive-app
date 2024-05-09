@@ -73,6 +73,12 @@
             <p-chart type="doughnut" [data]="profitChartData" [options]="profitChartOptions"></p-chart>
         </div>
     </div>
+    <div class="col-12 xl:col-6">
+        <div class="card">
+            <h5>Visão geral de pacientes</h5>
+            <p-chart type="line" [data]="patientsChartData" [options]="patientsChartOptions"></p-chart>
+        </div>
+    </div>
 </div>
 <ng-template #loagingSkeleton>
     <div class="grid">
@@ -90,6 +96,9 @@
         </div>
         <div class="col-12 xl:col-6">
             <p-skeleton height="393px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 xl:col-6">
+            <p-skeleton height="440px" width="100%"></p-skeleton>
         </div>
     </div>
 </ng-template>
