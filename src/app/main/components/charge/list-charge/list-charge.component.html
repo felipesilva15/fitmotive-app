@@ -1,0 +1,156 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>Cobranças</h4>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+            <p-table 
+                #dt 
+                [value]="records" 
+                [columns]="cols" 
+                responsiveLayout="scroll" 
+                [rows]="10" 
+                [globalFilterFields]="['id','name','due_date','amount','payment_status']" 
+                [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Exibindo {first} a {last} de {totalRecords} entradas"
+                [(selection)]="selectedRecords"
+                selectionMode="multiple"
+                [rowHover]="true"
+                dataKey="id"
+                [loading]="isLoading"
+                [resizableColumns]="true"
+                columnResizeMode="expand"
+                [scrollable]="true"
+                scrollHeight="400px"
+                [showLoader]="false"
+            >
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Gerenciar Cobranças</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Procurar..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="id" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center">
+                                ID
+                                <p-sortIcon field="id"></p-sortIcon>
+                                <p-columnFilter type="numeric" field="id" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="name" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center">
+                                Paciente
+                                <p-sortIcon field="name"></p-sortIcon>
+                                <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="due_date" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center text-nowrap">
+                                Dt. Vencimento
+                                <p-sortIcon field="due_date"></p-sortIcon>
+                                <p-columnFilter type="date" field="due_date" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="amount" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center">
+                                Valor
+                                <p-sortIcon field="amount"></p-sortIcon>
+                                <p-columnFilter type="numeric" field="amount" display="menu" currency="BRL" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="payment_method" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center">
+                                Método de pagto.
+                                <p-sortIcon field="payment_method"></p-sortIcon>
+                                <p-columnFilter type="text" field="payment_method" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="paid_at" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center text-nowrap">
+                                Dt. Pagamento
+                                <p-sortIcon field="paid_at"></p-sortIcon>
+                                <p-columnFilter type="date" field="paid_at" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="payment_status" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center">
+                                Status
+                                <p-sortIcon field="payment_status"></p-sortIcon>
+                                <p-columnFilter type="text" field="payment_status" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
+                        </td>
+                        <td>
+                            <span class="p-column-title">ID</span>
+                            {{ record.id }}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Paciente</span>
+                            {{ record.patient_name }}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Dt. Vencimento</span>
+                            {{ record.due_date | date: "dd/MM/Y" }}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Valor</span>
+                            {{ record.amount | currency: 'BRL' }}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Método de pagto.</span>
+                            {{ PaymentMethodTypeEnumLabels[record.payment_method] }}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Dt. Pagamento</span>
+                            {{ record.paid_at | date: "dd/MM/Y" }}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Status</span>
+                            <p-tag [value]="paymentStatusEnumLabels[record.payment_status]" [severity]="getPaymentStatusSeverity(record.payment_status)" />
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">
+                            <div class="flex justify-content-center">Nenhum registro encontrado.</div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr *ngFor="let _ of [].constructor(3)">
+                        <td></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton></p-skeleton></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

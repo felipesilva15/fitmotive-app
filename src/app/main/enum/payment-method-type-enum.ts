@@ -1,7 +1,4 @@
 export enum PaymentMethodTypeEnum {
-}
-
-export enum PaymentMethodTypeEnum {
     CreditCard = 'CREDIT_CARD',
     DebitCard = 'DEBIT_CARD',
     Pix = 'PIX',

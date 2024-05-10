@@ -19,7 +19,8 @@ import { authGuard } from './main/guard/auth.guard';
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
 
                     // Main
-                    { path: 'patient', loadChildren: () => import('./main/components/patient/patient.module').then(m => m.PatientModule) }
+                    { path: 'patient', loadChildren: () => import('./main/components/patient/patient.module').then(m => m.PatientModule) },
+                    { path: 'charge', loadChildren: () => import('./main/components/charge/charge.module').then(m => m.ChargeModule) }
                 ],
                 canActivate: [authGuard]
             },
