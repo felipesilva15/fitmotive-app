@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { Component, ViewChild } from '@angular/core';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { Menu } from 'primeng/menu';
 import { Table } from 'primeng/table';
 import { tap } from 'rxjs';
 import { Patient } from 'src/app/main/api/patient';
@@ -18,6 +19,9 @@ export class ListPatientComponent {
   cols: any[] = [];
   isLoading: boolean = true;
   deleteConfirmed: boolean = false;
+  selectedRecord!: Patient;
+  recordMenuItems!: MenuItem[];
+  @ViewChild('recordMenu') recordMenu: Menu;
 
   constructor(private providerService: ProviderService, private patientService: PatientService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
@@ -41,6 +45,16 @@ export class ListPatientComponent {
       { field: 'cpf_cnpj', header: 'CpfCnpj' },
       { field: 'birth_date', header: 'DtAniversario' }
     ];
+
+    this.recordMenuItems = [
+      {
+        label: 'Gerar cobrança', 
+        icon: 'pi pi-fw pi-money-bill',
+        command: (event) => {
+          console.table(this.selectedRecord);
+        }
+      }
+  ];
   }
 
   deleteSelectedRecords(event: Event): void {
@@ -96,5 +110,10 @@ export class ListPatientComponent {
         );
       }
     });
+  }
+
+  openRecordMenu(event: Event, record: Patient) {
+    this.selectedRecord = record;
+    this.recordMenu.toggle(event);
   }
 }
