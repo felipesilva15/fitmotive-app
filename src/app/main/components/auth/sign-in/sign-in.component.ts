@@ -1,3 +1,4 @@
+import { BillingIntervalEnum, BillingIntervalEnumLabels } from './../../../enum/billing-interval-enum';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
@@ -31,8 +32,10 @@ export class SignInComponent {
   phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
   professionEnumOptions: Array<any> = ProfessionEnumOptions;
+  billingIntervalEnumLabels: Record<BillingIntervalEnum, string> = BillingIntervalEnumLabels;
   isValidStep: boolean = false;
   plans!: Plan[];
+  plan_id: number;
 
   constructor(
     private providerService: ProviderService,
@@ -42,7 +45,7 @@ export class SignInComponent {
     private router: Router
   ) {
     this.data = {
-      plan_id: 1,
+      plan_id: 0,
       name: '',
       email: '',
       password: '',
@@ -71,7 +74,7 @@ export class SignInComponent {
   }
 
   ngOnInit(): void {
-    this.activeIndex = 4;
+    this.activeIndex = 0;
     this.items = [
       { label: 'Dados pessoais' },
       { label: 'Telefones' },
@@ -123,6 +126,7 @@ export class SignInComponent {
     this.data.cpf_cnpj = this.cpf_cnpj.value;
     this.data.birth_date = this.birth_date.value.toISOString().substring(0, 10);
     this.data.profession = this.profession.value;
+    this.data.plan_id = this.plan_id
   }
 
   private validatePersonalDataStep(): void {
@@ -154,12 +158,21 @@ export class SignInComponent {
   }
 
   private validatePaymentMethodsStep(): void {
-    if (this.data.phones.length > 0) {
+    if (this.data.payment_methods.length > 0) {
       return;
     }
 
     this.isValidStep = false;
     this.customDynamicDialogService.showMessage('Informe pelo menos um método de pagamento para prosseguir!');
+  }
+
+  private validatePlanStep(): void {
+    if (this.plan_id != 0) {
+      return;
+    }
+
+    this.isValidStep = false;
+    this.customDynamicDialogService.showMessage('Selecione um plano para prosseguir!');
   }
 
   validateCurrentStep(): void {
@@ -180,6 +193,10 @@ export class SignInComponent {
 
       case 3:
         this.validatePaymentMethodsStep();
+        break;
+
+      case 4:
+        this.validatePlanStep();
         break;
     }
   }
@@ -268,6 +285,13 @@ export class SignInComponent {
 
   submit(): void {
     this.isSubmitting = true;
+
+    this.validateCurrentStep();
+
+    if (!this.isValidStep) {
+      this.isSubmitting = false;
+      return;
+    }
 
     this.convertFormToObject();
     this.providerService.create(this.data).subscribe({

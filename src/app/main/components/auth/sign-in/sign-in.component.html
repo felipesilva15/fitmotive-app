@@ -244,8 +244,21 @@
 					</ng-template>
 				</p-table>
             </div>
-			<div *ngIf="activeIndex === 4">
-				
+			<div class="flex flex-column gap-3" *ngIf="activeIndex === 4">
+				<div class="flex align-items-center justify-content-between border-round border-1 border-gray-200 p-3" [ngClass]="plan_id == plan.id ? 'border-primary' : ''" *ngFor="let plan of plans">
+					<div class="flex align-items-center">
+						<p-radioButton 
+							name="plan_id" 
+							[value]="plan.id" 
+							[(ngModel)]="plan_id" 
+							inputId="plan_id" />
+						<label for="plan_id" class="ml-2 font-bold">{{ plan.name }}</label>
+					</div>
+					<div>
+						<span class="text-lg font-bold">{{ plan.price | currency: 'BRL' }}</span>
+						<span class="text-sm"> / {{ billingIntervalEnumLabels[plan.billing_interval] }}</span>
+					</div>
+				</div>
 			</div>
         </div>
           

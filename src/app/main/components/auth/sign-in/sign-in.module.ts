@@ -1,3 +1,4 @@
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -39,7 +40,8 @@ import { PasswordModule } from 'primeng/password';
     FormattedAddressPipe,
     CardExpDatePipe,
     DropdownModule,
-    PasswordModule
+    PasswordModule,
+    RadioButtonModule
   ]
 })
 export class SignInModule { }
