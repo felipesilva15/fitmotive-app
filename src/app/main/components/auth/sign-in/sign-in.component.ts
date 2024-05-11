@@ -14,6 +14,8 @@ import { PhoneTypeEnum, PhoneTypeEnumLabels } from 'src/app/main/enum/phone-type
 import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from 'src/app/main/enum/payment-method-type-enum';
 import { ProfessionEnumOptions } from 'src/app/main/enum/profession-enum';
 import { Router } from '@angular/router';
+import { Plan } from 'src/app/main/api/plan';
+import { PlanService } from 'src/app/main/service/plan.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -30,9 +32,11 @@ export class SignInComponent {
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
   professionEnumOptions: Array<any> = ProfessionEnumOptions;
   isValidStep: boolean = false;
+  plans!: Plan[];
 
   constructor(
     private providerService: ProviderService,
+    private planService: PlanService,
     private customDynamicDialogService: CustomDynamicDialogService, 
     private fb: FormBuilder,
     private router: Router
@@ -67,13 +71,21 @@ export class SignInComponent {
   }
 
   ngOnInit(): void {
-    this.activeIndex = 0;
+    this.activeIndex = 4;
     this.items = [
       { label: 'Dados pessoais' },
       { label: 'Telefones' },
       { label: 'Endereços' },
       { label: 'Métodos de pagamento' },
-    ]
+      { label: 'Plano' }
+    ];
+
+    this.planService.list().subscribe({
+      next: (res: Plan[]) => {
+        this.plans = res;
+        console.table(this.plans)
+      }
+    });
   }
 
   get name() {
