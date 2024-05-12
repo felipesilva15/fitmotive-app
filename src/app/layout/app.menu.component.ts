@@ -25,7 +25,14 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Extrato', icon: 'pi pi-fw pi-wallet' },
                     { label: 'Dashboard', icon: 'pi pi-fw pi-chart-bar' },
-                    { label: 'Cobranças', icon: 'pi pi-fw pi-money-bill', routerLink: ['/charge'] }
+                    { label: 'Cobranças', icon: 'pi pi-fw pi-money-bill', routerLink: ['/charge'] },
+                    { 
+                        label: 'Relatórios',
+                        icon: 'pi pi-fw pi-list',
+                        items: [
+                            { label: 'inadimplentes', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/reports/financial/defaulters'] }
+                        ]
+                    }
                 ]
             },
             {
