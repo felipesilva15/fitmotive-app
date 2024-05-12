@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col-12">
         <div class="card">
-            <h4>Cobranças</h4>
+            <h4>Pacientes inadimplentes</h4>
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                 </ng-template>
@@ -20,7 +20,6 @@
                 [rowsPerPageOptions]="[10,20,30]"
                 [showCurrentPageReport]="true"
                 currentPageReportTemplate="Exibindo {first} a {last} de {totalRecords} entradas"
-                [(selection)]="selectedRecords"
                 selectionMode="multiple"
                 [rowHover]="true"
                 dataKey="id"
@@ -33,7 +32,7 @@
             >
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Gerenciar Cobranças</h5>
+                        <h5 class="m-0">Pacientes inadimplentes</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Procurar..."  class="w-full sm:w-auto"/>
@@ -42,9 +41,6 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
                         <th pSortableColumn="id" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 ID
@@ -52,46 +48,46 @@
                                 <p-columnFilter type="numeric" field="id" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="patient_name" pResizableColumn>
+                        <th pSortableColumn="user.name" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 Paciente
-                                <p-sortIcon field="patient_name"></p-sortIcon>
-                                <p-columnFilter type="text" field="patient_name" display="menu" class="ml-auto"></p-columnFilter>
+                                <p-sortIcon field="user.name"></p-sortIcon>
+                                <p-columnFilter type="text" field="user.name" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="due_date" pResizableColumn>
+                        <th pSortableColumn="user.cpf_cnpj" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center">
+                                CPF/CNPJ
+                                <p-sortIcon field="user.cpf_cnpj"></p-sortIcon>
+                                <p-columnFilter type="text" field="user.cpf_cnpj" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="user.email" pResizableColumn>
+                            <div class="flex justify-content-between align-items-center">
+                                E-mail
+                                <p-sortIcon field="user.email"></p-sortIcon>
+                                <p-columnFilter type="text" field="user.email" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="last_charge_date" pResizableColumn>
                             <div class="flex justify-content-between align-items-center text-nowrap">
-                                Dt. Vencimento
-                                <p-sortIcon field="due_date"></p-sortIcon>
-                                <p-columnFilter type="date" field="due_date" display="menu" class="ml-auto"></p-columnFilter>
+                                Dt. Última cobrança
+                                <p-sortIcon field="last_charge_date"></p-sortIcon>
+                                <p-columnFilter type="date" field="last_charge_date" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="amount" pResizableColumn>
+                        <th pSortableColumn="total_amount_owed" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
-                                Valor
-                                <p-sortIcon field="amount"></p-sortIcon>
-                                <p-columnFilter type="numeric" field="amount" display="menu" currency="BRL" class="ml-auto"></p-columnFilter>
+                                Vl. Total devedor
+                                <p-sortIcon field="total_amount_owed"></p-sortIcon>
+                                <p-columnFilter type="numeric" field="total_amount_owed" display="menu" currency="BRL" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
-                        <th pSortableColumn="payment_method" pResizableColumn>
+                        <th pSortableColumn="quantity_total_charges" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
-                                Método de pagto.
-                                <p-sortIcon field="payment_method"></p-sortIcon>
-                                <p-columnFilter type="text" field="payment_method" display="menu" class="ml-auto"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="paid_at" pResizableColumn>
-                            <div class="flex justify-content-between align-items-center text-nowrap">
-                                Dt. Pagamento
-                                <p-sortIcon field="paid_at"></p-sortIcon>
-                                <p-columnFilter type="date" field="paid_at" display="menu" class="ml-auto"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="payment_status" pResizableColumn>
-                            <div class="flex justify-content-between align-items-center">
-                                Status
-                                <p-sortIcon field="payment_status"></p-sortIcon>
-                                <p-columnFilter type="text" field="payment_status" display="menu" class="ml-auto"></p-columnFilter>
+                                Qtd. Total cobranças
+                                <p-sortIcon field="quantity_total_charges"></p-sortIcon>
+                                <p-columnFilter type="numeric" field="quantity_total_charges" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
                     </tr>
@@ -99,49 +95,44 @@
                 <ng-template pTemplate="body" let-record>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="record"></p-tableCheckbox>
-                        </td>
-                        <td>
                             <span class="p-column-title">ID</span>
                             {{ record.id }}
                         </td>
                         <td>
                             <span class="p-column-title">Paciente</span>
-                            {{ record.patient_name }}
+                            {{ record.user.name }}
                         </td>
                         <td>
-                            <span class="p-column-title">Dt. Vencimento</span>
-                            {{ record.due_date | date: "dd/MM/Y" }}
+                            <span class="p-column-title">CPF/CNPJ</span>
+                            {{ record.user.cpf_cnpj | cpfCnpj }}
                         </td>
                         <td>
-                            <span class="p-column-title">Valor</span>
-                            {{ record.amount | currency: 'BRL' }}
+                            <span class="p-column-title">E-mail</span>
+                            {{ record.user.email }}
                         </td>
                         <td>
-                            <span class="p-column-title">Método de pagto.</span>
-                            {{ PaymentMethodTypeEnumLabels[record.payment_method] }}
+                            <span class="p-column-title">Dt. Última cobrança</span>
+                            {{ record.last_charge_date | date: "dd/MM/Y" }}
                         </td>
                         <td>
-                            <span class="p-column-title">Dt. Pagamento</span>
-                            {{ record.paid_at | date: "dd/MM/Y" }}
+                            <span class="p-column-title">Vl. Total devedor</span>
+                            {{ record.total_amount_owed | currency: 'BRL' }}
                         </td>
                         <td>
-                            <span class="p-column-title">Status</span>
-                            <p-tag [value]="paymentStatusEnumLabels[record.payment_status]" [severity]="getPaymentStatusSeverity(record.payment_status)" />
+                            <span class="p-column-title">Qtd. Total cobranças</span>
+                            {{ record.quantity_total_charges }}
                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="8">
+                        <td colspan="6">
                             <div class="flex justify-content-center">Nenhum registro encontrado.</div>
                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="loadingbody">
                     <tr *ngFor="let _ of [].constructor(3)">
-                        <td></td>
-                        <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
