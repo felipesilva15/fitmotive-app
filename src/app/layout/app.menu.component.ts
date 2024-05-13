@@ -24,7 +24,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Financeiro',
                 items: [
                     { label: 'Extrato', icon: 'pi pi-fw pi-wallet' },
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-chart-bar' },
+                    { label: 'Dashboard', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/reports/financial/dashboard'] },
                     { label: 'Cobranças', icon: 'pi pi-fw pi-money-bill', routerLink: ['/charge'] },
                     { 
                         label: 'Relatórios',

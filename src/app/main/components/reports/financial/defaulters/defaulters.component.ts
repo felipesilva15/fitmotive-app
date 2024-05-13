@@ -17,7 +17,7 @@ export class DefaultersComponent {
   constructor(private financialReportService: FinancialReportService) { }
 
   ngOnInit() {
-    this.financialReportService.list().subscribe({
+    this.financialReportService.listDefaulters().subscribe({
       next: (data: Defaulter[]) => {
         this.records = data;
 

@@ -1,0 +1,70 @@
+<div class="grid" *ngIf="!isLoading; else loagingSkeleton">
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0 small-card-height">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Entradas</span>
+                    <div class="text-900 font-medium text-xl">{{ data.inflows | currency: 'BRL' }}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-green-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-fw pi-plus-circle text-green-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0 small-card-height">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Saídas</span>
+                    <div class="text-900 font-medium text-xl">{{ data.outflows | currency: 'BRL' }}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-red-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-fw pi-minus-circle text-red-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0 small-card-height">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Entradas pendentes</span>
+                    <div class="text-900 font-medium text-xl">{{ data.pending | currency: 'BRL' }}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-yellow-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-fw pi-exclamation-circle text-yellow-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0 small-card-height">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Saldo</span>
+                    <div class="text-900 font-medium text-xl">{{ data.balance | currency: 'BRL' }}</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-fw pi-dollar text-blue-500 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #loagingSkeleton>
+    <div class="grid">
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 lg:col-6 xl:col-3">
+            <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+    </div>
+</ng-template>
