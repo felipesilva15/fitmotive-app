@@ -11,8 +11,8 @@ import { FinancialDashboard } from 'src/app/main/api/financial-dashboard';
 export class DashboardComponent {
   isLoading: boolean = false;
   data!: FinancialDashboard;
-  profitChartData!: ChartData;
-  profitChartOptions!: any;
+  inOutChartData!: ChartData;
+  inOutChartOptions!: any;
   patientsChartData!: ChartData;
   patientsChartOptions!: any;
   documentStyle!: CSSStyleDeclaration
@@ -33,8 +33,72 @@ export class DashboardComponent {
     this.financialReportService.listDashboard().subscribe({
       next: (res: FinancialDashboard) => {
         this.data = res;
+
+        this.initCharts();
+
         this.isLoading = false
       }
     });
+  }
+
+  initCharts(): void { 
+    this.initInOutChart();
+  }
+
+  initInOutChart(): void {
+    console.log(this.data.in_out_chart_data)
+
+    this.inOutChartData = {
+      labels: this.data.in_out_chart_data?.months,
+      datasets: [
+        {
+          label: 'Entradas',
+          backgroundColor: this.documentStyle.getPropertyValue('--green-600'),
+          borderColor: this.documentStyle.getPropertyValue('--green-600'),
+          data: this.data.in_out_chart_data?.inflows
+        },
+        {
+          label: 'Saídas',
+          backgroundColor: this.documentStyle.getPropertyValue('--red-600'),
+          borderColor: this.documentStyle.getPropertyValue('--red-600'),
+          data: this.data.in_out_chart_data?.outflows
+        }
+      ]
+    };
+
+    this.inOutChartOptions = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      plugins: {
+        legend: {
+          labels: {
+            color: this.textColor
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: this.textColorSecondary,
+            font: {
+              weight: 500
+            }
+          },
+          grid: {
+            color: this.surfaceBorder,
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: this.textColorSecondary
+          },
+          grid: {
+            color: this.surfaceBorder,
+            drawBorder: false
+          }
+        }
+      }
+    };
   }
 }

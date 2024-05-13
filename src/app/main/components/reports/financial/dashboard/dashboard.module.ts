@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard.component';
     CommonModule,
     DashboardRoutingModule,
     SkeletonModule,
+    ChartModule,
     ChartModule
   ]
 })
