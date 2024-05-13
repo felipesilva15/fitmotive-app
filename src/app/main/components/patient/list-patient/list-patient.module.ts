@@ -24,7 +24,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { MenuModule } from 'primeng/menu';
 
 @NgModule({
-  declarations: [ListPatientComponent, CpfCnpjPipe],
+  declarations: [ListPatientComponent],
   imports: [
     CommonModule,
     ListPatientRoutingModule,
@@ -44,7 +44,8 @@ import { MenuModule } from 'primeng/menu';
     DialogModule,
     ConfirmDialogModule,
     SkeletonModule,
-    MenuModule
+    MenuModule,
+    CpfCnpjPipe
   ]
 })
 export class ListPatientModule { }

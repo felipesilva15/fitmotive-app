@@ -13,7 +13,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
-  declarations: [DefaultersComponent, CpfCnpjPipe],
+  declarations: [DefaultersComponent],
   imports: [
     CommonModule,
     DefaultersRoutingModule,
@@ -22,7 +22,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     ButtonModule,
     RippleModule,
     InputTextModule,
-    SkeletonModule
+    SkeletonModule,
+    CpfCnpjPipe
   ]
 })
 export class DefaultersModule { }
