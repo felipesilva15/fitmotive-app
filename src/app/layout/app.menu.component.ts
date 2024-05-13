@@ -30,7 +30,7 @@ export class AppMenuComponent implements OnInit {
                         label: 'Relatórios',
                         icon: 'pi pi-fw pi-list',
                         items: [
-                            { label: 'inadimplentes', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/reports/financial/defaulters'] }
+                            { label: 'Inadimplentes', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/reports/financial/defaulters'] }
                         ]
                     }
                 ]
