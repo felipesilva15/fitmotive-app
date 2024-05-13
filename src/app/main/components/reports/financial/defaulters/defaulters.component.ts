@@ -1,6 +1,7 @@
 import { FinancialReportService } from './../../../../service/financial-report.service';
 import { Component } from '@angular/core';
 import { Defaulter } from 'src/app/main/api/defaulter';
+import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from 'src/app/main/enum/payment-method-type-enum';
 
 @Component({
   selector: 'app-defaulters',
@@ -11,6 +12,7 @@ export class DefaultersComponent {
   records: Defaulter[] = [];
   cols: any[] = [];
   isLoading: boolean = true;
+  paymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
 
   constructor(private financialReportService: FinancialReportService) { }
 

@@ -15,7 +15,7 @@
                 [columns]="cols" 
                 responsiveLayout="scroll" 
                 [rows]="10" 
-                [globalFilterFields]="['id','name','due_date','amount','payment_status']" 
+                [globalFilterFields]="['id','user.name','user.cpf_cnpj','user.email','last_charge_date', 'total_amount_owed', 'quantity_total_charges']" 
                 [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]"
                 [showCurrentPageReport]="true"
@@ -41,6 +41,7 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
+                        <th style="width: 3rem"></th>
                         <th pSortableColumn="id" pResizableColumn>
                             <div class="flex justify-content-between align-items-center">
                                 ID
@@ -92,8 +93,11 @@
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-record>
+                <ng-template pTemplate="body" let-record let-expanded="expanded">
                     <tr>
+                        <td>
+							<button type="button" pButton pRipple [pRowToggler]="record" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+						</td>
                         <td>
                             <span class="p-column-title">ID</span>
                             {{ record.id }}
@@ -112,7 +116,7 @@
                         </td>
                         <td>
                             <span class="p-column-title">Dt. Última cobrança</span>
-                            {{ record.last_charge_date | date: "dd/MM/Y" }}
+                            {{ record.last_charge_date | date: 'dd/MM/Y' }}
                         </td>
                         <td>
                             <span class="p-column-title">Vl. Total devedor</span>
@@ -124,15 +128,48 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="rowexpansion" let-record>
+                    <tr>
+                        <td colspan="8">
+                            <div class="p-3">
+                                <p-table [value]="record.charges" dataKey="id">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th pSortableColumn="id">ID <p-sortIcon field="price" /></th>
+                                            <th pSortableColumn="due_date">Dt. Vencimento <p-sortIcon field="due_date" /></th>
+                                            <th pSortableColumn="amount">Valor <p-sortIcon field="amount" /></th>
+                                            <th pSortableColumn="payment_method">Método de pagamento <p-sortIcon field="payment_method" /></th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-charge>
+                                        <tr>
+                                            <td>{{ charge.id }}</td>
+                                            <td>{{ charge.due_date | date: 'dd/MM/Y' }}</td>
+                                            <td>{{ charge.amount | currency : 'BRL' }}</td>
+                                            <td>{{ paymentMethodTypeEnumLabels[charge.payment_method] }}</td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage">
+                                        <tr>
+                                            <td colspan="6">There are no order for this product yet.</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="6">
+                        <td colspan="8">
                             <div class="flex justify-content-center">Nenhum registro encontrado.</div>
                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="loadingbody">
                     <tr *ngFor="let _ of [].constructor(3)">
+                        <td></td>
+                        <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
