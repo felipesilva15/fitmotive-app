@@ -21,12 +21,6 @@ export class DefaultersComponent {
       next: (data: Defaulter[]) => {
         this.records = data;
 
-        this.records.forEach((record) => {
-          record.last_charge_date = new Date(<Date>record.last_charge_date);
-        });
-
-        console.log(this.records);
-
         this.isLoading = false;
       }
     });
