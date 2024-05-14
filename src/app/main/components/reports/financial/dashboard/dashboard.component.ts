@@ -2,6 +2,7 @@ import { FinancialReportService } from './../../../../service/financial-report.s
 import { Component } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { FinancialDashboard } from 'src/app/main/api/financial-dashboard';
+import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from 'src/app/main/enum/payment-method-type-enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,12 +14,13 @@ export class DashboardComponent {
   data!: FinancialDashboard;
   inOutChartData!: ChartData;
   inOutChartOptions!: any;
-  patientsChartData!: ChartData;
-  patientsChartOptions!: any;
+  paymentMethodsMostUsedChartData!: ChartData;
+  paymentMethodsMostUsedChartOptions!: any;
   documentStyle!: CSSStyleDeclaration
   textColor!: string;
   surfaceBorder!: string;
   textColorSecondary!: string;
+  paymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
 
   constructor(private financialReportService: FinancialReportService) { }
 
@@ -43,11 +45,10 @@ export class DashboardComponent {
 
   initCharts(): void { 
     this.initInOutChart();
+    this.initMostUsedPaymentMethodsChart();
   }
 
   initInOutChart(): void {
-    console.log(this.data.in_out_chart_data)
-
     this.inOutChartData = {
       labels: this.data.in_out_chart_data?.months,
       datasets: [
@@ -100,5 +101,41 @@ export class DashboardComponent {
         }
       }
     };
+  }
+
+  initMostUsedPaymentMethodsChart(): void {
+    let colors = [
+      'blue',
+      'yellow',
+      'green', 
+      'gray'
+    ];
+
+    let paymentMethods = this.data.payment_methods_most_used?.payment_methods.map((paymentMethod: PaymentMethodTypeEnum, index: number) => {
+      
+      return this.paymentMethodTypeEnumLabels[paymentMethod];
+    });
+
+    this.paymentMethodsMostUsedChartData = {
+      labels: paymentMethods,
+      datasets: [
+        {
+          data: this.data.payment_methods_most_used?.count,
+          backgroundColor: colors.map((color: string) => { return this.documentStyle.getPropertyValue(`--${color}-600`)}),
+          hoverBackgroundColor: colors.map((color: string) => { return this.documentStyle.getPropertyValue(`--${color}-500`)}),
+        }
+      ]
+    };
+
+    this.paymentMethodsMostUsedChartOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+            color: this.textColor
+          }
+        }
+      }
+    };;
   }
 }

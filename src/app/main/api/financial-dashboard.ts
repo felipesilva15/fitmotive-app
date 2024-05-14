@@ -4,4 +4,5 @@ export interface FinancialDashboard {
     pending: number,
     balance: number,
     in_out_chart_data: any;
+    payment_methods_most_used: any
 }

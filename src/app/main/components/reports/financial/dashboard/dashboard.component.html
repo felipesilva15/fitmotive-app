@@ -53,6 +53,12 @@
     </div>
     <div class="col-12 xl:col-6">
         <div class="card flex flex-column align-items-center">
+            <h5 class="text-left w-full">Métodos de pagamentos mais usados</h5>
+            <p-chart type="pie" [data]="paymentMethodsMostUsedChartData" [options]="paymentMethodsMostUsedChartOptions"></p-chart>
+        </div>
+    </div>
+    <div class="col-12 xl:col-6">
+        <div class="card flex flex-column align-items-center">
             <h5 class="text-left w-full">Entradas e saídas</h5>
             <p-chart type="bar" [data]="inOutChartData" [options]="inOutChartOptions" class="w-full"></p-chart>
         </div>
@@ -71,6 +77,9 @@
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
             <p-skeleton height="140px" width="100%"></p-skeleton>
+        </div>
+        <div class="col-12 xl:col-6">
+            <p-skeleton height="393px" width="100%"></p-skeleton>
         </div>
         <div class="col-12 xl:col-6">
             <p-skeleton height="468px" width="100%"></p-skeleton>
