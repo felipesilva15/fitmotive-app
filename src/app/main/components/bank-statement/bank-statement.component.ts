@@ -10,16 +10,23 @@ import { MovementTypeEnum } from '../../enum/movement-type-enum';
 })
 export class BankStatementComponent {
   records!: FinancialTransaction[];
+  isLoading: boolean = true;
   movementTypeEnum: MovementTypeEnum;
 
   constructor(private providerService: ProviderService) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.isLoading = true;
+
     this.providerService.listFinancialTransactions().subscribe({
       next: (res: FinancialTransaction[]) => {
         this.records = res;
 
-        console.log(this.records);
+        this.isLoading = false;
       }
     });
   }

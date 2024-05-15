@@ -3203,9 +3203,9 @@
   .p-dataview .p-dataview-loading-icon {
     font-size: 2rem;
   }
-  .p-dataview .p-dataview-emptymessage {
+  /* .p-dataview .p-dataview-emptymessage {
     padding: 1.25rem;
-  }
+  } */
 
   .p-column-filter-row .p-column-filter-menu-button,
 .p-column-filter-row .p-column-filter-clear-button {
