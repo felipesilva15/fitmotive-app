@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Menu } from 'primeng/menu';
-import { Table } from 'primeng/table';
-import { tap } from 'rxjs';
 import { Patient } from 'src/app/main/api/patient';
-import { User } from 'src/app/main/api/user';
+import { CustomDynamicDialogService } from 'src/app/main/service/custom-dynamic-dialog.service';
 import { PatientService } from 'src/app/main/service/patient.service';
 import { ProviderService } from 'src/app/main/service/provider.service';
+import { GenerateChargeComponent } from '../../charge/generate-charge/generate-charge.component';
 
 @Component({
   selector: 'app-list-patient',
@@ -23,7 +22,7 @@ export class ListPatientComponent {
   recordMenuItems!: MenuItem[];
   @ViewChild('recordMenu') recordMenu: Menu;
 
-  constructor(private providerService: ProviderService, private patientService: PatientService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
+  constructor(private providerService: ProviderService, private patientService: PatientService, private messageService: MessageService, private confirmationService: ConfirmationService, private customDynamicDialogService: CustomDynamicDialogService) {}
 
   ngOnInit() {
     this.providerService.listPatients().subscribe(
@@ -51,7 +50,7 @@ export class ListPatientComponent {
         label: 'Gerar cobrança', 
         icon: 'pi pi-fw pi-money-bill',
         command: (event) => {
-          console.table(this.selectedRecord);
+          this.openGenerateChargeDialog(this.selectedRecord);
         }
       }
   ];
@@ -78,9 +77,9 @@ export class ListPatientComponent {
 
         this.messageService.add({
           severity: 'success', 
-          summary: 'Successful', 
-          detail: 'Registros deletados', 
-          life: 3000 
+          summary: 'Sucesso', 
+          detail: 'Registros deletados.', 
+          life: 5000 
         });
       }
     });
@@ -102,9 +101,9 @@ export class ListPatientComponent {
             this.records = this.records.filter(val => val.id !== record.id);
             this.messageService.add({
               severity: 'success', 
-              summary: 'Successful', 
-              detail: 'Registro deletado', 
-              life: 3000 
+              summary: 'Sucesso', 
+              detail: 'Registro deletado.', 
+              life: 5000 
             });
           }
         );
@@ -115,5 +114,24 @@ export class ListPatientComponent {
   openRecordMenu(event: Event, record: Patient) {
     this.selectedRecord = record;
     this.recordMenu.toggle(event);
+  }
+
+  openGenerateChargeDialog(data?: Patient) {
+    console.log(data);
+
+    this.customDynamicDialogService.openDialog<Patient>(GenerateChargeComponent, 'Gerar cobrança', data).then(
+      (res: Patient) => {
+        if (!res) {
+          return;
+        }
+
+        this.messageService.add({
+          severity: 'success', 
+          summary: 'Sucesso', 
+          detail: 'Cobrança gerada.', 
+          life: 5000 
+        });
+      }
+    );
   }
 }

@@ -1,0 +1,41 @@
+<div class="p-fluid p-formgrid grid mt-1" [formGroup]="formGroup">
+    <div class="field col-12 py-0 m-0">
+        <p-messages [(value)]="messages" [enableService]="false" />
+    </div>
+    <div class="field col-12 py-0">
+        <label htmlFor="name">Nome</label>
+        <input id="name" formControlName="name" pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : name.invalid && (name.dirty || name.touched)}"/>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="name.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field col-12 py-0">
+        <label htmlFor="cpf_cnpj">CPF</label>
+        <p-inputMask id="cpf_cnpj" formControlName="cpf_cnpj" mask="999.999.999-99" [unmask]="true" required [ngClass]="{'ng-invalid ng-dirty' : cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)}"></p-inputMask>
+        <div *ngIf="cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="cpf_cnpj.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field col-12 py-0">
+        <label htmlFor="payment_method">Método de pagamento</label>
+        <p-dropdown [options]="paymentMethodTypeEnumOptions" optionLabel="name" optionValue="code" id="payment_method" formControlName="payment_method" [ngClass]="{'ng-invalid ng-dirty' : payment_method.invalid && (payment_method.dirty || payment_method.touched)}"></p-dropdown>
+        <div *ngIf="payment_method.invalid && (payment_method.dirty || payment_method.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="payment_method.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field col-12 py-0">
+        <label htmlFor="service_price">Vl. Serviço</label>
+        <p-inputNumber id="service_price" formControlName="service_price" mode="currency" currency="BRL" locale="pt-BR" [showButtons]="true" mode="currency" [ngClass]="{'ng-invalid ng-dirty' : service_price.invalid && (service_price.dirty || service_price.touched)}"></p-inputNumber>
+    </div>
+    <div class="field col-12 py-0">
+        <label htmlFor="due_date">Dt. Vencimento<span class="text-red-500 font-bold">*</span></label>
+        <p-calendar id="due_date" type="due_date" formControlName="due_date" inputId="icon" [showIcon]="true" dateFormat="dd/mm/yy" required [ngClass]="{'ng-invalid ng-dirty' : due_date.invalid && (due_date.dirty || due_date.touched)}"></p-calendar>
+        <div *ngIf="due_date.invalid && (due_date.dirty || due_date.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="due_date.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="col-12 py-0 flex justify-content-end gap-2">
+        <p-button label="Cancelar" [text]="true" severity="secondary" (click)="close()"></p-button>
+        <p-button label="Gerar" type="button" (click)="submit()" [loading]="isSubmitting" [disabled]="!formGroup.valid"></p-button>
+    </div>
+</div>

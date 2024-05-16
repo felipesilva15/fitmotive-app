@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Patient } from '../api/patient';
+import { Charge } from '../api/charge';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class PatientService {
 
   delete (id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  generateCharge(id: number, dueDate: Date) {
+    return this.http.post<Charge>(`${this.baseUrl}/${id}/generate_charge`, { due_date: dueDate });
   }
 }

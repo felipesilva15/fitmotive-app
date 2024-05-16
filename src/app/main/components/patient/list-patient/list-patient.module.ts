@@ -22,6 +22,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { MenuModule } from 'primeng/menu';
+import { GenerateChargeModule } from '../../charge/generate-charge/generate-charge.module';
 
 @NgModule({
   declarations: [ListPatientComponent],
@@ -45,7 +46,9 @@ import { MenuModule } from 'primeng/menu';
     ConfirmDialogModule,
     SkeletonModule,
     MenuModule,
-    CpfCnpjPipe
+    CpfCnpjPipe,
+    GenerateChargeModule,
+    ToastModule
   ]
 })
 export class ListPatientModule { }
