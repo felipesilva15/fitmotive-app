@@ -1,3 +1,4 @@
+import { DividerModule } from 'primeng/divider';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
