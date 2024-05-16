@@ -10,6 +10,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TagModule } from 'primeng/tag';
+import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { TagModule } from 'primeng/tag';
     ToolbarModule,
     InputTextModule,
     SkeletonModule,
-    TagModule
+    TagModule,
+    MenuModule
   ]
 })
 export class ListChargeModule { }

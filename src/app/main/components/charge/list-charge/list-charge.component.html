@@ -94,6 +94,7 @@
                                 <p-columnFilter type="text" field="payment_status" display="menu" class="ml-auto"></p-columnFilter>
                             </div>
                         </th>
+                        <th></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-record>
@@ -129,6 +130,11 @@
                             <span class="p-column-title">Status</span>
                             <p-tag [value]="paymentStatusEnumLabels[record.payment_status]" [severity]="getPaymentStatusSeverity(record.payment_status)" />
                         </td>
+                        <td>
+                            <div class="flex flex-nowrap gap-1">
+                                <button pButton pRipple icon="pi pi-ellipsis-v" class="p-button-rounded p-button-secondary" (click)="openRecordMenu($event, record)"></button>
+                            </div>
+                         </td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
@@ -147,10 +153,16 @@
                         <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
                         <td><p-skeleton></p-skeleton></td>
-                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton height="23px" width="60px"></p-skeleton></td>
+                        <td>
+                            <div class="flex flex-nowrap gap-1">
+                                <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+                            </div>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
     </div>
 </div>
+<p-menu #recordMenu [popup]="true" [model]="recordMenuItems"></p-menu>

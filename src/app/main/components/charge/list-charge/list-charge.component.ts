@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Menu } from 'primeng/menu';
 import { Charge } from 'src/app/main/api/charge';
 import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from 'src/app/main/enum/payment-method-type-enum';
 import { PaymentStatusEnum, PaymentStatusEnumLabels } from 'src/app/main/enum/payment-status-enum';
@@ -12,10 +14,13 @@ import { ProviderService } from 'src/app/main/service/provider.service';
 export class ListChargeComponent {
   records: Charge[] = [];
   selectedRecords: Charge[] = [];
+  selectedRecord!: Charge;
   cols: any[] = [];
   isLoading: boolean = true;
   paymentStatusEnumLabels: Record<PaymentStatusEnum, string> = PaymentStatusEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
+  recordMenuItems!: MenuItem[];
+  @ViewChild('recordMenu') recordMenu: Menu;
 
   constructor(private providerService: ProviderService) { }
 
@@ -39,6 +44,23 @@ export class ListChargeComponent {
       { field: 'service_prive', header: 'Servico' },
       { field: 'cpf_cnpj', header: 'CpfCnpj' },
       { field: 'birth_date', header: 'DtAniversario' }
+    ];
+
+    this.recordMenuItems = [
+      {
+        label: 'Links', 
+        icon: 'pi pi-fw pi-link',
+        command: (event) => {
+          console.table(this.selectedRecord);
+        }
+      },
+      {
+        label: 'Sincronizar status', 
+        icon: 'pi pi-fw pi-sync',
+        command: (event) => {
+          console.table(this.selectedRecord);
+        }
+      }
     ];
   }
 
@@ -65,5 +87,10 @@ export class ListChargeComponent {
       default:
         return null
     }
+  }
+
+  openRecordMenu(event: Event, record: Charge) {
+    this.selectedRecord = record;
+    this.recordMenu.toggle(event);
   }
 }
