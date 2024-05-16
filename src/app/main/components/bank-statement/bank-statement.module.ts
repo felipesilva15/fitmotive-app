@@ -5,6 +5,8 @@ import { BankStatementRoutingModule } from './bank-statement-routing.module';
 import { BankStatementComponent } from './bank-statement.component';
 import { DataViewModule } from 'primeng/dataview';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { SkeletonModule } from 'primeng/skeleton';
     CommonModule,
     BankStatementRoutingModule,
     DataViewModule,
-    SkeletonModule
+    SkeletonModule,
+    ButtonModule,
+    RippleModule
   ]
 })
 export class BankStatementModule { }

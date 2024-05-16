@@ -4,18 +4,21 @@
             <h4>Extrato</h4>
             <p-dataView #dv [value]="records">
                 <ng-template pTemplate="header">
+                    <div class="flex align-items-center justify-content-end">
+                        <button pButton pRipple label="Consultar" class="p-button-primary md:w-min" (click)="loadData()"></button>
+                    </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-records>
                     <div class="grid grid-nogutter" *ngIf="!isLoading; else loadingBody">
                         <div class="col-12" *ngFor="let record of records">
-                            <div class="flex flex-row align-items-center justify-content-between gap-2 p-3 border-bottom-1 surface-border">
-                                <div class="font-bold w-6">
+                            <div class="py-4 px-3 border-bottom-1 surface-border grid grid-nogutter">
+                                <div class="font-bold col-8">
                                     {{ record.description }}
                                 </div>
-                                <div>
+                                <div class="col-2 flex justify-content-center">
                                     {{ record.transaction_date | date: 'dd/MM/Y' }}
                                 </div>
-                                <div class="font-bold" [ngClass]="record.movement_type == 'CREDIT' ? 'text-green-500' : 'text-red-500'">
+                                <div class="font-bold col-2 flex justify-content-end" [ngClass]="record.movement_type == 'CREDIT' ? 'text-green-500' : 'text-red-500'">
                                     {{ record.amount | currency: 'BRL' }}
                                 </div>
                             </div>
@@ -23,24 +26,62 @@
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
+                    <div class="flex flex-column gap-2" *ngIf="!isLoading && records.length != 0; else loadingFooter">
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <div>Saldo anterior</div>
+                            <div>{{ data.totalizers.previous_balance | currency: 'BRL' }}</div>
+                        </div>
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <div>Crédito</div>
+                            <div class="text-green-500">{{ data.totalizers.credit | currency: 'BRL' }}</div>
+                        </div>
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <div>Débito</div>
+                            <div class="text-red-500">{{ data.totalizers.debit | currency: 'BRL' }}</div>
+                        </div>
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <div>Saldo atual</div>
+                            <div>{{ data.totalizers.current_balance | currency: 'BRL' }}</div>
+                        </div>
+                    </div>
                 </ng-template>
                 <ng-template pTemplate="empty">
-                    <div class="p-3" *ngIf="!isLoading && records.length == 0">
+                    <div class="py-4 px-3" *ngIf="!isLoading && records.length == 0">
                         Nenhum registro para exibir.
                     </div>
                 </ng-template>
                 <ng-template #loadingBody>
-                    <div *ngFor="let i of [].constructor(6); let first = first">
-                        <div class="flex flex-row align-items-center justify-content-between gap-2 p-3 border-bottom-1 surface-border">
-                            <div class="font-bold w-6">
+                    <div *ngFor="let i of [].constructor(3); let first = first">
+                        <div class="py-4 px-3 border-bottom-1 surface-border grid grid-nogutter">
+                            <div class="font-bold col-8">
                                 <p-skeleton height="16px" width="25%"></p-skeleton>
                             </div>
-                            <div>
+                            <div class="col-2 flex justify-content-center">
                                 <p-skeleton height="16px" width="70px"></p-skeleton>
                             </div>
-                            <div>
+                            <div class="font-bold col-2 flex justify-content-end">
                                 <p-skeleton height="16px" width="68px"></p-skeleton>
                             </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #loadingFooter>
+                    <div class="flex flex-column gap-2">
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <p-skeleton height="16px" width="100px"></p-skeleton>
+                            <p-skeleton height="16px" width="68px"></p-skeleton>
+                        </div>
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <p-skeleton height="16px" width="100px"></p-skeleton>
+                            <p-skeleton height="16px" width="68px"></p-skeleton>
+                        </div>
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <p-skeleton height="16px" width="100px"></p-skeleton>
+                            <p-skeleton height="16px" width="68px"></p-skeleton>
+                        </div>
+                        <div class="flex align-items-center justify-content-between w-full">
+                            <p-skeleton height="16px" width="100px"></p-skeleton>
+                            <p-skeleton height="16px" width="68px"></p-skeleton>
                         </div>
                     </div>
                 </ng-template>

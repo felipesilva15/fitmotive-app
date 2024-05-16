@@ -7,6 +7,7 @@ import { Patient } from '../api/patient';
 import { AuthService } from './auth.service';
 import { Charge } from '../api/charge';
 import { FinancialTransaction } from '../api/financial-transaction';
+import { BankStatement } from '../api/bank-statement';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class ProviderService {
     return this.http.get<Charge[]>(`${this.baseUrl}/${this.authService.provider_id}/charges`);
   }
 
-  listFinancialTransactions(): Observable<FinancialTransaction[]> {
-    return this.http.get<FinancialTransaction[]>(`${this.baseUrl}/${this.authService.provider_id}/financial_transactions`);
+  listFinancialTransactions(): Observable<BankStatement> {
+    return this.http.get<BankStatement>(`${this.baseUrl}/${this.authService.provider_id}/financial_transactions`);
   }
 }

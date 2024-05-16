@@ -2,6 +2,7 @@ import { ProviderService } from 'src/app/main/service/provider.service';
 import { Component } from '@angular/core';
 import { FinancialTransaction } from '../../api/financial-transaction';
 import { MovementTypeEnum } from '../../enum/movement-type-enum';
+import { BankStatement } from '../../api/bank-statement';
 
 @Component({
   selector: 'app-bank-statement',
@@ -9,6 +10,7 @@ import { MovementTypeEnum } from '../../enum/movement-type-enum';
   styleUrl: './bank-statement.component.scss'
 })
 export class BankStatementComponent {
+  data!: BankStatement;
   records!: FinancialTransaction[];
   isLoading: boolean = true;
   movementTypeEnum: MovementTypeEnum;
@@ -23,10 +25,13 @@ export class BankStatementComponent {
     this.isLoading = true;
 
     this.providerService.listFinancialTransactions().subscribe({
-      next: (res: FinancialTransaction[]) => {
-        this.records = res;
+      next: (res: BankStatement) => {
+        this.data = res;
+        this.records = res.data;
 
         this.isLoading = false;
+
+        console.log(this.isLoading, this.records.length)
       }
     });
   }
