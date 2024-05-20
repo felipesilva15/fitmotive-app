@@ -1,0 +1,18 @@
+<p-dataView #dv [value]="records">
+    <ng-template pTemplate="list" let-records>
+        <div class="grid grid-nogutter animation-duration-600 fadein">
+            <div class="col-12" *ngFor="let record of records; let first = first">
+                <div class="py-3 px-2 grid grid-nogutter flex justify-content-between align-items-center"  [ngClass]="{ 'border-top-1 surface-border': !first }">
+                    <div class="font-bold">
+                        {{ chargeLinkReferenceEnumLabels[record.reference] }} ({{ record.response_type }})
+                    </div>
+                    <div>
+                        <a [href]="record.uri" target="_blank" rel="noopener noreferrer">
+                            <button pButton pRipple icon="pi pi-external-link" class="p-button-rounded p-button-secondary p-button-text p-1 w-3rem h-3rem"></button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>

@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TagModule } from 'primeng/tag';
 import { MenuModule } from 'primeng/menu';
+import { LinksModule } from '../links/links.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MenuModule } from 'primeng/menu';
     InputTextModule,
     SkeletonModule,
     TagModule,
-    MenuModule
+    MenuModule,
+    LinksModule
   ]
 })
 export class ListChargeModule { }

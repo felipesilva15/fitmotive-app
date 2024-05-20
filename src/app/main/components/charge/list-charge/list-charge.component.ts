@@ -2,9 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
 import { Charge } from 'src/app/main/api/charge';
+import { ChargeLink } from 'src/app/main/api/charge-link';
 import { PaymentMethodTypeEnum, PaymentMethodTypeEnumLabels } from 'src/app/main/enum/payment-method-type-enum';
 import { PaymentStatusEnum, PaymentStatusEnumLabels } from 'src/app/main/enum/payment-status-enum';
+import { CustomDynamicDialogService } from 'src/app/main/service/custom-dynamic-dialog.service';
 import { ProviderService } from 'src/app/main/service/provider.service';
+import { LinksComponent } from '../links/links.component';
 
 @Component({
   selector: 'app-list-charge',
@@ -22,12 +25,14 @@ export class ListChargeComponent {
   recordMenuItems!: MenuItem[];
   @ViewChild('recordMenu') recordMenu: Menu;
 
-  constructor(private providerService: ProviderService) { }
+  constructor(private providerService: ProviderService, private customDynamicDialogService: CustomDynamicDialogService) { }
 
   ngOnInit() {
     this.providerService.listCharges().subscribe({
       next: (data: Charge[]) => {
         this.records = data;
+
+        console.log(this.records);
 
         this.records.forEach((record) => {
           record.due_date = new Date(<Date>record.due_date);
@@ -50,8 +55,8 @@ export class ListChargeComponent {
       {
         label: 'Links', 
         icon: 'pi pi-fw pi-link',
-        command: (event) => {
-          console.table(this.selectedRecord);
+        command: () => {
+          this.openLinksDialog(this.selectedRecord.charge_links);
         }
       },
       {
@@ -92,5 +97,9 @@ export class ListChargeComponent {
   openRecordMenu(event: Event, record: Charge) {
     this.selectedRecord = record;
     this.recordMenu.toggle(event);
+  }
+
+  openLinksDialog(data?: Array<ChargeLink>) {
+    this.customDynamicDialogService.openDialog<void>(LinksComponent, 'Links', data);
   }
 }
