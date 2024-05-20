@@ -9,7 +9,7 @@
                     </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-records>
-                    <div class="grid grid-nogutter" *ngIf="!isLoading; else loadingBody">
+                    <div class="grid grid-nogutter animation-duration-600 fadein" *ngIf="!isLoading; else loadingBody">
                         <div class="col-12" *ngFor="let record of records">
                             <div class="py-4 px-3 border-bottom-1 surface-border grid grid-nogutter">
                                 <div class="font-bold col-8">
@@ -26,7 +26,7 @@
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <div class="flex flex-column gap-2" *ngIf="!isLoading && records.length != 0; else loadingFooter">
+                    <div class="flex flex-column gap-2 animation-duration-600 fadein" *ngIf="!isLoading && records.length != 0; else loadingFooter">
                         <div class="flex align-items-center justify-content-between w-full">
                             <div>Saldo anterior</div>
                             <div>{{ data.totalizers.previous_balance | currency: 'BRL' }}</div>
