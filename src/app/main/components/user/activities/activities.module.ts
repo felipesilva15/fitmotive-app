@@ -7,6 +7,7 @@ import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { CardModule } from 'primeng/card';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CardModule } from 'primeng/card';
     TimelineModule,
     ButtonModule,
     RippleModule,
-    CardModule
+    CardModule,
+    SkeletonModule
   ]
 })
 export class ActivitiesModule { }

@@ -9,16 +9,20 @@ import { Activities } from 'src/app/main/api/activities';
 })
 export class ActivitiesComponent {
   activities!: Activities;
+  isLoading: boolean = true;
   dates!: Array<string>;
 
   constructor(private providerService: ProviderService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.providerService.logs().subscribe({
       next: (res: Activities) => {
         this.activities = res;
         this.dates = Object.keys(this.activities);
-        console.log(this.dates)
+
+        this.isLoading = false
       }
     });
   }

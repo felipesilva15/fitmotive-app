@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <h4>Atividades</h4>
-            <p-timeline [value]="dates" align="alternate" styleClass="customized-timeline">
+            <p-timeline [value]="dates" align="alternate" styleClass="customized-timeline animation-duration-600 fadein" *ngIf="!isLoading; else loadingSkeleton">
                 <ng-template pTemplate="marker">
                     <span 
                         class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1 bg-primary">
@@ -16,6 +16,26 @@
                     </p-card>
                 </ng-template>
             </p-timeline>
+            <ng-template #loadingSkeleton>
+                <div *ngFor="let item of [].constructor(3); let i = index; let last = last" class="flex">
+                    <ng-container *ngIf="i % 2 == 0" class="p-3">
+                        <div class="flex-grow-1 px-3"></div>
+                        <div class="flex flex-column">
+                            <p-skeleton shape="circle" size="2rem" />
+                            <p-skeleton *ngIf="!last" width="2px" height="100%" class="h-full mx-auto" />
+                        </div>
+                        <p-skeleton class="flex-grow-1 px-3" width="100%" height="12rem"></p-skeleton>
+                    </ng-container>
+                    <ng-container *ngIf="i % 2 == 1">
+                        <p-skeleton class="flex-grow-1 px-3" width="100%" height="20rem"></p-skeleton>
+                        <div class="flex flex-column">
+                            <p-skeleton shape="circle" size="2rem" />
+                            <p-skeleton *ngIf="!last" width="2px" height="100%" class="h-full mx-auto" />
+                        </div>
+                        <div class="flex-grow-1 px-3"></div>
+                    </ng-container>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>
