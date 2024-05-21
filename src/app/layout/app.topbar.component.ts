@@ -22,7 +22,7 @@ export class AppTopBarComponent {
     ngOnInit() {
         this.profileMenuItems = [
             {
-                label: 'Atividades', icon: 'pi pi-fw pi-list'
+                label: 'Atividades', icon: 'pi pi-fw pi-list', routerLink: ['/user/activities']
             },
             {
                 separator: true

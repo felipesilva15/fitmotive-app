@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { Charge } from '../api/charge';
 import { FinancialTransaction } from '../api/financial-transaction';
 import { BankStatement } from '../api/bank-statement';
+import { Activities } from '../api/activities';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,9 @@ export class ProviderService {
 
   listFinancialTransactions(): Observable<BankStatement> {
     return this.http.get<BankStatement>(`${this.baseUrl}/${this.authService.provider_id}/financial_transactions`);
+  }
+
+  logs(): Observable<Activities> {
+    return this.http.get<Activities>(`${this.baseUrl}/${this.authService.provider_id}/logs`)
   }
 }

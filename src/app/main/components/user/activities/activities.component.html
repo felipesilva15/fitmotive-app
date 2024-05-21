@@ -1,0 +1,21 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>Atividades</h4>
+            <p-timeline [value]="dates" align="alternate" styleClass="customized-timeline">
+                <ng-template pTemplate="marker">
+                    <span 
+                        class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1 bg-primary">
+                    </span>
+                </ng-template>
+                <ng-template pTemplate="content" let-date>
+                    <p-card [header]="date">
+                        <p *ngFor="let log of activities[date]">
+                            {{ log.hour }} - {{ log.description }}
+                        </p>
+                    </p-card>
+                </ng-template>
+            </p-timeline>
+        </div>
+    </div>
+</div>
