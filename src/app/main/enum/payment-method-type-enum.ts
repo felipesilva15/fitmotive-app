@@ -1,13 +1,11 @@
 export enum PaymentMethodTypeEnum {
     CreditCard = 'CREDIT_CARD',
-    DebitCard = 'DEBIT_CARD',
     Pix = 'PIX',
     Boleto = 'BOLETO'
 }
 
 export const PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = {
     [PaymentMethodTypeEnum.CreditCard]: 'Cartão de crédito',
-    [PaymentMethodTypeEnum.DebitCard]: 'Cartão de débito',
     [PaymentMethodTypeEnum.Pix]: 'PIX',
     [PaymentMethodTypeEnum.Boleto]: 'Boleto'
 };

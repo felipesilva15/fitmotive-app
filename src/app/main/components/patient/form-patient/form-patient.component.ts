@@ -70,7 +70,7 @@ export class FormPatientComponent {
       email: [this.data.name, [Validators.required, Validators.email]],
       cpf_cnpj: [this.data.cpf_cnpj, [Validators.required]],
       birth_date: [this.data.birth_date, [Validators.required]],
-      service_price: [this.data.service_price, []],
+      service_price: [this.data.service_price, [Validators.required]],
       billing_recurrence: [this.data.billing_recurrence, [Validators.required]],
     })
   }
@@ -129,8 +129,31 @@ export class FormPatientComponent {
     this.data.billing_recurrence = this.billing_recurrence.value;
   }
 
+  validateItems(): boolean {
+    if (this.data.phones.length <= 0) {
+      this.customDynamicDialogService.showMessage('Informe pelo menos um telefone para prosseguir!');
+      return false;
+    }
+
+    if (this.data.adresses.length <= 0) {
+      this.customDynamicDialogService.showMessage('Informe pelo menos um endereço para prosseguir!');
+      return false;
+    }
+
+    if (this.data.payment_methods.length <= 0) {
+      this.customDynamicDialogService.showMessage('Informe pelo menos um método de pagamento para prosseguir!');
+      return false;
+    }
+
+    return true;
+  }
+
   submit(): void {
     if (!this.formGroup.valid) {
+      return;
+    }
+
+    if (!this.validateItems()) {
       return;
     }
 

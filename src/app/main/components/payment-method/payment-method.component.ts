@@ -70,7 +70,7 @@ export class PaymentMethodComponent {
   }
 
   checkType(): void {
-    if(this.type.value == PaymentMethodTypeEnum.CreditCard || this.type.value == PaymentMethodTypeEnum.DebitCard) {
+    if(this.type.value == PaymentMethodTypeEnum.CreditCard) {
       this.isCard = true;
 
       this.card_number.enable();
