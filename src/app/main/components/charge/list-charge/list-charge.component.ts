@@ -8,6 +8,7 @@ import { PaymentStatusEnum, PaymentStatusEnumLabels } from 'src/app/main/enum/pa
 import { CustomDynamicDialogService } from 'src/app/main/service/custom-dynamic-dialog.service';
 import { ProviderService } from 'src/app/main/service/provider.service';
 import { LinksComponent } from '../links/links.component';
+import { PagseguroChargeService } from 'src/app/main/service/pagseguro-charge.service';
 
 @Component({
   selector: 'app-list-charge',
@@ -25,7 +26,7 @@ export class ListChargeComponent {
   recordMenuItems!: MenuItem[];
   @ViewChild('recordMenu') recordMenu: Menu;
 
-  constructor(private providerService: ProviderService, private customDynamicDialogService: CustomDynamicDialogService) { }
+  constructor(private providerService: ProviderService, private customDynamicDialogService: CustomDynamicDialogService, private pagseguroChargeService: PagseguroChargeService) { }
 
   ngOnInit() {
     this.providerService.listCharges().subscribe({
@@ -62,8 +63,8 @@ export class ListChargeComponent {
       {
         label: 'Sincronizar status', 
         icon: 'pi pi-fw pi-sync',
-        command: (event) => {
-          console.table(this.selectedRecord);
+        command: () => {
+          this.checkStatus();
         }
       }
     ];
@@ -101,5 +102,14 @@ export class ListChargeComponent {
 
   openLinksDialog(data?: Array<ChargeLink>) {
     this.customDynamicDialogService.openDialog<void>(LinksComponent, 'Links', data);
+  }
+
+  checkStatus() {
+    this.pagseguroChargeService.checkStatus(this.selectedRecord.id).subscribe({
+      next: (res: Charge) => {
+        const index = this.records.indexOf(this.selectedRecord);
+        this.records[index] = res;
+      }
+    });
   }
 }
