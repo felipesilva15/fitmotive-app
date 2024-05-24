@@ -12,6 +12,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TagModule } from 'primeng/tag';
 import { MenuModule } from 'primeng/menu';
 import { LinksModule } from '../links/links.module';
+import { QrCodeModule } from '../../qr-code/qr-code.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { LinksModule } from '../links/links.module';
     SkeletonModule,
     TagModule,
     MenuModule,
-    LinksModule
+    LinksModule,
+    QrCodeModule
   ]
 })
 export class ListChargeModule { }

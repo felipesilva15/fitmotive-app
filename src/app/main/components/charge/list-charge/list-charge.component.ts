@@ -9,6 +9,8 @@ import { CustomDynamicDialogService } from 'src/app/main/service/custom-dynamic-
 import { ProviderService } from 'src/app/main/service/provider.service';
 import { LinksComponent } from '../links/links.component';
 import { PagseguroChargeService } from 'src/app/main/service/pagseguro-charge.service';
+import { QrCode } from 'src/app/main/api/qr-code';
+import { QrCodeComponent } from '../../qr-code/qr-code.component';
 
 @Component({
   selector: 'app-list-charge',
@@ -61,6 +63,13 @@ export class ListChargeComponent {
         }
       },
       {
+        label: 'QR Code - PIX', 
+        icon: 'pi pi-fw pi-qrcode',
+        command: () => {
+          this.openQrCodeDialog(this.selectedRecord?.qr_code);
+        }
+      },
+      {
         label: 'Sincronizar status', 
         icon: 'pi pi-fw pi-sync',
         command: () => {
@@ -102,6 +111,10 @@ export class ListChargeComponent {
 
   openLinksDialog(data?: Array<ChargeLink>) {
     this.customDynamicDialogService.openDialog<void>(LinksComponent, 'Links', data);
+  }
+
+  openQrCodeDialog(data: QrCode): void {
+    this.customDynamicDialogService.openDialog<void>(QrCodeComponent, 'QR Code - PIX', data);
   }
 
   checkStatus() {

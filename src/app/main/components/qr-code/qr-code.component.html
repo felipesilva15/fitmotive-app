@@ -1,0 +1,30 @@
+<div class="p-fluid p-formgrid grid mt-1" [formGroup]="formGroup">
+    <div class="field col-12 py-0 flex justify-content-center">
+        <p-image 
+        [src]="data.image_uri" 
+        width="300"
+        height="300"
+        class="mx-auto"
+        alt="QR Code"
+        [preview]="true" />
+    </div>
+    <div class="field col-12 py-0 textarea-container">
+        <textarea 
+            rows="6"
+            pInputTextarea 
+            id="text"
+            formControlName="text"
+            [autoResize]="true" >
+        </textarea>
+        <button pButton pRipple type="button" icon="pi pi-copy" class="p-button-secondary p-button-text p-button-raised w-2rem h-2rem p-0 copy-button" (click)="copyText()"></button>
+    </div>
+    <div class="field col-6 py-0">
+        <label htmlFor="expiration_date">Dt. Expiração</label>
+        <p-calendar id="expiration_date" type="expiration_date" formControlName="expiration_date" inputId="icon" dateFormat="dd/mm/yy" [showTime]="true" [hourFormat]="24"></p-calendar>
+    </div>
+    <div class="field col-6 py-0">
+        <label htmlFor="amount">Valor</label>
+        <p-inputNumber id="amount" formControlName="amount" mode="currency" currency="BRL" locale="pt-BR" mode="currency"></p-inputNumber>
+    </div>
+</div>
+<p-toast position="bottom" />

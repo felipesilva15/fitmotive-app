@@ -1,6 +1,7 @@
 import { PaymentMethodTypeEnum } from "../enum/payment-method-type-enum";
 import { PaymentStatusEnum } from "../enum/payment-status-enum";
 import { ChargeLink } from "./charge-link";
+import { QrCode } from "./qr-code";
 
 export interface Charge {
     id?: number;
@@ -12,6 +13,7 @@ export interface Charge {
     amount: number;
     payment_status: PaymentStatusEnum;
     charge_links: Array<ChargeLink>;
+    qr_code?: QrCode;
     paid_at?: string | Date;
     created_at?: string | Date;
     updated_at?: string | Date;

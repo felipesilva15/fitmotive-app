@@ -17,8 +17,11 @@ export class GenerateChargeComponent {
   paymentMethodTypeEnumOptions: Array<any> = PaymentMethodTypeEnumOptions;
   isSubmitting: boolean = false;
   messages: Message[] = [];
+  minDueDate: Date = new Date();
 
   constructor(private config: DynamicDialogConfig, private ref: DynamicDialogRef, private fb: FormBuilder, private patientService: PatientService) {
+    this.minDueDate.setDate(new Date().getDate() + 1)
+
     if(this.config.data) {
       this.data = this.config.data
     } else {
