@@ -15,6 +15,7 @@ import { PaymentMethod } from 'src/app/main/api/payment-method';
 import { PaymentMethodComponent } from '../../payment-method/payment-method.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CpfValidator } from 'src/app/main/validator/cpf-validator';
 
 @Component({
   selector: 'app-form-patient',
@@ -68,14 +69,14 @@ export class FormPatientComponent {
     return this.fb.group({
       name: [this.data.name, [Validators.required]],
       email: [this.data.name, [Validators.required, Validators.email]],
-      cpf_cnpj: [this.data.cpf_cnpj, [Validators.required]],
+      cpf_cnpj: [this.data.cpf_cnpj, [Validators.required, CpfValidator.validate()]],
       birth_date: [this.data.birth_date, [Validators.required]],
       service_price: [this.data.service_price, [Validators.required]],
       billing_recurrence: [this.data.billing_recurrence, [Validators.required]],
     })
   }
 
-  loadData() {
+  loadData(): void {
     this.isLoading = true;
 
     this.patientService.get(this.paramId).subscribe({
@@ -120,7 +121,7 @@ export class FormPatientComponent {
     return this.formGroup.get('billing_recurrence');
   }
 
-  convertFormToObject() {
+  convertFormToObject(): void {
     this.data.name = this.name.value;
     this.data.email = this.email.value;
     this.data.cpf_cnpj = this.cpf_cnpj.value;
@@ -149,7 +150,11 @@ export class FormPatientComponent {
   }
 
   submit(): void {
+    this.formGroup.markAllAsTouched();
+
     if (!this.formGroup.valid) {
+      this.scrollTop();
+
       return;
     }
 
@@ -166,6 +171,14 @@ export class FormPatientComponent {
     } else {
       this.create();
     }
+  }
+
+  scrollTop(): void {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
   }
 
   create(): void {
@@ -214,7 +227,7 @@ export class FormPatientComponent {
     this.data.phones.splice(index, 1);
   }
 
-  openAddressDialog(data?: Address, index?: number) {
+  openAddressDialog(data?: Address, index?: number): void {
     this.customDynamicDialogService.openDialog<Address>(AddressComponent, 'Endereço', data).then(
       (res: Address) => {
         if (!res) {
