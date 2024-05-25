@@ -32,6 +32,7 @@ export class PaymentMethodComponent {
     }
 
     this.formGroup = this.buildFormGroup();
+    this.checkType();
   }
 
   private buildFormGroup(): FormGroup {
