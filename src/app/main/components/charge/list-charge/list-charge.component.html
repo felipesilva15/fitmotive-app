@@ -132,7 +132,7 @@
                         </td>
                         <td>
                             <div class="flex flex-nowrap gap-1">
-                                <button pButton pRipple icon="pi pi-ellipsis-v" class="p-button-rounded p-button-secondary" (click)="openRecordMenu($event, record)"></button>
+                                <button pButton pRipple icon="pi pi-ellipsis-v" class="p-button-rounded p-button-secondary" [loading]="isLoadingMenuItem && selectedRecord.id == record.id" (click)="openRecordMenu($event, record)"></button>
                             </div>
                          </td>
                     </tr>

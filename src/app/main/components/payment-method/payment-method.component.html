@@ -22,9 +22,10 @@
     </div>
     <div class="field col-6 py-0">
         <label htmlFor="security_code">CVV<span *ngIf="isCard" class="text-red-500 font-bold">*</span></label>
-        <input id="security_code" formControlName="security_code" pInputText required [ngClass]="{'ng-invalid ng-dirty' : security_code.invalid && (security_code.dirty || security_code.touched)}"/>
+        <input id="security_code" formControlName="security_code" pInputText [maxlength]="3" required [ngClass]="{'ng-invalid ng-dirty' : security_code.invalid && (security_code.dirty || security_code.touched)}"/>
         <div *ngIf="security_code.invalid && (security_code.dirty || security_code.touched)">
             <small class="ng-dirty ng-invalid" *ngIf="security_code.errors?.['required']">Este campo é obrigatório.</small>
+            <small class="ng-dirty ng-invalid" *ngIf="security_code.errors?.['maxlength']">O tamanho máximo é de {{ security_code.errors?.['maxlength']?.requiredLength }}.</small>
         </div>
     </div>
     <div class="field col-12 py-0 flex align-items-center gap-2">
