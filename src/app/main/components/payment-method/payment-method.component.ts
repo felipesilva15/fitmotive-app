@@ -117,12 +117,11 @@ export class PaymentMethodComponent {
   }
 
   submit(): void {
-    console.log(this.security_code)
-    // if (!this.formGroup.valid) {
-    //   return;
-    // }
+    if (!this.formGroup.valid) {
+      return;
+    }
 
-    // this.convertFormToObject()
-    // this.close(this.data)
+    this.convertFormToObject()
+    this.close(this.data)
   }
 }

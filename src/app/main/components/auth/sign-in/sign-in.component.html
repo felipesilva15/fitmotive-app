@@ -16,6 +16,7 @@
 					<p-inputMask id="cpf_cnpj" formControlName="cpf_cnpj" mask="999.999.999-99" [unmask]="true" required [ngClass]="{'ng-invalid ng-dirty' : cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)}"></p-inputMask>
 					<div *ngIf="cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)">
 						<small class="ng-dirty ng-invalid" *ngIf="cpf_cnpj.errors?.['required']">Este campo é obrigatório.</small>
+						<small class="ng-dirty ng-invalid" *ngIf="cpf_cnpj.errors?.['cpf']">Informe um CPF válido.</small>
 					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
@@ -248,11 +249,11 @@
 				<div class="flex align-items-center justify-content-between border-round border-1 border-gray-200 p-3" [ngClass]="plan_id == plan.id ? 'border-primary' : ''" *ngFor="let plan of plans">
 					<div class="flex align-items-center">
 						<p-radioButton 
-							name="plan_id" 
+							name="plan_id_{{plan.id}}" 
 							[value]="plan.id" 
 							[(ngModel)]="plan_id" 
-							inputId="plan_id" />
-						<label for="plan_id" class="ml-2 font-bold">{{ plan.name }}</label>
+							inputId="plan_id_{{plan.id}}" />
+						<label for="plan_id_{{plan.id}}" class="ml-2 font-bold">{{ plan.name }}</label>
 					</div>
 					<div>
 						<span class="text-lg font-bold">{{ plan.price | currency: 'BRL' }}</span>
