@@ -90,6 +90,4 @@ export class PhoneComponent {
     this.convertFormToObject()
     this.close(this.data)
   }
-
-  
 }

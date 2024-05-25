@@ -8,6 +8,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { WithdrawModule } from '../withdraw/withdraw.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RippleModule } from 'primeng/ripple';
     DataViewModule,
     SkeletonModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    WithdrawModule
   ]
 })
 export class BankStatementModule { }
