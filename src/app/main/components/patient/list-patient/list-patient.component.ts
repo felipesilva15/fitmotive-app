@@ -40,16 +40,17 @@ export class ListPatientComponent {
     this.cols = [
       { field: 'id', header: 'ID' },
       { field: 'name', header: 'Nome' },
-      { field: 'service_prive', header: 'Servico' },
+      { field: 'email', header: 'Email' },
       { field: 'cpf_cnpj', header: 'CpfCnpj' },
-      { field: 'birth_date', header: 'DtAniversario' }
+      { field: 'birth_date', header: 'DtAniversario' },
+      { field: 'service_price', header: 'Servico' }
     ];
 
     this.recordMenuItems = [
       {
         label: 'Gerar cobrança', 
         icon: 'pi pi-fw pi-money-bill',
-        command: (event) => {
+        command: () => {
           this.openGenerateChargeDialog(this.selectedRecord);
         }
       }

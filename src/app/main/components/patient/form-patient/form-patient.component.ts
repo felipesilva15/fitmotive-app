@@ -31,6 +31,7 @@ export class FormPatientComponent {
   paramId: number;
   phoneTypeEnumLabels: Record<PhoneTypeEnum, string> = PhoneTypeEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
+  maxBirthDate: Date = new Date();
 
   constructor(
     private patientService: PatientService, 
@@ -63,6 +64,8 @@ export class FormPatientComponent {
     if (this.paramId) {
       this.loadData();
     }
+
+    this.maxBirthDate.setDate(this.maxBirthDate.getDate() - (365 * 4));
   }
 
   private buildFormGroup(): FormGroup {

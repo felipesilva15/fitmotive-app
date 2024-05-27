@@ -28,7 +28,8 @@ export class DefaultersComponent {
     this.cols = [
       { field: 'id', header: 'ID' },
       { field: 'user.name', header: 'Paciente' },
-      { field: 'user.cpf_cnpj', header: 'CPF' },
+      { field: 'user.cpf_cnpj', header: 'CpfCnpj' },
+      { field: 'user.email', header: 'Email' },
       { field: 'last_charge_date', header: 'DtUltimaCobranca' },
       { field: 'total_amount_owed', header: 'VlTotalDevedor' },
       { field: 'quantity_total_charges', header: 'QtdTotalCobrancas' }

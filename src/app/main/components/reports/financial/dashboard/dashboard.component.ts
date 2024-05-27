@@ -106,7 +106,6 @@ export class DashboardComponent {
   initMostUsedPaymentMethodsChart(): void {
     let colors = [
       'blue',
-      'yellow',
       'green', 
       'gray'
     ];

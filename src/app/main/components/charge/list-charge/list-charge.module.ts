@@ -13,6 +13,7 @@ import { TagModule } from 'primeng/tag';
 import { MenuModule } from 'primeng/menu';
 import { LinksModule } from '../links/links.module';
 import { QrCodeModule } from '../../qr-code/qr-code.module';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { QrCodeModule } from '../../qr-code/qr-code.module';
     TagModule,
     MenuModule,
     LinksModule,
-    QrCodeModule
+    QrCodeModule,
+    DropdownModule
   ]
 })
 export class ListChargeModule { }

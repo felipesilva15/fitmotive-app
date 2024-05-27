@@ -1,3 +1,5 @@
+import { PaymentMethodTypeEnumOptions } from './../../../enum/payment-method-type-enum';
+import { PaymentStatusEnumOptions } from './../../../enum/payment-status-enum';
 import { Component, Renderer2, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
@@ -24,7 +26,9 @@ export class ListChargeComponent {
   cols: any[] = [];
   isLoading: boolean = true;
   isLoadingMenuItem: boolean = false;
+  paymentStatusEnumOptions: Array<any> = PaymentStatusEnumOptions;
   paymentStatusEnumLabels: Record<PaymentStatusEnum, string> = PaymentStatusEnumLabels;
+  paymentMethodTypeEnumOptions: Array<any> = PaymentMethodTypeEnumOptions;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
   recordMenuItems!: MenuItem[];
   @ViewChild('recordMenu') recordMenu: Menu;
@@ -35,13 +39,7 @@ export class ListChargeComponent {
     this.providerService.listCharges().subscribe({
       next: (data: Charge[]) => {
         this.records = data;
-
-        console.log(this.records);
-
-        this.records.forEach((record) => {
-          record.due_date = new Date(<Date>record.due_date);
-          record.paid_at = record.paid_at ? new Date(<Date>record.paid_at) : null;
-        });
+        console.log(this.records)
 
         this.isLoading = false;
       }
@@ -49,10 +47,12 @@ export class ListChargeComponent {
 
     this.cols = [
       { field: 'id', header: 'ID' },
-      { field: 'name', header: 'Nome' },
-      { field: 'service_prive', header: 'Servico' },
-      { field: 'cpf_cnpj', header: 'CpfCnpj' },
-      { field: 'birth_date', header: 'DtAniversario' }
+      { field: 'patient_name', header: 'Paciente' },
+      { field: 'due_date', header: 'DtVencimento' },
+      { field: 'amount', header: 'Valor' },
+      { field: 'payment_method', header: 'MetodoPagamento' },
+      { field: 'paid_at', header: 'DtPagamento' },
+      { field: 'payment_status', header: 'Status' },
     ];
 
     this.recordMenuItems = [

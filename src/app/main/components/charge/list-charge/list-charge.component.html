@@ -15,7 +15,7 @@
                 [columns]="cols" 
                 responsiveLayout="scroll" 
                 [rows]="10" 
-                [globalFilterFields]="['id','name','due_date','amount','payment_status']" 
+                [globalFilterFields]="['id','patient_name','due_date','amount','payment_method','paid_at','payment_status']" 
                 [paginator]="true"
                 [rowsPerPageOptions]="[10,20,30]"
                 [showCurrentPageReport]="true"
@@ -74,7 +74,12 @@
                             <div class="flex justify-content-between align-items-center">
                                 Método de pagto.
                                 <p-sortIcon field="payment_method"></p-sortIcon>
-                                <p-columnFilter type="text" field="payment_method" display="menu" class="ml-auto"></p-columnFilter>
+                                <p-columnFilter type="text" field="payment_method" display="menu" class="ml-auto">
+                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                        <p-dropdown [options]="paymentMethodTypeEnumOptions" (onChange)="filter($event.value)" optionLabel="name" optionValue="code">
+                                        </p-dropdown>
+                                    </ng-template>
+                                </p-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="paid_at" pResizableColumn>
@@ -88,7 +93,12 @@
                             <div class="flex justify-content-between align-items-center">
                                 Status
                                 <p-sortIcon field="payment_status"></p-sortIcon>
-                                <p-columnFilter type="text" field="payment_status" display="menu" class="ml-auto"></p-columnFilter>
+                                <p-columnFilter type="text" field="payment_status" display="menu" class="ml-auto">
+                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                        <p-dropdown [options]="paymentStatusEnumOptions" (onChange)="filter($event.value)" optionLabel="name" optionValue="code">
+                                        </p-dropdown>
+                                    </ng-template>
+                                </p-columnFilter>
                             </div>
                         </th>
                         <th></th>

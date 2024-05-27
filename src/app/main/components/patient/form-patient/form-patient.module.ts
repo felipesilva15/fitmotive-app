@@ -5,7 +5,6 @@ import { FormPatientRoutingModule } from './form-patient-routing.module';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
-import { FormLayoutDemoRoutingModule } from 'src/app/demo/components/uikit/formlayout/formlayoutdemo-routing.module';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { ChipsModule } from 'primeng/chips';
@@ -35,7 +34,6 @@ import { SkeletonModule } from 'primeng/skeleton';
     FormsModule,
     ButtonModule,
     RippleModule,
-	FormLayoutDemoRoutingModule,
 	AutoCompleteModule,
 	CalendarModule,
 	DropdownModule,

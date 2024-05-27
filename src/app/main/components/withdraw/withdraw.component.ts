@@ -26,7 +26,7 @@ export class WithdrawComponent {
   private buildFormGroup(): FormGroup {
     return this.fb.group({
       balance: [{value: this.data.totalizers.current_balance, disabled: true}, []],
-      amount: [0, [Validators.required, Validators.min(0.01), Validators.max(this.data.totalizers.current_balance)]],
+      amount: [null, [Validators.required, Validators.min(0.01), Validators.max(this.data.totalizers.current_balance)]],
     })
   }
 
