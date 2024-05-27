@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrlApi: 'http://localhost:8000/api'
+  baseUrlApi: 'https://fitmotive-api.felipesilva15.com.br/api'
 };
