@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menu } from 'primeng/menu';
 import { Charge } from 'src/app/main/api/charge';
@@ -23,12 +23,13 @@ export class ListChargeComponent {
   selectedRecord!: Charge;
   cols: any[] = [];
   isLoading: boolean = true;
+  isLoadingMenuItem: boolean = false;
   paymentStatusEnumLabels: Record<PaymentStatusEnum, string> = PaymentStatusEnumLabels;
   PaymentMethodTypeEnumLabels: Record<PaymentMethodTypeEnum, string> = PaymentMethodTypeEnumLabels;
   recordMenuItems!: MenuItem[];
   @ViewChild('recordMenu') recordMenu: Menu;
 
-  constructor(private providerService: ProviderService, private customDynamicDialogService: CustomDynamicDialogService, private pagseguroChargeService: PagseguroChargeService) { }
+  constructor(private providerService: ProviderService, private customDynamicDialogService: CustomDynamicDialogService, private pagseguroChargeService: PagseguroChargeService, private renderer: Renderer2) { }
 
   ngOnInit() {
     this.providerService.listCharges().subscribe({
@@ -72,7 +73,7 @@ export class ListChargeComponent {
       {
         label: 'Sincronizar status', 
         icon: 'pi pi-fw pi-sync',
-        command: () => {
+        command: (event) => {
           this.checkStatus();
         }
       }
@@ -94,7 +95,7 @@ export class ListChargeComponent {
         return 'danger';
 
       case PaymentStatusEnum.InAnalysis:
-        return null;
+        return 'warning';
 
       case PaymentStatusEnum.Waiting:
         return null;
@@ -118,10 +119,17 @@ export class ListChargeComponent {
   }
 
   checkStatus() {
+    this.isLoadingMenuItem = true;
+
     this.pagseguroChargeService.checkStatus(this.selectedRecord.id).subscribe({
       next: (res: Charge) => {
         const index = this.records.indexOf(this.selectedRecord);
         this.records[index] = res;
+
+        this.isLoadingMenuItem = false;
+      },
+      error: () => {
+        this.isLoadingMenuItem = false;
       }
     });
   }

@@ -18,6 +18,7 @@
 					<p-inputMask id="cpf_cnpj" formControlName="cpf_cnpj" mask="999.999.999-99" [unmask]="true" required [ngClass]="{'ng-invalid ng-dirty' : cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)}"></p-inputMask>
 					<div *ngIf="cpf_cnpj.invalid && (cpf_cnpj.dirty || cpf_cnpj.touched)">
 						<small class="ng-dirty ng-invalid" *ngIf="cpf_cnpj.errors?.['required']">Este campo é obrigatório.</small>
+						<small class="ng-dirty ng-invalid" *ngIf="cpf_cnpj.errors?.['cpf']">Informe um CPF válido.</small>
 					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
@@ -38,10 +39,16 @@
 				<div class="field col-12 md:col-6 py-0">
 					<label htmlFor="service_price">Vl. Serviço<span class="text-red-500 font-bold">*</span></label>
 					<p-inputNumber id="service_price" formControlName="service_price" mode="currency" currency="BRL" locale="pt-BR" [showButtons]="true" mode="currency" [ngClass]="{'ng-invalid ng-dirty' : service_price.invalid && (service_price.dirty || service_price.touched)}"></p-inputNumber>
+					<div *ngIf="service_price.invalid && (service_price.dirty || service_price.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="service_price.errors?.['required']">Este campo é obrigatório.</small>
+					</div>
 				</div>
 				<div class="field col-12 md:col-6 py-0">
-					<label htmlFor="billing_recurrence">Recorrência de cobrança</label>
+					<label htmlFor="billing_recurrence">Recorrência de cobrança<span class="text-red-500 font-bold">*</span></label>
 					<p-dropdown [options]="billingRecurrenceEnumOptions" optionLabel="name" optionValue="code" id="billing_recurrence" formControlName="billing_recurrence" [ngClass]="{'ng-invalid ng-dirty' : billing_recurrence.invalid && (billing_recurrence.dirty || billing_recurrence.touched)}"></p-dropdown>
+					<div *ngIf="billing_recurrence.invalid && (billing_recurrence.dirty || billing_recurrence.touched)">
+						<small class="ng-dirty ng-invalid" *ngIf="billing_recurrence.errors?.['required']">Este campo é obrigatório.</small>
+					</div>
 				</div>
 				<div class="field w-full col-12">
 					<p-table

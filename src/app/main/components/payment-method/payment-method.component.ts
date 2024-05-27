@@ -32,6 +32,8 @@ export class PaymentMethodComponent {
     }
 
     this.formGroup = this.buildFormGroup();
+    this.checkType();
+    
   }
 
   private buildFormGroup(): FormGroup {
@@ -40,7 +42,7 @@ export class PaymentMethodComponent {
       card_number: [{value: this.data.card_number, disabled: true}, []],
       network_token: [{value: this.data.network_token, disabled: true}, []],
       exp_date: [{value: this.data.exp_month + this.data.exp_year, disabled: true}, []],
-      security_code: [{value: this.data.security_code, disabled: true}, []],
+      security_code: [{value: this.data.security_code, disabled: true}, [Validators.maxLength(3)]],
       main: [this.data.main, []]
     })
   }
@@ -79,7 +81,7 @@ export class PaymentMethodComponent {
 
       this.card_number.setValidators([Validators.required]);
       this.exp_date.setValidators([Validators.required]);
-      this.security_code.setValidators([Validators.required]);
+      this.security_code.setValidators([Validators.required, Validators.maxLength(3)]);
     } else {
       this.isCard = false;
       
@@ -95,7 +97,7 @@ export class PaymentMethodComponent {
 
       this.card_number.removeValidators([Validators.required]);
       this.exp_date.removeValidators([Validators.required]);
-      this.security_code.removeValidators([Validators.required]);
+      this.security_code.removeValidators([Validators.required, Validators.maxLength(3)]);
     }
   }
   

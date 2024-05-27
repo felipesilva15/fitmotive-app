@@ -17,6 +17,7 @@ import { ProfessionEnumOptions } from 'src/app/main/enum/profession-enum';
 import { Router } from '@angular/router';
 import { Plan } from 'src/app/main/api/plan';
 import { PlanService } from 'src/app/main/service/plan.service';
+import { CpfValidator } from 'src/app/main/validator/cpf-validator';
 
 @Component({
   selector: 'app-sign-in',
@@ -67,7 +68,7 @@ export class SignInComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]],
       password_confirmation: ['', [Validators.required]],
-      cpf_cnpj: ['', [Validators.required]],
+      cpf_cnpj: ['', [Validators.required, CpfValidator.validate()]],
       birth_date: ['', [Validators.required]],
       profession: [null, [Validators.required]]
     })

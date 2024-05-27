@@ -1,8 +1,10 @@
+import { CustomDynamicDialogService } from 'src/app/main/service/custom-dynamic-dialog.service';
 import { ProviderService } from 'src/app/main/service/provider.service';
 import { Component } from '@angular/core';
 import { FinancialTransaction } from '../../api/financial-transaction';
 import { MovementTypeEnum } from '../../enum/movement-type-enum';
 import { BankStatement } from '../../api/bank-statement';
+import { WithdrawComponent } from '../withdraw/withdraw.component';
 
 @Component({
   selector: 'app-bank-statement',
@@ -15,7 +17,7 @@ export class BankStatementComponent {
   isLoading: boolean = true;
   movementTypeEnum: MovementTypeEnum;
 
-  constructor(private providerService: ProviderService) { }
+  constructor(private providerService: ProviderService, private customDynamicDialogService: CustomDynamicDialogService) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -34,5 +36,17 @@ export class BankStatementComponent {
         console.log(this.isLoading, this.records.length)
       }
     });
+  }
+
+  openWithdrawDialog(): void {
+    this.customDynamicDialogService.openDialog<boolean>(WithdrawComponent, 'Saque', this.data).then(
+      (res: boolean) => {
+        if (!res) {
+          return;
+        }
+
+        this.loadData();
+      }
+    );
   }
 }

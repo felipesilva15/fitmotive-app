@@ -4,7 +4,8 @@
             <h4>Extrato</h4>
             <p-dataView #dv [value]="records">
                 <ng-template pTemplate="header">
-                    <div class="flex align-items-center justify-content-end">
+                    <div class="flex align-items-center justify-content-end gap-2">
+                        <button pButton pRipple label="Sacar" class="p-button-help md:w-min" (click)="openWithdrawDialog()"></button>
                         <button pButton pRipple label="Consultar" class="p-button-primary md:w-min" (click)="loadData()"></button>
                     </div>
                 </ng-template>
