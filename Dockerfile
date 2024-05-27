@@ -1,15 +1,19 @@
-FROM node:10-alpine as Angular
+FROM node:lts-alpine AS build
 
 WORKDIR /app
 
-COPY . .
-
+COPY package.json package-lock.json ./
 RUN npm install --silent
+
+COPY . .
 RUN npm run build
 
 FROM nginx:alpine
 
 VOLUME /var/cache/nginx
 
-COPY --from=Angular app/dist/requests-http /usr/share/nginx/html
+COPY --from=build app/dist/fitmotive /usr/share/nginx/html
 COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
