@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  fitmotive-app:
+    image: fitmotive-app
+    build: .
+    ports:
+      - 8081:80
