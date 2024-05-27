@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy, registerLocaleData } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
@@ -15,6 +15,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './main/interceptor/auth.interceptor';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
+import ptBr from '@angular/common/locales/pt';
+
+registerLocaleData(ptBr);
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -24,7 +27,9 @@ import { DialogService } from 'primeng/dynamicdialog';
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService,
-        ConfirmationService, MessageService, DialogService
+        ConfirmationService, MessageService, DialogService,
+        { provide: LOCALE_ID, useValue: 'pt' },
+        { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
     ],
     bootstrap: [AppComponent],
 })
