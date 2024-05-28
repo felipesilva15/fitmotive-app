@@ -68,7 +68,7 @@
                     </div>
                 </ng-template>
                 <ng-template #loadingFooter>
-                    <div class="flex flex-column gap-2">
+                    <div class="flex flex-column gap-2" *ngIf="isLoading">
                         <div class="flex align-items-center justify-content-between w-full">
                             <p-skeleton height="16px" width="100px"></p-skeleton>
                             <p-skeleton height="16px" width="68px"></p-skeleton>

@@ -25,6 +25,9 @@ export class AppTopBarComponent {
                 label: 'Atividades', icon: 'pi pi-fw pi-list', routerLink: ['/user/activities']
             },
             {
+                label: 'Minha assinatura', icon: 'pi pi-fw pi-credit-card', routerLink: ['/user/subscription']
+            },
+            {
                 separator: true
             },
             {
