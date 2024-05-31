@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TabViewModule } from 'primeng/tabview';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TabViewModule } from 'primeng/tabview';
     ButtonModule,
     RippleModule,
     SkeletonModule,
-    TabViewModule
+    TabViewModule,
+    TableModule
   ],
   exports: [SubscriptionComponent]
 })

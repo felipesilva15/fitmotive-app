@@ -30,18 +30,67 @@
                 <div class="field col-12 py-0">
                     <p-tabView>
                         <p-tabPanel header="Cobranças">
-                            <p>
-                            </p>
+                            <p-table 
+                                #dt 
+                                [value]="invoices" 
+                                responsiveLayout="scroll" 
+                                [rows]="10"
+                                [paginator]="true"
+                                [rowsPerPageOptions]="[10,20,30]"
+                                [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Exibindo {first} a {last} de {totalRecords} entradas"
+                                [rowHover]="true"
+                                dataKey="id"
+                                [resizableColumns]="true"
+                                columnResizeMode="expand"
+                                [scrollable]="true"
+                                scrollHeight="400px"
+                                [showLoader]="false"
+                            >
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th pResizableColumn>Criado em</th>
+                                        <th pResizableColumn>Valor</th>
+                                        <th pResizableColumn>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-record>
+                                    <tr class="animation-duration-600 fadein">
+                                        <td>
+                                            <span class="p-column-title">Criado em</span>
+                                            {{ record.created_at | date: 'dd/MM/Y' }}
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">Valor</span>
+                                            {{ record.amount.value | currency: 'BRL' }}
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">Status</span>
+                                            {{ paymentStatusEnumLabels[record.status] }}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="flex justify-content-center">Nenhum registro encontrado.</div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </p-tabPanel>
                     </p-tabView>
                 </div>
             </div>
             <ng-template #loagingSkeleton >
 				<div class="p-fluid p-formgrid grid mt-1">
-					<div field class="field col-12 md:col-6 py-0">
-						<p-skeleton height="16px" width="25%" styleClass="mb-2"></p-skeleton>
-						<p-skeleton width="100%" height="39px"></p-skeleton>
+					<div class="field col-12 md:col-6 py-0 flex flex-column gap-2" *ngFor="let i of [].constructor(6)">
+						<p-skeleton height="16px" width="25%"></p-skeleton>
+						<p-skeleton height="21px" width="50%"></p-skeleton>
 					</div>
+                    <div class="field col-12 py-0">
+                        <p-skeleton height="236px" width="100%"></p-skeleton>
+                    </div>
 				</div>
 			</ng-template>
         </div>
