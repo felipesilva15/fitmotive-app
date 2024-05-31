@@ -19,7 +19,7 @@ export class SubscriptionComponent {
   constructor(private pagseguroSubscriberService: PagseguroSubscriberService) { }
 
   ngOnInit(): void {
-    //this.loadData();
+    this.loadData();
   }
 
   loadData(): void {

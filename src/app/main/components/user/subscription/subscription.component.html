@@ -5,11 +5,11 @@
             <div class="p-fluid p-formgrid grid mt-1 animation-duration-600 fadein" [formGroup]="formGroup" *ngIf="!isLoading; else loagingSkeleton">
 				<div class="field col-12 md:col-6 py-0 flex flex-column gap-2">
 					<span>Plano</span>
-                    <span class="text-xl">Basic</span>
+                    <span class="text-xl">{{ subscription.plan?.name}}</span>
 				</div>
                 <div class="field col-12 md:col-6 py-0 flex flex-column gap-1">
 					<span>Valor</span>
-                    <span class="text-xl">{{ 39.9 | currency: 'BRL' }}</span>
+                    <span class="text-xl">{{ subscription.amount?.value | currency: 'BRL' }}</span>
 				</div>
                 <div class="field col-12 md:col-6 py-0 flex flex-column gap-1">
 					<span>Status</span>
@@ -62,7 +62,7 @@
                                         </td>
                                         <td>
                                             <span class="p-column-title">Valor</span>
-                                            {{ record.amount.value | currency: 'BRL' }}
+                                            {{ record.amount?.value | currency: 'BRL' }}
                                         </td>
                                         <td>
                                             <span class="p-column-title">Status</span>
