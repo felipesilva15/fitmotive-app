@@ -4,7 +4,8 @@ export enum PaymentStatusEnum {
     Canceled = 'CANCELED',
     Declined = 'DECLINED',
     InAnalysis = 'IN_ANALYSIS',
-    Authorized = 'AUTHORIZED'
+    Authorized = 'AUTHORIZED',
+    Trial = 'TRIAL'
 }
 
 export const PaymentStatusEnumLabels: Record<PaymentStatusEnum, string> = {
@@ -13,7 +14,8 @@ export const PaymentStatusEnumLabels: Record<PaymentStatusEnum, string> = {
     [PaymentStatusEnum.Canceled]: 'Cancelado',
     [PaymentStatusEnum.Declined]: 'Recusado',
     [PaymentStatusEnum.InAnalysis]: 'Em análise',
-    [PaymentStatusEnum.Authorized]: 'Autorizado'
+    [PaymentStatusEnum.Authorized]: 'Autorizado',
+    [PaymentStatusEnum.Trial]: 'Experimental'
 };
   
 export const PaymentStatusEnumOptions: Array<{ code: PaymentStatusEnum, name: string }> = Object.keys(PaymentStatusEnum)

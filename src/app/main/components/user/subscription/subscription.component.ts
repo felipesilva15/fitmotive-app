@@ -1,3 +1,4 @@
+import { PaymentStatusEnum, PaymentStatusEnumLabels } from 'src/app/main/enum/payment-status-enum';
 import { Component } from '@angular/core';
 import { PagseguroSubscription } from 'src/app/main/api/pagseguro-subscription';
 import { PagseguroSubscriptionInvoice } from 'src/app/main/api/pagseguro-subscription-invoice';
@@ -13,6 +14,7 @@ export class SubscriptionComponent {
   subscription!: PagseguroSubscription;
   invoices!: PagseguroSubscriptionInvoice[];
   isLoading: boolean = true;
+  paymentStatusEnumLabels: Record<PaymentStatusEnum, string> = PaymentStatusEnumLabels;
 
   constructor(private pagseguroSubscriberService: PagseguroSubscriberService) { }
 

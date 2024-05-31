@@ -2,6 +2,48 @@
     <div class="col-12">
         <div class="card">
             <h4>Minha assinatura</h4>
+            <div class="p-fluid p-formgrid grid mt-1 animation-duration-600 fadein" [formGroup]="formGroup" *ngIf="!isLoading; else loagingSkeleton">
+				<div class="field col-12 md:col-6 py-0 flex flex-column gap-2">
+					<span>Plano</span>
+                    <span class="text-xl">Basic</span>
+				</div>
+                <div class="field col-12 md:col-6 py-0 flex flex-column gap-1">
+					<span>Valor</span>
+                    <span class="text-xl">{{ 39.9 | currency: 'BRL' }}</span>
+				</div>
+                <div class="field col-12 md:col-6 py-0 flex flex-column gap-1">
+					<span>Status</span>
+                    <span class="text-xl">{{ paymentStatusEnumLabels[subscription.status] }}</span>
+				</div>
+                <div class="field col-12 md:col-6 py-0 flex flex-column gap-1">
+					<span>Próxima cobrança</span>
+                    <span class="text-xl">{{ subscription.next_invoice_at | date: 'dd/MM/Y' }}</span>
+				</div>
+                <div class="field col-12 md:col-6 py-0 flex flex-column gap-1" *ngIf="subscription.trial">
+					<span>Inicio período experimental</span>
+                    <span class="text-xl">{{ subscription.trial.start_at | date: 'dd/MM/Y' }}</span>
+				</div>
+                <div class="field col-12 md:col-6 py-0 flex flex-column gap-1" *ngIf="subscription.trial">
+					<span>Fim período experimental</span>
+                    <span class="text-xl">{{ subscription.trial.end_at | date: 'dd/MM/Y' }}</span>
+				</div>
+                <div class="field col-12 py-0">
+                    <p-tabView>
+                        <p-tabPanel header="Cobranças">
+                            <p>
+                            </p>
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+            </div>
+            <ng-template #loagingSkeleton >
+				<div class="p-fluid p-formgrid grid mt-1">
+					<div field class="field col-12 md:col-6 py-0">
+						<p-skeleton height="16px" width="25%" styleClass="mb-2"></p-skeleton>
+						<p-skeleton width="100%" height="39px"></p-skeleton>
+					</div>
+				</div>
+			</ng-template>
         </div>
     </div>
 </div>

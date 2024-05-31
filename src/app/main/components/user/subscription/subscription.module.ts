@@ -5,6 +5,8 @@ import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { SubscriptionComponent } from './subscription.component';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TabViewModule } from 'primeng/tabview';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { RippleModule } from 'primeng/ripple';
     CommonModule,
     SubscriptionRoutingModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    SkeletonModule,
+    TabViewModule
   ],
   exports: [SubscriptionComponent]
 })
