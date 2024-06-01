@@ -40,7 +40,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Pacientes', icon: 'pi pi-fw pi-users', routerLink: ['/patient'] },
                     // { label: 'Dietas', icon: 'pi pi-fw pi-plus' },
-                    { label: 'Treinos', icon: 'pi pi-fw pi-shield' },
+                    { label: 'Treinos', icon: 'pi pi-fw pi-shield', routerLink: ['/workout'] },
                 ]
             }
         ];

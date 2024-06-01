@@ -9,6 +9,7 @@ import { Charge } from '../api/charge';
 import { FinancialTransaction } from '../api/financial-transaction';
 import { BankStatement } from '../api/bank-statement';
 import { Activities } from '../api/activities';
+import { Workout } from '../api/workout';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,10 @@ export class ProviderService {
 
   listFinancialTransactions(): Observable<BankStatement> {
     return this.http.get<BankStatement>(`${this.baseUrl}/${this.authService.provider_id}/financial_transactions`);
+  }
+
+  listWorkouts(): Observable<Workout[]> {
+    return this.http.get<Workout[]>(`${this.baseUrl}/${this.authService.provider_id}/workouts`);
   }
 
   logs(): Observable<Activities> {

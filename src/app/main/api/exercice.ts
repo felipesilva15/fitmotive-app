@@ -1,11 +1,10 @@
-import { Exercice } from "./exercice";
-
-export interface Workout {
+export interface Exercice {
     id?: number;
-    provider_id: number;
+    workout_id: number;
     name: string;
+    series: number;
+    repetitions: number;
     description?: string;
-    exercices: Array<Exercice>;
     created_at?: string | Date;
     updated_at?: string | Date;
 }
