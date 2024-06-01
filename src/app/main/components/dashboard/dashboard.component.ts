@@ -33,7 +33,7 @@ export class DashboardComponent {
     this.dashboardService.list().subscribe({
       next: (res: Dashboard) => {
         this.data = res;
-        this.isLoading = false
+        this.isLoading = false;
 
         this.initCharts();
       }
