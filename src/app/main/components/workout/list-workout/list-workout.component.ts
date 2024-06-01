@@ -24,7 +24,7 @@ export class ListWorkoutComponent {
     this.cols = [
       { field: 'id', header: 'ID' },
       { field: 'name', header: 'Nome' },
-      { field: 'exercices.lenght', header: 'QtdExercicios' },
+      { field: 'exercices.length', header: 'QtdExercicios' },
     ];
   }
 

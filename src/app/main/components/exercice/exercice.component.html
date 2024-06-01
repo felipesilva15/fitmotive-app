@@ -1,0 +1,38 @@
+<div class="p-fluid" [formGroup]="formGroup">
+    <div class="field">
+        <label htmlFor="name">Nome<span class="text-red-500 font-bold">*</span></label>
+        <input id="name" formControlName="name" pInputText required autofocus [ngClass]="{'ng-invalid ng-dirty' : name.invalid && (name.dirty || name.touched)}"/>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="name.errors?.['required']">Este campo é obrigatório.</small>
+            <small class="ng-dirty ng-invalid" *ngIf="name.errors?.['maxlength']">Este campo deve ter no máximo {{ name.errors?.['maxlength'].requiredLength }} caracteres.</small>
+        </div>
+    </div>
+    <div class="field">
+        <label htmlFor="series">Séries<span class="text-red-500 font-bold">*</span></label>
+        <p-inputNumber id="series" formControlName="series" required [showButtons]="true" [ngClass]="{'ng-invalid ng-dirty' : series.invalid && (series.dirty || series.touched)}"/>
+        <div *ngIf="series.invalid && (series.dirty || series.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="series.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field">
+        <label htmlFor="repetitions">Repetições<span class="text-red-500 font-bold">*</span></label>
+        <p-inputNumber id="repetitions" formControlName="repetitions" required [showButtons]="true" [ngClass]="{'ng-invalid ng-dirty' : repetitions.invalid && (repetitions.dirty || repetitions.touched)}"/>
+        <div *ngIf="repetitions.invalid && (repetitions.dirty || repetitions.touched)">
+            <small class="ng-dirty ng-invalid" *ngIf="repetitions.errors?.['required']">Este campo é obrigatório.</small>
+        </div>
+    </div>
+    <div class="field">
+        <label htmlFor="repetitions">Descrição</label>
+        <textarea 
+            rows="4"
+            pInputTextarea 
+            id="description"
+            formControlName="description"
+            [autoResize]="true" >
+        </textarea>
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button label="Cancelar" [text]="true" severity="secondary" (click)="close()"></p-button>
+        <p-button label="Salvar" type="button" (click)="submit()"></p-button>
+    </div>
+</div>
