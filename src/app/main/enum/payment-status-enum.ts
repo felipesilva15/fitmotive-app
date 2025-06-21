@@ -6,7 +6,8 @@ export enum PaymentStatusEnum {
     InAnalysis = 'IN_ANALYSIS',
     Authorized = 'AUTHORIZED',
     Trial = 'TRIAL',
-    Active = 'ACTIVE'
+    Active = 'ACTIVE',
+    UnPaid = 'UNPAID'
 }
 
 export const PaymentStatusEnumLabels: Record<PaymentStatusEnum, string> = {
@@ -17,7 +18,8 @@ export const PaymentStatusEnumLabels: Record<PaymentStatusEnum, string> = {
     [PaymentStatusEnum.InAnalysis]: 'Em análise',
     [PaymentStatusEnum.Authorized]: 'Autorizado',
     [PaymentStatusEnum.Trial]: 'Experimental',
-    [PaymentStatusEnum.Active]: 'Ativa'
+    [PaymentStatusEnum.Active]: 'Ativa',
+    [PaymentStatusEnum.UnPaid]: 'Não pago'
 };
   
 export const PaymentStatusEnumOptions: Array<{ code: PaymentStatusEnum, name: string }> = Object.keys(PaymentStatusEnum)
